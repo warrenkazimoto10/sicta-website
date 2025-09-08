@@ -2,6 +2,7 @@ import { MapPin, Clock, Phone, Car, Navigation, Users, Calendar } from "lucide-r
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import NetworkInteractiveSection from "@/components/NetworkInteractiveSection";
+import networkMapModern from "@/assets/network-map-modern.jpg";
 
 const permanentAgencies = [
   {
@@ -151,7 +152,7 @@ const Network = () => {
 
           <Card className="card-elevated h-96 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/20 relative overflow-hidden">
             <img 
-              src={require("@/assets/network-map-concept.jpg")} 
+              src={networkMapModern} 
               alt="Carte du réseau SICTA" 
               className="absolute inset-0 w-full h-full object-cover opacity-50"
             />
@@ -182,10 +183,10 @@ const Network = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {permanentAgencies.map((agency, index) => (
-              <Card key={index} className="card-elevated">
-                <div className="p-6">
+              <Card key={index} className="card-elevated h-full">
+                <div className="p-6 flex flex-col h-full">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Car className="h-5 w-5 text-primary" />
@@ -193,7 +194,7 @@ const Network = () => {
                     <h3 className="text-lg font-semibold">{agency.name}</h3>
                   </div>
 
-                  <div className="space-y-3 mb-6">
+                  <div className="space-y-3 mb-6 flex-grow">
                     <div className="flex items-start space-x-2">
                       <MapPin className="h-4 w-4 text-sicta-grey-light mt-1 flex-shrink-0" />
                       <div className="text-sm">
@@ -232,7 +233,7 @@ const Network = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <Button className="btn-hero flex-1 text-sm py-2">
                       Réserver
                     </Button>

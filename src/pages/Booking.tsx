@@ -108,54 +108,56 @@ const Booking = () => {
                     Choisissez votre agence et créneau
                   </h2>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium mb-3">Agence SICTA</label>
-                        <Select value={selectedAgency} onValueChange={setSelectedAgency}>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Sélectionnez une agence" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {agencies.map(agency => (
-                              <SelectItem key={agency.id} value={agency.id}>
-                                <div>
-                                  <div className="font-medium">{agency.name}</div>
-                                  <div className="text-xs text-sicta-grey-light">{agency.address}</div>
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="space-y-6">
+                        <div>
+                          <label className="block text-sm font-medium mb-3">Agence SICTA</label>
+                          <Select value={selectedAgency} onValueChange={setSelectedAgency}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Sélectionnez une agence" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {agencies.map(agency => (
+                                <SelectItem key={agency.id} value={agency.id}>
+                                  <div>
+                                    <div className="font-medium">{agency.name}</div>
+                                    <div className="text-xs text-sicta-grey-light">{agency.address}</div>
+                                  </div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-3">Date souhaitée</label>
+                          <Input
+                            type="date"
+                            value={selectedDate}
+                            onChange={(e) => setSelectedDate(e.target.value)}
+                            min={new Date().toISOString().split('T')[0]}
+                          />
+                        </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium mb-3">Date souhaitée</label>
-                        <Input
-                          type="date"
-                          value={selectedDate}
-                          onChange={(e) => setSelectedDate(e.target.value)}
-                          min={new Date().toISOString().split('T')[0]}
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-3">Créneau horaire</label>
-                      <div className="grid grid-cols-3 gap-2">
-                        {timeSlots.map(time => (
-                          <button
-                            key={time}
-                            onClick={() => setSelectedTime(time)}
-                            className={`p-3 text-sm rounded-lg border transition-all ${
-                              selectedTime === time 
-                                ? 'bg-primary text-white border-primary' 
-                                : 'bg-background border-border hover:border-primary'
-                            }`}
-                          >
-                            {time}
-                          </button>
-                        ))}
+                        <label className="block text-sm font-medium mb-3">Créneau horaire</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-2">
+                          {timeSlots.map(time => (
+                            <button
+                              key={time}
+                              onClick={() => setSelectedTime(time)}
+                              className={`p-2 sm:p-3 text-xs sm:text-sm rounded-lg border transition-all ${
+                                selectedTime === time 
+                                  ? 'bg-primary text-white border-primary' 
+                                  : 'bg-background border-border hover:border-primary'
+                              }`}
+                            >
+                              {time}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -182,32 +184,30 @@ const Booking = () => {
                     Informations du véhicule
                   </h2>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium mb-3">Type de véhicule</label>
-                        <div className="space-y-3">
-                          {vehicleTypes.map(type => (
-                            <div
-                              key={type.id}
-                              onClick={() => setVehicleType(type.id)}
-                              className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                                vehicleType === type.id 
-                                  ? 'border-primary bg-primary/5' 
-                                  : 'border-border hover:border-primary/50'
-                              }`}
-                            >
-                              <div className="flex justify-between items-center">
-                                <span className="font-medium">{type.name}</span>
-                                <span className="text-primary font-semibold">{type.price}</span>
-                              </div>
+                  <div className="space-y-8">
+                    <div>
+                      <label className="block text-sm font-medium mb-3">Type de véhicule</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {vehicleTypes.map(type => (
+                          <div
+                            key={type.id}
+                            onClick={() => setVehicleType(type.id)}
+                            className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                              vehicleType === type.id 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                              <span className="font-medium text-sm sm:text-base">{type.name}</span>
+                              <span className="text-primary font-semibold text-sm sm:text-base">{type.price}</span>
                             </div>
-                          ))}
-                        </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium mb-3">Numéro d'immatriculation</label>
                         <Input placeholder="Ex: AB 1234 CD" />
@@ -255,83 +255,85 @@ const Booking = () => {
                     Confirmation & Paiement
                   </h2>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-4">Récapitulatif de votre réservation</h3>
-                      <div className="space-y-4 p-4 bg-secondary/30 rounded-lg">
-                        <div className="flex justify-between">
-                          <span className="text-sicta-grey-light">Agence :</span>
-                          <span className="font-medium">SICTA Abidjan Centre</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sicta-grey-light">Date :</span>
-                          <span className="font-medium">15 Janvier 2025</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sicta-grey-light">Heure :</span>
-                          <span className="font-medium">10:00</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sicta-grey-light">Type :</span>
-                          <span className="font-medium">Véhicule léger</span>
-                        </div>
-                        <div className="border-t pt-3 flex justify-between text-lg font-bold">
-                          <span>Total :</span>
-                          <span className="text-primary">15,000 FCFA</span>
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div>
+                        <h3 className="text-xl font-semibold mb-4">Récapitulatif de votre réservation</h3>
+                        <div className="space-y-4 p-4 bg-secondary/30 rounded-lg">
+                          <div className="flex justify-between">
+                            <span className="text-sicta-grey-light">Agence :</span>
+                            <span className="font-medium">SICTA Abidjan Centre</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sicta-grey-light">Date :</span>
+                            <span className="font-medium">15 Janvier 2025</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sicta-grey-light">Heure :</span>
+                            <span className="font-medium">10:00</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sicta-grey-light">Type :</span>
+                            <span className="font-medium">Véhicule léger</span>
+                          </div>
+                          <div className="border-t pt-3 flex justify-between text-lg font-bold">
+                            <span>Total :</span>
+                            <span className="text-primary">15,000 FCFA</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div>
-                      <h3 className="text-xl font-semibold mb-4">Mode de paiement</h3>
-                      <div className="space-y-3">
-                        <div
-                          onClick={() => setPaymentMethod("mobile")}
-                          className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                            paymentMethod === "mobile" 
-                              ? 'border-primary bg-primary/5' 
-                              : 'border-border hover:border-primary/50'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <Smartphone className="h-5 w-5 text-primary" />
-                            <div>
-                              <div className="font-medium">Mobile Money</div>
-                              <div className="text-sm text-sicta-grey-light">Orange Money, MTN Money, Moov Money</div>
+                      <div>
+                        <h3 className="text-xl font-semibold mb-4">Mode de paiement</h3>
+                        <div className="space-y-3">
+                          <div
+                            onClick={() => setPaymentMethod("mobile")}
+                            className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                              paymentMethod === "mobile" 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <Smartphone className="h-5 w-5 text-primary flex-shrink-0" />
+                              <div>
+                                <div className="font-medium">Mobile Money</div>
+                                <div className="text-sm text-sicta-grey-light">Orange Money, MTN Money, Moov Money</div>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div
-                          onClick={() => setPaymentMethod("card")}
-                          className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                            paymentMethod === "card" 
-                              ? 'border-primary bg-primary/5' 
-                              : 'border-border hover:border-primary/50'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <CreditCard className="h-5 w-5 text-primary" />
-                            <div>
-                              <div className="font-medium">Carte bancaire</div>
-                              <div className="text-sm text-sicta-grey-light">Visa, Mastercard</div>
+                          <div
+                            onClick={() => setPaymentMethod("card")}
+                            className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                              paymentMethod === "card" 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <CreditCard className="h-5 w-5 text-primary flex-shrink-0" />
+                              <div>
+                                <div className="font-medium">Carte bancaire</div>
+                                <div className="text-sm text-sicta-grey-light">Visa, Mastercard</div>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div
-                          onClick={() => setPaymentMethod("onsite")}
-                          className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                            paymentMethod === "onsite" 
-                              ? 'border-primary bg-primary/5' 
-                              : 'border-border hover:border-primary/50'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <MapPin className="h-5 w-5 text-primary" />
-                            <div>
-                              <div className="font-medium">Paiement sur place</div>
-                              <div className="text-sm text-sicta-grey-light">Espèces ou carte à l'agence</div>
+                          <div
+                            onClick={() => setPaymentMethod("onsite")}
+                            className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                              paymentMethod === "onsite" 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                              <div>
+                                <div className="font-medium">Paiement sur place</div>
+                                <div className="text-sm text-sicta-grey-light">Espèces ou carte à l'agence</div>
+                              </div>
                             </div>
                           </div>
                         </div>

@@ -1,5 +1,7 @@
 import { Shield, Users, Award, Globe, Calendar, CheckCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import timeline1974 from "@/assets/timeline-1974-modern.jpg";
+import timeline2024 from "@/assets/timeline-2024-modern.jpg";
 
 const About = () => {
   return (
@@ -92,7 +94,7 @@ const About = () => {
                           </div>
                           <div className="relative overflow-hidden rounded-lg">
                             <img 
-                              src={require("@/assets/timeline-1974.jpg")} 
+                              src={timeline1974} 
                               alt="Atelier d'inspection de 1974" 
                               className="w-full h-20 object-cover"
                             />
@@ -150,7 +152,7 @@ const About = () => {
                           </div>
                           <div className="relative overflow-hidden rounded-lg">
                             <img 
-                              src={require("@/assets/timeline-2024.jpg")} 
+                              src={timeline2024} 
                               alt="Centre moderne 2024" 
                               className="w-full h-20 object-cover"
                             />
@@ -176,29 +178,29 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="card-elevated text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="card-elevated text-center p-6">
               <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-3">Sécurité</h3>
-              <p className="text-sicta-grey-light">
+              <p className="text-sicta-grey-light text-sm">
                 Garantir la sécurité routière à travers des contrôles rigoureux 
                 et conformes aux standards internationaux.
               </p>
             </Card>
 
-            <Card className="card-elevated text-center">
+            <Card className="card-elevated text-center p-6">
               <Award className="h-12 w-12 text-primary mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-3">Excellence</h3>
-              <p className="text-sicta-grey-light">
+              <p className="text-sicta-grey-light text-sm">
                 Maintenir les plus hauts standards de qualité et d'innovation 
                 dans nos services de contrôle technique.
               </p>
             </Card>
 
-            <Card className="card-elevated text-center">
+            <Card className="card-elevated text-center p-6 sm:col-span-2 lg:col-span-1">
               <Globe className="h-12 w-12 text-primary mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-3">Innovation</h3>
-              <p className="text-sicta-grey-light">
+              <p className="text-sicta-grey-light text-sm">
                 Développer des solutions techniques avancées pour répondre 
                 aux défis de la mobilité moderne.
               </p>
