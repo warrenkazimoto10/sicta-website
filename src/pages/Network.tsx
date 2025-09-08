@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { MapPin, Clock, Phone, Car, Navigation, Users, Calendar } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import NetworkInteractiveSection from "@/components/NetworkInteractiveSection";
+import PageTransition from "@/components/PageTransition";
 import networkMapModern from "@/assets/network-map-modern.jpg";
 
 const permanentAgencies = [
@@ -90,7 +93,8 @@ const temporaryStations = [
 
 const Network = () => {
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="container mx-auto px-4">
@@ -138,19 +142,19 @@ const Network = () => {
       {/* Interactive Network Section */}
       <NetworkInteractiveSection />
 
-      {/* Interactive Map Placeholder */}
-      <section className="py-20">
+      {/* Interactive Map & Network Sections */}
+      <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
               Carte Interactive du Réseau
             </h2>
             <p className="text-xl text-sicta-grey-light">
-              Localisez facilement l'agence SICTA la plus proche de vous
+              Localisez facilement l'agence SICTA la plus proche de vous et explorez notre réseau
             </p>
           </div>
 
-          <Card className="card-elevated h-96 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/20 relative overflow-hidden">
+          <Card className="card-elevated h-96 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/20 relative overflow-hidden mb-12">
             <img 
               src={networkMapModern} 
               alt="Carte du réseau SICTA" 
@@ -168,134 +172,133 @@ const Network = () => {
               </Button>
             </div>
           </Card>
-        </div>
-      </section>
 
-      {/* Permanent Agencies */}
-      <section className="py-20 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-              Agences Permanentes
-            </h2>
-            <p className="text-xl text-sicta-grey-light">
-              Nos principales agences pour tous vos besoins de contrôle technique
-            </p>
-          </div>
+          <Tabs defaultValue="permanent" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="permanent" className="flex items-center gap-2">
+                <Car className="h-4 w-4" />
+                Agences Permanentes
+              </TabsTrigger>
+              <TabsTrigger value="temporary" className="flex items-center gap-2">
+                <Navigation className="h-4 w-4" />
+                Stations Temporaires
+              </TabsTrigger>
+            </TabsList>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {permanentAgencies.map((agency, index) => (
-              <Card key={index} className="card-elevated h-full">
-                <div className="p-6 flex flex-col h-full">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Car className="h-5 w-5 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold">{agency.name}</h3>
-                  </div>
+            <TabsContent value="permanent">
+              <div className="text-center mb-8">
+                <p className="text-lg text-sicta-grey-light">
+                  Nos principales agences pour tous vos besoins de contrôle technique
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {permanentAgencies.map((agency, index) => (
+                  <Card key={index} className="card-elevated h-full">
+                    <div className="p-6 flex flex-col h-full">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Car className="h-5 w-5 text-primary" />
+                        </div>
+                        <h3 className="text-lg font-semibold">{agency.name}</h3>
+                      </div>
 
-                  <div className="space-y-3 mb-6 flex-grow">
-                    <div className="flex items-start space-x-2">
-                      <MapPin className="h-4 w-4 text-sicta-grey-light mt-1 flex-shrink-0" />
-                      <div className="text-sm">
-                        <div className="font-medium">{agency.address}</div>
-                        <div className="text-sicta-grey-light">{agency.city}</div>
+                      <div className="space-y-3 mb-6 flex-grow">
+                        <div className="flex items-start space-x-2">
+                          <MapPin className="h-4 w-4 text-sicta-grey-light mt-1 flex-shrink-0" />
+                          <div className="text-sm">
+                            <div className="font-medium">{agency.address}</div>
+                            <div className="text-sicta-grey-light">{agency.city}</div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Phone className="h-4 w-4 text-sicta-grey-light" />
+                          <span className="text-sm text-sicta-grey-light">{agency.phone}</span>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Clock className="h-4 w-4 text-sicta-grey-light" />
+                          <span className="text-sm text-sicta-grey-light">{agency.hours}</span>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Users className="h-4 w-4 text-sicta-grey-light" />
+                          <span className="text-sm text-sicta-grey-light">{agency.capacity}</span>
+                        </div>
+                      </div>
+
+                      <div className="mb-4">
+                        <div className="text-sm font-medium mb-2">Services disponibles :</div>
+                        <div className="flex flex-wrap gap-2">
+                          {agency.services.map((service, serviceIndex) => (
+                            <span
+                              key={serviceIndex}
+                              className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
+                            >
+                              {service}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button className="btn-hero flex-1 text-sm py-2">
+                          Réserver
+                        </Button>
+                        <Button variant="outline" className="flex-1 text-sm py-2">
+                          Itinéraire
+                        </Button>
                       </div>
                     </div>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
 
-                    <div className="flex items-center space-x-2">
-                      <Phone className="h-4 w-4 text-sicta-grey-light" />
-                      <span className="text-sm text-sicta-grey-light">{agency.phone}</span>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <Clock className="h-4 w-4 text-sicta-grey-light" />
-                      <span className="text-sm text-sicta-grey-light">{agency.hours}</span>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <Users className="h-4 w-4 text-sicta-grey-light" />
-                      <span className="text-sm text-sicta-grey-light">{agency.capacity}</span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <div className="text-sm font-medium mb-2">Services disponibles :</div>
-                    <div className="flex flex-wrap gap-2">
-                      {agency.services.map((service, serviceIndex) => (
-                        <span
-                          key={serviceIndex}
-                          className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full"
-                        >
-                          {service}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Button className="btn-hero flex-1 text-sm py-2">
-                      Réserver
-                    </Button>
-                    <Button variant="outline" className="flex-1 text-sm py-2">
-                      Itinéraire
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Temporary Stations */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-              Stations Temporaires
-            </h2>
-            <p className="text-xl text-sicta-grey-light">
-              Nos unités mobiles pour desservir l'ensemble du territoire
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {temporaryStations.map((station, index) => (
-              <Card key={index} className="card-elevated">
-                <div className="p-6 text-center">
-                  <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Car className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{station.name}</h3>
-                  <div className="text-sicta-grey-light text-sm mb-3">{station.city}</div>
-                  <div className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full mb-4">
-                    {station.schedule}
-                  </div>
-                  <div className="space-y-1">
-                    {station.services.map((service, serviceIndex) => (
-                      <div key={serviceIndex} className="text-xs text-sicta-grey-light">
-                        {service}
+            <TabsContent value="temporary">
+              <div className="text-center mb-8">
+                <p className="text-lg text-sicta-grey-light">
+                  Nos unités mobiles pour desservir l'ensemble du territoire
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {temporaryStations.map((station, index) => (
+                  <Card key={index} className="card-elevated">
+                    <div className="p-6 text-center">
+                      <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Car className="h-6 w-6 text-primary" />
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+                      <h3 className="font-semibold mb-2">{station.name}</h3>
+                      <div className="text-sicta-grey-light text-sm mb-3">{station.city}</div>
+                      <div className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full mb-4">
+                        {station.schedule}
+                      </div>
+                      <div className="space-y-1">
+                        {station.services.map((service, serviceIndex) => (
+                          <div key={serviceIndex} className="text-xs text-sicta-grey-light">
+                            {service}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
 
-          <div className="text-center mt-12">
-            <Card className="card-elevated inline-block p-6">
-              <h3 className="font-semibold mb-2">Planning des Stations Mobiles</h3>
-              <p className="text-sicta-grey-light text-sm mb-4">
-                Consultez le calendrier complet des passages de nos unités mobiles
-              </p>
-              <Button className="btn-hero">
-                <Calendar className="h-4 w-4 mr-2" />
-                Voir le planning complet
-              </Button>
-            </Card>
-          </div>
+              <div className="text-center mt-12">
+                <Card className="card-elevated inline-block p-6">
+                  <h3 className="font-semibold mb-2">Planning des Stations Mobiles</h3>
+                  <p className="text-sicta-grey-light text-sm mb-4">
+                    Consultez le calendrier complet des passages de nos unités mobiles
+                  </p>
+                  <Button className="btn-hero">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    Voir le planning complet
+                  </Button>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
@@ -312,7 +315,8 @@ const Network = () => {
           </Button>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

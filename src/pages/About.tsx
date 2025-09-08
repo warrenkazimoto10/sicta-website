@@ -2,10 +2,12 @@ import { Shield, Users, Award, Globe, Calendar, CheckCircle } from "lucide-react
 import { Card } from "@/components/ui/card";
 import timeline1974 from "@/assets/timeline-1974-modern.jpg";
 import timeline2024 from "@/assets/timeline-2024-modern.jpg";
+import PageTransition from "@/components/PageTransition";
 
 const About = () => {
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="container mx-auto px-4">
@@ -304,7 +306,8 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

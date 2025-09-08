@@ -1,6 +1,7 @@
 import { Shield, Car, FileCheck, Scale, Truck, Phone, CheckCircle, Clock, MapPin, Calendar } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import PageTransition from "@/components/PageTransition";
 
 const services = [
   {
@@ -79,7 +80,8 @@ const services = [
 
 const Services = () => {
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="container mx-auto px-4">
@@ -217,7 +219,8 @@ const Services = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

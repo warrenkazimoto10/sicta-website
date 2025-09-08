@@ -1,6 +1,7 @@
 import { Calendar, User, Tag, ArrowRight, Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import PageTransition from "@/components/PageTransition";
 
 const featuredNews = {
   title: "SICTA rejoint le groupe Mayelia Participations : Une nouvelle ère d'innovation",
@@ -73,7 +74,8 @@ const recentNews = [
 
 const News = () => {
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="container mx-auto px-4">
@@ -253,7 +255,8 @@ const News = () => {
           </p>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

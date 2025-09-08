@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import PageTransition from "@/components/PageTransition";
 
 const agencies = [
   { id: "abidjan-centre", name: "SICTA Abidjan Centre", address: "Boulevard Lagunaire, Plateau" },
@@ -36,7 +37,8 @@ const Booking = () => {
   const prevStep = () => setCurrentStep(prev => prev - 1);
 
   return (
-    <div className="w-full">
+    <PageTransition>
+      <div className="w-full">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
         <div className="container mx-auto px-4">
@@ -60,36 +62,37 @@ const Booking = () => {
       {/* Progress Steps */}
       <section className="py-12 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center space-x-8 max-w-2xl mx-auto">
-            <div className={`flex items-center space-x-3 ${currentStep >= 1 ? 'text-primary' : 'text-sicta-grey-light'}`}>
-              <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${
+          <div className="flex items-center justify-center space-x-2 sm:space-x-8 max-w-4xl mx-auto overflow-x-auto pb-2">
+            <div className={`flex items-center space-x-1 sm:space-x-3 flex-shrink-0 ${currentStep >= 1 ? 'text-primary' : 'text-sicta-grey-light'}`}>
+              <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                 currentStep >= 1 ? 'bg-primary text-white' : 'bg-sicta-grey-light/20'
               }`}>
                 1
               </div>
-              <span className="font-medium">Agence & Date</span>
+              <span className="font-medium text-sm sm:text-base hidden sm:block">Agence & Date</span>
+              <span className="font-medium text-xs sm:hidden">Agence</span>
             </div>
             
-            <div className={`flex-1 h-0.5 ${currentStep >= 2 ? 'bg-primary' : 'bg-sicta-grey-light/30'}`}></div>
+            <div className={`flex-1 h-0.5 min-w-4 ${currentStep >= 2 ? 'bg-primary' : 'bg-sicta-grey-light/30'}`}></div>
             
-            <div className={`flex items-center space-x-3 ${currentStep >= 2 ? 'text-primary' : 'text-sicta-grey-light'}`}>
-              <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${
+            <div className={`flex items-center space-x-1 sm:space-x-3 flex-shrink-0 ${currentStep >= 2 ? 'text-primary' : 'text-sicta-grey-light'}`}>
+              <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                 currentStep >= 2 ? 'bg-primary text-white' : 'bg-sicta-grey-light/20'
               }`}>
                 2
               </div>
-              <span className="font-medium">Véhicule</span>
+              <span className="font-medium text-sm sm:text-base">Véhicule</span>
             </div>
             
-            <div className={`flex-1 h-0.5 ${currentStep >= 3 ? 'bg-primary' : 'bg-sicta-grey-light/30'}`}></div>
+            <div className={`flex-1 h-0.5 min-w-4 ${currentStep >= 3 ? 'bg-primary' : 'bg-sicta-grey-light/30'}`}></div>
             
-            <div className={`flex items-center space-x-3 ${currentStep >= 3 ? 'text-primary' : 'text-sicta-grey-light'}`}>
-              <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${
+            <div className={`flex items-center space-x-1 sm:space-x-3 flex-shrink-0 ${currentStep >= 3 ? 'text-primary' : 'text-sicta-grey-light'}`}>
+              <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                 currentStep >= 3 ? 'bg-primary text-white' : 'bg-sicta-grey-light/20'
               }`}>
                 3
               </div>
-              <span className="font-medium">Confirmation</span>
+              <span className="font-medium text-sm sm:text-base">Confirmation</span>
             </div>
           </div>
         </div>
@@ -143,12 +146,12 @@ const Booking = () => {
 
                       <div>
                         <label className="block text-sm font-medium mb-3">Créneau horaire</label>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-2">
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                           {timeSlots.map(time => (
                             <button
                               key={time}
                               onClick={() => setSelectedTime(time)}
-                              className={`p-2 sm:p-3 text-xs sm:text-sm rounded-lg border transition-all ${
+                              className={`p-2 text-xs sm:text-sm rounded-lg border transition-all ${
                                 selectedTime === time 
                                   ? 'bg-primary text-white border-primary' 
                                   : 'bg-background border-border hover:border-primary'
@@ -162,11 +165,14 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-end mt-8">
+                  <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mt-8">
+                    <Button variant="outline" onClick={prevStep} className="order-2 sm:order-1">
+                      Retour
+                    </Button>
                     <Button 
                       onClick={nextStep}
                       disabled={!selectedAgency || !selectedDate || !selectedTime}
-                      className="btn-hero px-8 py-3"
+                      className="btn-hero px-8 py-3 order-1 sm:order-2"
                     >
                       Suivant
                       <Clock className="h-4 w-4 ml-2" />
@@ -230,7 +236,7 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-between mt-8">
+                  <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8">
                     <Button variant="outline" onClick={prevStep}>
                       Retour
                     </Button>
@@ -341,7 +347,7 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-between mt-8">
+                  <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8">
                     <Button variant="outline" onClick={prevStep}>
                       Retour
                     </Button>
@@ -379,7 +385,8 @@ const Booking = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 
