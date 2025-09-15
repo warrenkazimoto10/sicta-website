@@ -245,3 +245,8 @@ html {
 .cursor-hover:hover {
   transform: scale(1.05);
 }
+
+/* Masquer l'élément lovable-badge */
+#lovable-badge {
+  display: none !important;
+}

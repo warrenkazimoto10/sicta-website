@@ -43,9 +43,11 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center">
-              <div className="text-white font-bold text-lg">SICTA</div>
-            </div>
+            <img 
+              src="/logo sicta.png" 
+              alt="SICTA Logo" 
+              className="h-12 w-auto"
+            />
             <div className="hidden sm:block">
               <div className="text-xl font-bold text-sicta-grey-dark">SICTA</div>
               <div className="text-sm text-sicta-grey-light">Contrôle Automobile</div>
