@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Calendar, MapPin, Shield, Users } from "luci
 import slider1 from "@/assets/slider-1-inspection-center.jpg";
 import slider2 from "@/assets/slider-2-mobile-unit.jpg";
 import slider3 from "@/assets/slider-3-road-safety.jpg";
+import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
@@ -67,94 +68,154 @@ const HeroSlider = () => {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Slides */}
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
-        >
-          <div className="absolute inset-0">
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-          </div>
+      <AnimatePresence mode="wait">
+        {slides.map((slide, index) => (
+          index === currentSlide && (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0 z-10"
+            >
+              <div className="absolute inset-0">
+                <motion.img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                  initial={{ scale: 1.2 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 8, ease: "easeOut" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+              </div>
 
-          {/* Content */}
-          <div className="relative z-20 h-full flex items-center">
-            <div className="container mx-auto px-4 lg:px-8">
-              <div className="max-w-2xl text-white">
-                <div className="animate-fade-in-up">
-                  <div className="inline-flex items-center space-x-2 bg-primary/90 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6">
-                    <Shield className="h-4 w-4" />
-                    <span>Contrôle technique agréé</span>
+              {/* Content */}
+              <div className="relative z-20 h-full flex items-center">
+                <div className="container mx-auto px-4 lg:px-8">
+                  <div className="max-w-2xl text-white">
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                    >
+                      <motion.div 
+                        className="inline-flex items-center space-x-2 bg-primary/90 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        <Shield className="h-4 w-4 animate-pulse" />
+                        <span>Contrôle technique agréé</span>
+                      </motion.div>
+
+                      <motion.h1 
+                        className="text-3xl sm:text-4xl lg:text-7xl font-bold leading-tight mb-4 lg:mb-6"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7, duration: 0.8 }}
+                      >
+                        {slide.title}
+                      </motion.h1>
+                      
+                      <motion.h2 
+                        className="text-lg sm:text-xl lg:text-3xl font-light text-orange-300 mb-6 lg:mb-8"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.9, duration: 0.8 }}
+                      >
+                        {slide.subtitle}
+                      </motion.h2>
+                      
+                      <motion.p 
+                        className="text-base sm:text-lg lg:text-xl leading-relaxed mb-8 lg:mb-10 text-gray-100"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.1, duration: 0.8 }}
+                      >
+                        {slide.description}
+                      </motion.p>
+
+                      {/* Stats */}
+                      <motion.div 
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap lg:gap-8 mb-8 lg:mb-10"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.3, duration: 0.8 }}
+                      >
+                        {slide.stats.map((stat, statIndex) => (
+                          <motion.div 
+                            key={statIndex} 
+                            className="flex items-center space-x-3 group"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 1.3 + statIndex * 0.2 }}
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <div className="h-10 w-10 lg:h-12 lg:w-12 bg-primary/20 backdrop-blur rounded-full flex items-center justify-center group-hover:bg-primary/40 transition-colors duration-300">
+                              <stat.icon className="h-5 w-5 lg:h-6 lg:w-6 text-orange-300" />
+                            </div>
+                            <div>
+                              <div className="text-2xl lg:text-3xl font-bold">{stat.value}</div>
+                              <div className="text-xs lg:text-sm text-gray-300">{stat.label}</div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+
+                      {/* CTA */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.7, duration: 0.6 }}
+                      >
+                        <Button className="btn-hero text-base lg:text-lg px-6 lg:px-10 py-3 lg:py-6 text-white bg-primary hover:bg-primary/90 cursor-hover">
+                          {slide.cta}
+                        </Button>
+                      </motion.div>
+                    </motion.div>
                   </div>
-                  
-                  <h1 className="text-3xl sm:text-4xl lg:text-7xl font-bold leading-tight mb-4 lg:mb-6">
-                    {slide.title}
-                  </h1>
-                  
-                  <h2 className="text-lg sm:text-xl lg:text-3xl font-light text-orange-300 mb-6 lg:mb-8">
-                    {slide.subtitle}
-                  </h2>
-                  
-                  <p className="text-base sm:text-lg lg:text-xl leading-relaxed mb-8 lg:mb-10 text-gray-100">
-                    {slide.description}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap lg:gap-8 mb-8 lg:mb-10">
-                    {slide.stats.map((stat, statIndex) => (
-                      <div key={statIndex} className="flex items-center space-x-3">
-                        <div className="h-10 w-10 lg:h-12 lg:w-12 bg-primary/20 backdrop-blur rounded-full flex items-center justify-center">
-                          <stat.icon className="h-5 w-5 lg:h-6 lg:w-6 text-orange-300" />
-                        </div>
-                        <div>
-                          <div className="text-2xl lg:text-3xl font-bold">{stat.value}</div>
-                          <div className="text-xs lg:text-sm text-gray-300">{stat.label}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <Button className="btn-hero text-base lg:text-lg px-6 lg:px-10 py-3 lg:py-6 text-white bg-primary hover:bg-primary/90">
-                    {slide.cta}
-                  </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      ))}
+            </motion.div>
+          )
+        ))}
+      </AnimatePresence>
 
       {/* Navigation Arrows */}
-      <button
+      <motion.button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 backdrop-blur text-white hover:bg-white/20 transition-all"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 backdrop-blur text-white hover:bg-white/20 transition-all cursor-hover"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
         <ChevronLeft className="h-6 w-6" />
-      </button>
+      </motion.button>
 
-      <button
+      <motion.button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 backdrop-blur text-white hover:bg-white/20 transition-all"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-white/10 backdrop-blur text-white hover:bg-white/20 transition-all cursor-hover"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
       >
         <ChevronRight className="h-6 w-6" />
-      </button>
+      </motion.button>
 
       {/* Indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex space-x-3">
         {slides.map((_, index) => (
-          <button
+          <motion.button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
+            className={`w-3 h-3 rounded-full transition-all cursor-hover ${
               index === currentSlide ? "bg-primary" : "bg-white/40 hover:bg-white/60"
             }`}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            animate={{
+              scale: index === currentSlide ? 1.3 : 1,
+            }}
           />
         ))}
       </div>

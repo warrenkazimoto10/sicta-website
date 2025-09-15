@@ -10,8 +10,11 @@ import {
   ArrowRight,
   CheckCircle
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ServicesSection = () => {
+  const { ref, isInView } = useScrollAnimation(0.1);
   const services = [
     {
       icon: Shield,
@@ -64,7 +67,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section ref={ref} className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -89,9 +92,21 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <Card 
+              <motion.div
                 key={service.title}
-                className="card-service group hover:shadow-card transition-all duration-300 hover:scale-[1.02]"
+                initial={{ opacity: 0, y: 50 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
+                whileHover={{ 
+                  y: -5,
+                  transition: { duration: 0.2 }
+                }}
+              >
+                <Card className="card-service group hover:shadow-card transition-all duration-300 h-full"
               >
                 <div className="mb-6">
                   <div className={`h-16 w-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -124,7 +139,8 @@ const ServicesSection = () => {
                     <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </div>
-              </Card>
+                </Card>
+              </motion.div>
             );
           })}
         </div>

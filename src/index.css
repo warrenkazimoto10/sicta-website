@@ -167,6 +167,14 @@ All colors MUST be HSL. Orange #F97613, Grey #4C4C4B, White #FFFFFF
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounceSubtle 2s ease-in-out infinite;
+  }
 }
 
 @layer utilities {
@@ -203,4 +211,37 @@ All colors MUST be HSL. Orange #F97613, Grey #4C4C4B, White #FFFFFF
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom cursor for interactive elements */
+.cursor-hover {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cursor-hover:hover {
+  transform: scale(1.05);
 }
