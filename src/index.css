@@ -130,7 +130,7 @@ All colors MUST be HSL. Orange #F97613, Grey #4C4C4B, White #FFFFFF
 @layer components {
   /* SICTA Button Variants */
   .btn-hero {
-    @apply bg-gradient-to-r from-primary to-orange-400 text-primary-foreground font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+    @apply bg-gradient-to-r from-primary to-sicta-orange-light text-primary-foreground font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02];
   }
   
   .btn-secondary {

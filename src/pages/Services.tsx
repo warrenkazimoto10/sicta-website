@@ -105,43 +105,42 @@ const Services = () => {
       {/* Services Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="card-elevated hover:shadow-xl transition-all duration-300">
-                <div className="p-8">
+              <Card key={index} className="card-elevated hover:shadow-xl transition-all duration-300 group">
+                <div className="p-6">
                   <div className="flex items-start space-x-4 mb-6">
-                    <div className="h-16 w-16 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <service.icon className="h-8 w-8 text-primary" />
+                    <div className="h-14 w-14 bg-gradient-to-br from-primary to-sicta-orange-light rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <service.icon className="h-7 w-7 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-sicta-grey-dark mb-3">{service.title}</h3>
-                      <p className="text-sicta-grey-light leading-relaxed">{service.description}</p>
+                      <h3 className="text-xl font-bold text-sicta-grey-dark mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
+                      <p className="text-sicta-grey-light text-sm leading-relaxed">{service.description}</p>
                     </div>
                   </div>
 
-                  <div className="space-y-4 mb-6">
-                    <h4 className="font-semibold text-sicta-grey-dark">Caractéristiques :</h4>
-                    <div className="grid grid-cols-1 gap-3">
+                  <div className="space-y-3 mb-4">
+                    <div className="grid grid-cols-1 gap-2">
                       {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center space-x-3">
-                          <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                          <span className="text-sicta-grey-light">{feature}</span>
+                        <div key={featureIndex} className="flex items-center space-x-2">
+                          <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                          <span className="text-sicta-grey-light text-sm">{feature}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="bg-secondary/30 rounded-lg p-4 mb-6">
-                    <p className="text-sm text-sicta-grey-light italic">{service.process}</p>
+                  <div className="bg-gradient-to-r from-primary/5 to-sicta-orange-light/5 rounded-lg p-3 mb-4">
+                    <p className="text-xs text-sicta-grey-light italic">{service.process}</p>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button className="btn-hero flex-1">
-                      <Calendar className="h-4 w-4 mr-2" />
+                  <div className="flex gap-2">
+                    <Button className="btn-hero flex-1 text-sm py-2">
+                      <Calendar className="h-3 w-3 mr-1" />
                       Réserver
                     </Button>
-                    <Button variant="outline" className="flex-1">
-                      <Phone className="h-4 w-4 mr-2" />
+                    <Button variant="outline" className="flex-1 text-sm py-2">
+                      <Phone className="h-3 w-3 mr-1" />
                       Info
                     </Button>
                   </div>

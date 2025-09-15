@@ -180,40 +180,36 @@ const News = () => {
       <section className="pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {recentNews.map((article, index) => (
-                <Card key={index} className="card-elevated hover:shadow-xl transition-all duration-300 group">
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                <Card key={index} className="card-elevated hover:shadow-xl transition-all duration-300 group h-full">
+                  <div className="p-5 flex flex-col h-full">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-2 py-1 bg-gradient-to-r from-primary to-sicta-orange-light text-white text-xs rounded-full">
                         {article.category}
                       </span>
-                      <div className="flex items-center space-x-2 text-xs text-sicta-grey-light">
+                      <div className="flex items-center space-x-1 text-xs text-sicta-grey-light">
                         <Clock className="h-3 w-3" />
                         <span>{article.readTime}</span>
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-semibold text-sicta-grey-dark mb-3 leading-tight group-hover:text-primary transition-colors">
+                    <h3 className="text-lg font-semibold text-sicta-grey-dark mb-2 leading-tight group-hover:text-primary transition-colors">
                       {article.title}
                     </h3>
                     
-                    <p className="text-sicta-grey-light text-sm mb-6 leading-relaxed">
+                    <p className="text-sicta-grey-light text-sm mb-4 leading-relaxed flex-1">
                       {article.excerpt}
                     </p>
                     
-                    <div className="flex items-center justify-between text-xs text-sicta-grey-light">
-                      <div className="flex items-center space-x-3">
+                    <div className="flex items-center justify-between text-xs text-sicta-grey-light mt-auto pt-2 border-t border-border/50">
+                      <div className="flex items-center space-x-2">
                         <div className="flex items-center space-x-1">
                           <Calendar className="h-3 w-3" />
                           <span>{new Date(article.date).toLocaleDateString('fr-FR')}</span>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <User className="h-3 w-3" />
-                          <span>{article.author}</span>
-                        </div>
                       </div>
-                      <Button variant="ghost" size="sm" className="p-0 h-auto text-primary">
+                      <Button variant="ghost" size="sm" className="p-0 h-auto text-primary hover:text-sicta-orange-light">
                         Lire plus
                         <ArrowRight className="h-3 w-3 ml-1" />
                       </Button>

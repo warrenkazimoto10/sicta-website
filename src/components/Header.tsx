@@ -2,12 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin, Calendar } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useScrollHeader } from "@/hooks/useScrollAnimation";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isScrolled = useScrollHeader();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -21,16 +18,7 @@ const Header = () => {
   ];
 
   return (
-    <motion.header 
-      className={`sticky top-0 z-50 backdrop-blur-sm transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-background/98 border-b border-border shadow-lg' 
-          : 'bg-background/95 border-b border-border'
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
       {/* Top contact bar */}
       <div className="bg-sicta-grey text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center text-sm">
@@ -100,48 +88,28 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div 
-              className="lg:hidden mt-4 pb-4 border-t border-border overflow-hidden"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="flex flex-col space-y-4 pt-4">
-                {navigationLinks.map((link, index) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Link
-                      to={link.href}
-                      className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium py-2 block"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                ))}
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.6 }}
+        {isMenuOpen && (
+          <div className="lg:hidden mt-4 pb-4 border-t border-border">
+            <div className="flex flex-col space-y-4 pt-4">
+              {navigationLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium py-2 block"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  <Button className="btn-hero mt-4 w-full">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Prendre rendez-vous
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  {link.name}
+                </Link>
+              ))}
+              <Button className="btn-hero mt-4 w-full">
+                <Calendar className="h-4 w-4 mr-2" />
+                Prendre rendez-vous
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
-    </motion.header>
+    </header>
   );
 };
 
