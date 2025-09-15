@@ -42,16 +42,12 @@ const Header = () => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center">
             <img 
-              src="/logo sicta.png" 
+              src="/logo-sicta.png" 
               alt="SICTA Logo" 
               className="h-12 w-auto"
             />
-            <div className="hidden sm:block">
-              <div className="text-xl font-bold text-sicta-grey-dark">SICTA</div>
-              <div className="text-sm text-sicta-grey-light">Contrôle Automobile</div>
-            </div>
           </Link>
 
           {/* Desktop Navigation */}
