@@ -1,7 +1,8 @@
-import { Shield, Car, FileCheck, Scale, Truck, Phone, CheckCircle, Clock, MapPin, Calendar } from "lucide-react";
+import { Shield, Car, FileCheck, Scale, Truck, Phone, CheckCircle, Clock, MapPin, Calendar, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PageTransition from "@/components/PageTransition";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -14,7 +15,8 @@ const services = [
       "Rapport détaillé inclus",
       "Conformité Code de la Route"
     ],
-    process: "Le contrôle technique permet de vérifier que votre véhicule est en bon état et répond aux conditions imposées par la réglementation."
+    process: "Le contrôle technique permet de vérifier que votre véhicule est en bon état et répond aux conditions imposées par la réglementation.",
+    slug: "controle-technique"
   },
   {
     icon: FileCheck,
@@ -26,7 +28,8 @@ const services = [
       "Duplicata carte grise",
       "Mise à jour informations"
     ],
-    process: "Service complet d'immatriculation et de gestion administrative des véhicules en Côte d'Ivoire."
+    process: "Service complet d'immatriculation et de gestion administrative des véhicules en Côte d'Ivoire.",
+    slug: "civio"
   },
   {
     icon: Car,
@@ -38,7 +41,8 @@ const services = [
       "Conseils de réparation",
       "Réduction des frais futurs"
     ],
-    process: "Contrôle identique à la visite officielle permettant de se préparer et réduire les coûts de réparation."
+    process: "Contrôle identique à la visite officielle permettant de se préparer et réduire les coûts de réparation.",
+    slug: "pre-visite"
   },
   {
     icon: Scale,
@@ -50,7 +54,8 @@ const services = [
       "Contrôle surcharge",
       "Service 24h/24"
     ],
-    process: "Pesage réglementaire pour le transport routier de marchandises et le respect des charges autorisées."
+    process: "Pesage réglementaire pour le transport routier de marchandises et le respect des charges autorisées.",
+    slug: "pesee"
   },
   {
     icon: Truck,
@@ -62,7 +67,8 @@ const services = [
       "Contrôle conformité",
       "Expertise technique"
     ],
-    process: "Service spécialisé de métrologie pour l'étalonnage des cuves de stockage de carburants."
+    process: "Service spécialisé de métrologie pour l'étalonnage des cuves de stockage de carburants.",
+    slug: "jaugeage-baremage"
   },
   {
     icon: Phone,
@@ -74,7 +80,21 @@ const services = [
       "Assistance administrative",
       "Service client dédié"
     ],
-    process: "Accompagnement complet pour toutes vos démarches liées au contrôle technique et à l'automobile."
+    process: "Accompagnement complet pour toutes vos démarches liées au contrôle technique et à l'automobile.",
+    slug: "assistance"
+  },
+  {
+    icon: Car,
+    title: "Immatriculation",
+    description: "Sécurisation des plaques avec code-barres pour garantir l'authenticité et lutter contre les falsifications.",
+    features: [
+      "Sécurisation des plaques",
+      "Code-barres unique",
+      "Lutte contre la falsification",
+      "Service complet de pose"
+    ],
+    process: "Garantit l'authenticité des plaques et lutte contre les falsifications par sécurisation des plaques avec un code barre puis la pose sur les véhicules.",
+    slug: "immatriculation"
   }
 ];
 
@@ -139,10 +159,12 @@ const Services = () => {
                       <Calendar className="h-3 w-3 mr-1" />
                       Réserver
                     </Button>
-                    <Button variant="outline" className="flex-1 text-sm py-2">
-                      <Phone className="h-3 w-3 mr-1" />
-                      Info
-                    </Button>
+                    <Link to={`/services/${service.slug}`}>
+                      <Button variant="outline" className="flex-1 text-sm py-2 w-full">
+                        <ArrowRight className="h-3 w-3 mr-1" />
+                        En savoir plus
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </Card>
@@ -170,7 +192,7 @@ const Services = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Réservation</h3>
               <p className="text-sicta-grey-light">
-                Réservez votre créneau en ligne ou par téléphone dans l'une de nos 28 agences permanentes.
+                Réservez votre créneau en ligne ou par téléphone dans l'une de nos 29 stations permanentes.
               </p>
             </div>
 

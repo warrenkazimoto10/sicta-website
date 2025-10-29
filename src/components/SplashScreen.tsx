@@ -86,13 +86,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
               {/* Logo principal */}
               <motion.img
                 src="/logo-sicta.png"
-                alt="SICTA Logo"
-                className="h-24 w-auto relative z-10"
+                alt="SICTA - Société Ivoirienne de Contrôle Technique Automobiles"
+                className="h-28 w-auto relative z-10"
                 animate={{
                   filter: [
-                    "brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))",
-                    "brightness(1.2) drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))",
-                    "brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))",
+                    "brightness(1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))",
+                    "brightness(1.3) drop-shadow(0 0 25px rgba(255, 255, 255, 0.6))",
+                    "brightness(1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))",
                   ],
                 }}
                 transition={{

@@ -1,0 +1,219 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "download": "Télécharger",
+    "upload": "Télécharger",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Nos services",
+    "network": "Réseau SICTA",
+    "news": "Actualités",
+    "booking": "Réservation",
+    "contact": "Contact"
+  },
+  "header": {
+    "phone": "+225 27 21 21 29 90",
+    "freeCall": "800 800 41",
+    "agencies": "29 agences permanentes",
+    "tagline": "Contrôle technique automobile - Côte d'Ivoire",
+    "bookAppointment": "Prendre rendez-vous"
+  },
+  "footer": {
+    "about": "À propos de SICTA",
+    "services": "Services",
+    "network": "Notre réseau",
+    "legal": "Informations légales",
+    "contact": "Contactez-nous",
+    "followUs": "Suivez-nous",
+    "address": "Abidjan, Côte d'Ivoire, Zone 4C",
+    "email": "infos.sicta@sicta.ci",
+    "phone": "27 21 21 29 90",
+    "freeCall": "N° vert : 800 800 41",
+    "rights": "Tous droits réservés"
+  },
+  "home": {
+    "hero": {
+      "title": "Leader du contrôle technique en Côte d'Ivoire",
+      "subtitle": "Sécurité, fiabilité et excellence depuis 1974",
+      "cta": "Réserver un contrôle"
+    },
+    "features": {
+      "title": "Pourquoi choisir SICTA ?",
+      "stations": "29 Stations permanentes",
+      "coverage": "100% Couverture nationale",
+      "vehicles": "1500+ Véhicules/jour",
+      "experience": "50+ Années d'expérience"
+    }
+  },
+  "about": {
+    "title": "À propos de SICTA",
+    "subtitle": "Société Ivoirienne de Contrôles Techniques Automobiles et Industriels",
+    "history": {
+      "title": "Notre Histoire",
+      "1959": {
+        "title": "Début du contrôle technique",
+        "description": "Obligation du contrôle technique automobile en Côte d'Ivoire selon la réglementation."
+      },
+      "1974": {
+        "title": "Création de la SICTA",
+        "description": "Fondation de la Société Ivoirienne de Contrôles Techniques Automobiles et Industriels."
+      },
+      "1990": {
+        "title": "Rachat par SGS",
+        "description": "La SICTA devient une société privatisée rachetée par le groupe SGS, leader mondial de l'inspection."
+      },
+      "2019": {
+        "title": "Certification ISO 9001:2015",
+        "description": "Certification qualité par ABS Quality Evaluations, garantissant l'excellence de nos services."
+      },
+      "2024": {
+        "title": "Rachat par Mayelia Participations",
+        "description": "Nouvelle ère d'innovation et d'expansion sous l'égide de Mayelia Participations."
+      }
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "text": "Garantir la sécurité et la protection de l'environnement à travers un contrôle technique rigoureux, conformes à la règlementation nationale et internationales"
+    },
+    "vision": {
+      "title": "Notre Vision",
+      "text": "Demeurer le leader et la référence en Afrique de l'Ouest dans le domaine du contrôle technique automobile, en offrant des services fiables, accessibles et innovants."
+    },
+    "values": {
+      "title": "Nos Engagements",
+      "professionalism": {
+        "title": "Professionnalisme",
+        "description": "Rigueur et expertise technique"
+      },
+      "integrity": {
+        "title": "Intégrité",
+        "description": "Transparence et impartialité dans chaque contrôle"
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Adoption de nouvelles technologies pour optimiser les services"
+      },
+      "proximity": {
+        "title": "Proximité",
+        "description": "Accessibilité grâce à un réseau national et des unités mobiles"
+      }
+    },
+    "keyFigures": {
+      "title": "Chiffres Clés",
+      "years": "50+ Années d'expérience",
+      "stations": "29 Stations permanentes",
+      "temporary": "22 Stations temporaires",
+      "mobile": "04 Stations mobiles",
+      "inspections": "300 000 Visites en 2024",
+      "revenue": "09 milliards de chiffres d'affaires",
+      "employees": "+ de 300 employés"
+    }
+  },
+  "network": {
+    "title": "Notre Réseau",
+    "subtitle": "29 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien",
+    "stats": {
+      "permanent": "Stations permanentes",
+      "temporary": "Stations temporaires",
+      "daily": "Véhicules/jour",
+      "coverage": "Couverture nationale"
+    },
+    "search": {
+      "placeholder": "Rechercher une station...",
+      "filters": {
+        "all": "Toutes",
+        "permanent": "Permanentes",
+        "temporary": "Temporaires",
+        "allServices": "Tous services",
+        "civio": "CIVIO",
+        "inspection": "Contrôle technique",
+        "weighing": "Pesée"
+      }
+    }
+  },
+  "services": {
+    "title": "Nos Services",
+    "subtitle": "SICTA propose une gamme complète de services automobiles et industriels",
+    "technicalInspection": {
+      "title": "Contrôle Technique Automobile",
+      "description": "Vérification complète de l'état mécanique de votre véhicule selon la réglementation ivoirienne.",
+      "features": [
+        "123 points de contrôle rigoureux",
+        "Certificat valide 6 mois",
+        "Rapport détaillé inclus",
+        "Conformité Code de la Route"
+      ]
+    },
+    "civio": {
+      "title": "CIVIO",
+      "description": "Certificat d'Immatriculation des Véhicules en Côte d'Ivoire",
+      "features": [
+        "Immatriculation véhicules neufs",
+        "Changement de propriétaire",
+        "Duplicata carte grise",
+        "Mise à jour informations"
+      ]
+    },
+    "preVisit": {
+      "title": "Pré-visite",
+      "description": "Service volontaire pour préparer votre véhicule au contrôle technique",
+      "features": [
+        "Inspection préparatoire",
+        "Identification des défauts",
+        "Conseils de réparation",
+        "Réduction des frais futurs"
+      ]
+    },
+    "weighing": {
+      "title": "Pesée de Véhicules",
+      "description": "Service de pesage officiel pour véhicules lourds",
+      "features": [
+        "Pesage essieux et total",
+        "Certificat de pesée",
+        "Contrôle surcharge",
+        "Service 24h/24"
+      ]
+    },
+    "gauging": {
+      "title": "Jaugeage & Barémage",
+      "description": "Étalonnage et certification des réservoirs de carburant",
+      "features": [
+        "Jaugeage réservoirs",
+        "Certification officielle",
+        "Contrôle conformité",
+        "Expertise technique"
+      ]
+    }
+  },
+  "booking": {
+    "title": "Réservez votre contrôle technique",
+    "subtitle": "Processus simple en 3 étapes : choisissez votre agence, sélectionnez votre créneau et confirmez votre paiement",
+    "steps": {
+      "station": "Agence & Date",
+      "vehicle": "Véhicule",
+      "confirmation": "Confirmation"
+    },
+    "selectStation": "Sélectionnez une station",
+    "selectDate": "Sélectionnez une date",
+    "selectTime": "Sélectionnez un créneau",
+    "vehicleInfo": "Informations du véhicule",
+    "payment": "Paiement",
+    "summary": "Récapitulatif"
+  }
+}
+
+

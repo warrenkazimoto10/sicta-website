@@ -34,7 +34,7 @@ const HeroSection = () => {
               
               <p className="text-xl text-sicta-grey-light leading-relaxed">
                 SICTA, filiale de Mayelia Participations, assure le contrôle technique 
-                automobile en Côte d'Ivoire avec 28 agences permanentes et des solutions 
+                automobile en Côte d'Ivoire avec 29 stations permanentes et des solutions 
                 innovantes pour votre sécurité.
               </p>
             </div>
@@ -46,8 +46,8 @@ const HeroSection = () => {
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-sicta-grey-dark">28</div>
-                  <div className="text-sm text-sicta-grey-light">Agences permanentes</div>
+                  <div className="text-2xl font-bold text-sicta-grey-dark">29</div>
+                  <div className="text-sm text-sicta-grey-light">Stations permanentes</div>
                 </div>
               </div>
               

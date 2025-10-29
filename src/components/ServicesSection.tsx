@@ -2,67 +2,62 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Shield, 
-  FileText, 
-  Settings, 
-  Scale, 
-  Truck, 
-  HeadphonesIcon,
+  Calendar, 
+  MapPin, 
+  Award,
+  Scale,
+  Eye,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  FileCheck,
+  Car
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
   const { ref, isInView } = useScrollAnimation(0.1);
   const services = [
     {
       icon: Shield,
-      title: "Contrôle Technique Automobile",
-      description: "Inspection complète selon les normes internationales pour garantir la sécurité de votre véhicule.",
-      features: ["123 points de contrôle", "Certificat valide 6 mois", "Rapport détaillé"],
-      
+      title: "Contrôle Technique",
+      description: "Contrôle complet de votre véhicule selon les normes en vigueur",
+      features: ["Contrôle visuel", "Contrôle technique", "Émission polluants", "Freinage"],
       color: "from-primary to-sicta-orange-light",
+      slug: "controle-technique"
     },
     {
-      icon: FileText,
+      icon: Calendar,
       title: "CIVIO",
-      description: "Certificat d'immatriculation véhicule neuf et d'occasion avec procédures simplifiées.",
-      features: ["Traitement rapide", "Documents officiels", "Support administratif"],
-      
+      description: "Contrôle d'Identité Véhicule et d'Identification des Organes",
+      features: ["Identification véhicule", "Contrôle organes", "Documentation", "Certification"],
       color: "from-sicta-grey to-sicta-grey-light",
-    },
-    {
-      icon: Settings,
-      title: "Pose de Plaques",
-      description: "Installation professionnelle de plaques d'immatriculation conformes aux normes.",
-      features: ["Pose certifiée", "Plaques homologuées", "Service sur site"],
-      
-      color: "from-accent to-secondary",
+      slug: "civio"
     },
     {
       icon: Scale,
-      title: "Jaugeage & Barémage", 
-      description: "Mesures précises et certifications pour citernes et réservoirs industriels.",
-      features: ["Étalonnage certifié", "Rapport officiel", "Suivi périodique"],
-      
+      title: "Jaugeage & Barémage",
+      description: "Étalonnage et certification des réservoirs de carburant pour stations-service et industries",
+      features: ["Jaugeage réservoirs", "Certification officielle", "Contrôle conformité", "Expertise technique"],
+      color: "from-accent to-secondary",
+      slug: "jaugeage-baremage"
+    },
+    {
+      icon: Eye,
+      title: "Pré-visite",
+      description: "Service volontaire pour préparer votre véhicule au contrôle technique et identifier les défaillances",
+      features: ["Inspection préparatoire", "Identification des défauts", "Conseils de réparation", "Réduction des frais futurs"],
       color: "from-muted to-secondary",
+      slug: "pre-visite"
     },
     {
-      icon: Truck,
-      title: "Pesée et Vignettes",
-      description: "Contrôle du poids des véhicules lourds et délivrance des vignettes réglementaires.",
-      features: ["Pesée certifiée", "Vignettes officielles", "Contrôle surcharge"],
-      
-      color: "from-primary/70 to-sicta-orange-light/70",
-    },
-    {
-      icon: HeadphonesIcon,
-      title: "Assistance & Conseils",
-      description: "Support technique et conseils personnalisés pour l'entretien de votre véhicule.",
-      features: ["Support 24/7", "Conseils d'experts", "Assistance téléphonique"],
-      
-      color: "from-secondary to-muted",
+      icon: FileCheck,
+      title: "Immatriculation",
+      description: "Sécurisation des plaques avec code-barres pour garantir l'authenticité et lutter contre les falsifications",
+      features: ["Sécurisation des plaques", "Code-barres unique", "Lutte contre la falsification", "Service complet de pose"],
+      color: "from-sicta-orange-light to-primary",
+      slug: "immatriculation"
     },
   ];
 
@@ -82,8 +77,8 @@ const ServicesSection = () => {
           </h2>
           
           <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-            De la simple inspection au contrôle technique complet, SICTA vous accompagne 
-            avec des services certifiés et une expertise reconnue depuis plus de 20 ans.
+            Des solutions complètes pour tous vos besoins de contrôle technique. 
+            Services modernisés et digitalisés sous la nouvelle ère SICTA 2025.
           </p>
         </div>
 
@@ -102,42 +97,50 @@ const ServicesSection = () => {
                   ease: "easeOut"
                 }}
                 whileHover={{ 
-                  y: -5,
-                  transition: { duration: 0.2 }
+                  y: -8,
+                  transition: { duration: 0.3 }
                 }}
               >
-                <Card className="card-service group hover:shadow-card transition-all duration-300 h-full"
+                <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 h-full group bg-white"
               >
-                <div className="mb-6">
-                  <div className={`h-16 w-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <IconComponent className="h-8 w-8 text-white" />
+                {/* Gradient Header */}
+                <div className={`h-32 bg-gradient-to-br ${service.color} relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-black/5"></div>
+                  <div className="absolute top-4 right-4">
+                    <div className="h-16 w-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-xl">
+                      <IconComponent className="h-8 w-8 text-white" />
+                    </div>
                   </div>
-                  
-                  <h3 className="text-xl font-bold text-sicta-grey-dark mb-2">
+                </div>
+
+                <div className="p-6 pb-8">
+                  <h3 className="text-2xl font-bold text-sicta-grey-dark mb-3 group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
                   
-                  <p className="text-sicta-grey-light mb-4">
+                  <p className="text-sicta-grey-light mb-6 leading-relaxed">
                     {service.description}
                   </p>
-                </div>
 
-                <div className="space-y-3 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center space-x-3">
-                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="text-sm text-sicta-grey">{feature}</span>
-                    </div>
-                  ))}
-                </div>
+                  <div className="space-y-2.5 mb-6">
+                    {service.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start space-x-3">
+                        <div className="mt-0.5">
+                          <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                        </div>
+                        <span className="text-sm text-sicta-grey leading-relaxed">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
 
-                <div className="pt-4 border-t border-border">
-                  <Button 
-                    className="btn-outline group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 w-full justify-center"
-                  >
-                    En savoir plus
-                    <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <Link to={`/services/${service.slug}`}>
+                    <Button 
+                      className="w-full bg-gradient-to-r from-primary to-sicta-orange-light hover:from-primary/90 hover:to-sicta-orange-light/90 text-white font-semibold py-6 rounded-lg group-hover:shadow-lg transition-all duration-300"
+                    >
+                      En savoir plus
+                      <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
                 </div>
                 </Card>
               </motion.div>
@@ -155,12 +158,16 @@ const ServicesSection = () => {
             dans toutes vos démarches automobiles.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3">
-              Prendre rendez-vous
-            </Button>
-            <Button className="bg-white/20 hover:bg-white/30 text-white border-white/30 font-semibold px-8 py-3">
-              Nous contacter
-            </Button>
+            <Link to="/reservation">
+              <Button className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3">
+                Prendre rendez-vous
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button className="bg-white/20 hover:bg-white/30 text-white border-white/30 font-semibold px-8 py-3">
+                Nous contacter
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

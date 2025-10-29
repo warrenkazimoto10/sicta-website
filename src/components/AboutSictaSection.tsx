@@ -3,54 +3,23 @@ import { Button } from "@/components/ui/button";
 import { 
   Shield, 
   Award, 
-  Users, 
   MapPin, 
-  Calendar,
   ArrowRight,
   CheckCircle
 } from "lucide-react";
 import sictaInspectionImage from "@/assets/sicta-inspection-modern.jpg";
 import { motion } from "framer-motion";
-import { useScrollAnimation, useCountUp } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const AboutSictaSection = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
-  const { count: expCount, ref: expRef } = useCountUp(50, 2000);
-  const { count: agenciesCount, ref: agenciesRef } = useCountUp(28, 2000);
-  const { count: vehiclesCount, ref: vehiclesRef } = useCountUp(1500, 2500);
-  const { count: pointsCount, ref: pointsRef } = useCountUp(123, 2000);
-  const achievements = [
-    {
-      icon: Calendar,
-      value: "50+",
-      label: "Années d'expérience",
-      description: "Leader depuis 1974"
-    },
-    {
-      icon: Shield,
-      value: "28",
-      label: "Agences permanentes",
-      description: "Couverture nationale"
-    },
-    {
-      icon: Users,
-      value: "1500+",
-      label: "Véhicules/jour",
-      description: "Service de masse"
-    },
-    {
-      icon: Award,
-      value: "123",
-      label: "Points de contrôle",
-      description: "Expertise technique"
-    }
-  ];
 
   const highlights = [
-    "Filiale de Mayelia Participations depuis 2024",
+    "Filiale de Mayelia Participations depuis avril 2025",
     "Certification ISO 9001:2015 par ABS Quality Evaluations",
     "Leader du contrôle technique en Afrique de l'Ouest",
-    "Innovation technologique et digitalisation"
+    "Innovation technologique et digitalisation des services",
+    "Nouvelle ère de développement et modernisation"
   ];
 
   return (
@@ -71,14 +40,14 @@ const AboutSictaSection = () => {
               </div>
               
               <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark">
-                Excellence et{" "}
-                <span className="text-gradient">Innovation</span>
+                Nouvelle Ère{" "}
+                <span className="text-gradient">SICTA 2025</span>
               </h2>
               
               <p className="text-xl text-sicta-grey-light leading-relaxed">
                 Société Ivoirienne de Contrôles Techniques Automobiles et Industriels, 
-                SICTA est le leader incontesté du contrôle technique en Côte d'Ivoire 
-                et en Afrique de l'Ouest.
+                SICTA entre dans une nouvelle phase de développement sous l'impulsion de 
+                Mayelia Participations. Leader incontesté depuis 1974.
               </p>
             </div>
 
@@ -95,57 +64,6 @@ const AboutSictaSection = () => {
               </div>
             </div>
 
-            {/* Statistics Grid */}
-            <div className="grid grid-cols-2 gap-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              >
-                <Card className="p-4 text-center bg-white/50 backdrop-blur border-primary/10 hover:scale-105 transition-transform duration-300" ref={expRef}>
-                  <Calendar className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-sicta-grey-dark">{expCount}+</div>
-                  <div className="text-sm font-medium text-sicta-grey">Années d'expérience</div>
-                  <div className="text-xs text-sicta-grey-light mt-1">Leader depuis 1974</div>
-                </Card>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-              >
-                <Card className="p-4 text-center bg-white/50 backdrop-blur border-primary/10 hover:scale-105 transition-transform duration-300" ref={agenciesRef}>
-                  <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-sicta-grey-dark">{agenciesCount}</div>
-                  <div className="text-sm font-medium text-sicta-grey">Agences permanentes</div>
-                  <div className="text-xs text-sicta-grey-light mt-1">Couverture nationale</div>
-                </Card>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-              >
-                <Card className="p-4 text-center bg-white/50 backdrop-blur border-primary/10 hover:scale-105 transition-transform duration-300" ref={vehiclesRef}>
-                  <Users className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-sicta-grey-dark">{vehiclesCount}+</div>
-                  <div className="text-sm font-medium text-sicta-grey">Véhicules/jour</div>
-                  <div className="text-xs text-sicta-grey-light mt-1">Service de masse</div>
-                </Card>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
-              >
-                <Card className="p-4 text-center bg-white/50 backdrop-blur border-primary/10 hover:scale-105 transition-transform duration-300" ref={pointsRef}>
-                  <Award className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-sicta-grey-dark">{pointsCount}</div>
-                  <div className="text-sm font-medium text-sicta-grey">Points de contrôle</div>
-                  <div className="text-xs text-sicta-grey-light mt-1">Expertise technique</div>
-                </Card>
-              </motion.div>
-            </div>
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">

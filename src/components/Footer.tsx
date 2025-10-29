@@ -9,7 +9,12 @@ import {
   Twitter, 
   Linkedin,
   Instagram,
-  Shield
+  Shield,
+  Building2,
+  Download,
+  Users,
+  Award,
+  Calendar
 } from "lucide-react";
 
 const Footer = () => {
@@ -19,13 +24,15 @@ const Footer = () => {
     <footer className="bg-sicta-grey-dark text-white">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
-        <div className="py-16 grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+        <div className="py-16 grid lg:grid-cols-5 md:grid-cols-2 gap-8">
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center">
-                <Shield className="h-6 w-6 text-white" />
-              </div>
+              <img 
+                src="/logo-sicta.png" 
+                alt="SICTA Logo" 
+                className="h-12 w-auto"
+              />
               <div>
                 <div className="text-xl font-bold">SICTA</div>
                 <div className="text-sm opacity-80">Contrôle Automobile</div>
@@ -33,9 +40,14 @@ const Footer = () => {
             </div>
             
             <p className="text-gray-300 leading-relaxed">
-              Société Ivoirienne de Contrôle Technique Automobile, filiale de Mayelia Participations. 
-              Leader du contrôle technique en Côte d'Ivoire depuis plus de 20 ans.
+              Société Ivoirienne de Contrôle Technique Automobiles et Industriels, filiale de Mayelia Participations. 
+              Leader du contrôle technique en Côte d'Ivoire depuis 1974. Nouvelle ère 2025.
             </p>
+            
+            <div className="flex items-center space-x-2 text-sm text-gray-300">
+              <Building2 className="h-4 w-4" />
+              <span>Filiale Mayelia Participations</span>
+            </div>
             
             <div className="flex space-x-4">
               <Button size="sm" className="bg-white/10 hover:bg-white/20 text-white p-2">
@@ -68,18 +80,23 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/services/plaques" className="text-gray-300 hover:text-primary transition-colors">
-                  Pose de Plaques
+                <Link to="/services/immatriculation" className="text-gray-300 hover:text-primary transition-colors">
+                  Immatriculation
                 </Link>
               </li>
               <li>
-                <Link to="/services/jaugeage" className="text-gray-300 hover:text-primary transition-colors">
+                <Link to="/services/jaugeage-baremage" className="text-gray-300 hover:text-primary transition-colors">
                   Jaugeage & Barémage
                 </Link>
               </li>
               <li>
                 <Link to="/services/pesee" className="text-gray-300 hover:text-primary transition-colors">
-                  Pesée et Vignettes
+                  Pesée
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/pre-visite" className="text-gray-300 hover:text-primary transition-colors">
+                  Pré-visite
                 </Link>
               </li>
               <li>
@@ -95,33 +112,70 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-6">Liens Rapides</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/about" className="text-gray-300 hover:text-primary transition-colors">
+                <Link to="/a-propos" className="text-gray-300 hover:text-primary transition-colors">
                   À propos de SICTA
                 </Link>
               </li>
               <li>
-                <Link to="/network" className="text-gray-300 hover:text-primary transition-colors">
+                <Link to="/reseau" className="text-gray-300 hover:text-primary transition-colors">
                   Réseau d'agences
                 </Link>
               </li>
               <li>
-                <Link to="/appointment" className="text-gray-300 hover:text-primary transition-colors">
+                <Link to="/reservation" className="text-gray-300 hover:text-primary transition-colors">
                   Prendre rendez-vous
                 </Link>
               </li>
               <li>
-                <Link to="/news" className="text-gray-300 hover:text-primary transition-colors">
+                <Link to="/actualites" className="text-gray-300 hover:text-primary transition-colors">
                   Actualités
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-gray-300 hover:text-primary transition-colors">
-                  FAQ
+                <Link to="/espace-pro" className="text-gray-300 hover:text-primary transition-colors">
+                  Espace Pro
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-gray-300 hover:text-primary transition-colors">
                   Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Additional Services */}
+          <div>
+            <h3 className="text-lg font-semibold mb-6">Services Supplémentaires</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/carrieres" className="text-gray-300 hover:text-primary transition-colors flex items-center space-x-2">
+                  <Users className="h-4 w-4" />
+                  <span>Carrières</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/excellence" className="text-gray-300 hover:text-primary transition-colors flex items-center space-x-2">
+                  <Award className="h-4 w-4" />
+                  <span>Mur de l'Excellence</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/galerie" className="text-gray-300 hover:text-primary transition-colors flex items-center space-x-2">
+                  <Calendar className="h-4 w-4" />
+                  <span>Galerie</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/telechargements" className="text-gray-300 hover:text-primary transition-colors flex items-center space-x-2">
+                  <Download className="h-4 w-4" />
+                  <span>À télécharger</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/espace-client" className="text-gray-300 hover:text-primary transition-colors flex items-center space-x-2">
+                  <Shield className="h-4 w-4" />
+                  <span>Espace Client</span>
                 </Link>
               </li>
             </ul>
@@ -135,8 +189,8 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-gray-300">
-                    Siège social: Abidjan, Côte d'Ivoire<br />
-                    28 agences permanentes sur le territoire
+                    Abidjan, Côte d'Ivoire, Zone 4C<br />
+                    29 stations permanentes sur le territoire
                   </p>
                 </div>
               </div>
@@ -144,15 +198,23 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">+225 27 20 33 44 00</p>
+                  <p className="text-gray-300">27 21 21 29 90</p>
                   <p className="text-sm text-gray-400">Service client</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
+                <div>
+                  <p className="text-gray-300">800 800 41</p>
+                  <p className="text-sm text-gray-400">N° vert gratuit</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">contact@sicta.ci</p>
+                  <p className="text-gray-300">infos.sicta@sicta.ci</p>
                   <p className="text-sm text-gray-400">Support général</p>
                 </div>
               </div>
@@ -174,7 +236,7 @@ const Footer = () => {
         <div className="border-t border-gray-600 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
-              © {currentYear} SICTA - Société Ivoirienne de Contrôle Technique Automobile. 
+              © {currentYear} SICTA - Société Ivoirienne de Contrôle Technique Automobiles et Industriels. 
               Tous droits réservés.
             </div>
             
@@ -193,7 +255,8 @@ const Footer = () => {
           
           <div className="mt-4 pt-4 border-t border-gray-700 text-center">
             <p className="text-gray-400 text-sm">
-              Une société du groupe <span className="text-primary font-medium">Mayelia Participations</span>
+              Une société du groupe <span className="text-primary font-medium">Mayelia Participations</span> • 
+              Nouvelle ère depuis 2025 • Leader sécurité routière en Côte d'Ivoire
             </p>
           </div>
         </div>

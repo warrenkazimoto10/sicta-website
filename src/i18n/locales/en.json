@@ -1,0 +1,219 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "download": "Download",
+    "upload": "Upload",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Our Services",
+    "network": "SICTA Network",
+    "news": "News",
+    "booking": "Booking",
+    "contact": "Contact"
+  },
+  "header": {
+    "phone": "+225 27 21 21 29 90",
+    "freeCall": "800 800 41",
+    "agencies": "29 permanent agencies",
+    "tagline": "Vehicle inspection - Côte d'Ivoire",
+    "bookAppointment": "Book an appointment"
+  },
+  "footer": {
+    "about": "About SICTA",
+    "services": "Services",
+    "network": "Our Network",
+    "legal": "Legal Information",
+    "contact": "Contact Us",
+    "followUs": "Follow Us",
+    "address": "Abidjan, Côte d'Ivoire, Zone 4C",
+    "email": "infos.sicta@sicta.ci",
+    "phone": "27 21 21 29 90",
+    "freeCall": "Toll-free: 800 800 41",
+    "rights": "All rights reserved"
+  },
+  "home": {
+    "hero": {
+      "title": "Leading vehicle inspection in Côte d'Ivoire",
+      "subtitle": "Safety, reliability and excellence since 1974",
+      "cta": "Book an inspection"
+    },
+    "features": {
+      "title": "Why choose SICTA?",
+      "stations": "29 Permanent stations",
+      "coverage": "100% National coverage",
+      "vehicles": "1500+ Vehicles/day",
+      "experience": "50+ Years of experience"
+    }
+  },
+  "about": {
+    "title": "About SICTA",
+    "subtitle": "Ivorian Company for Technical Automobile and Industrial Inspections",
+    "history": {
+      "title": "Our History",
+      "1959": {
+        "title": "Beginning of technical inspection",
+        "description": "Vehicle inspection became mandatory in Côte d'Ivoire according to regulations."
+      },
+      "1974": {
+        "title": "SICTA founding",
+        "description": "Establishment of the Ivorian Company for Technical Automobile and Industrial Inspections."
+      },
+      "1990": {
+        "title": "Acquisition by SGS",
+        "description": "SICTA becomes a privatized company acquired by SGS, world leader in inspection."
+      },
+      "2019": {
+        "title": "ISO 9001:2015 Certification",
+        "description": "Quality certification by ABS Quality Evaluations, guaranteeing excellence of our services."
+      },
+      "2024": {
+        "title": "Acquisition by Mayelia Participations",
+        "description": "New era of innovation and expansion under the leadership of Mayelia Participations."
+      }
+    },
+    "mission": {
+      "title": "Our Mission",
+      "text": "Ensure safety and environmental protection through rigorous technical inspection, compliant with national and international regulations"
+    },
+    "vision": {
+      "title": "Our Vision",
+      "text": "Remain the leader and reference in West Africa in vehicle inspection, offering reliable, accessible and innovative services."
+    },
+    "values": {
+      "title": "Our Commitments",
+      "professionalism": {
+        "title": "Professionalism",
+        "description": "Rigor and technical expertise"
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "Transparency and impartiality in every inspection"
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Adoption of new technologies to optimize services"
+      },
+      "proximity": {
+        "title": "Proximity",
+        "description": "Accessibility through national network and mobile units"
+      }
+    },
+    "keyFigures": {
+      "title": "Key Figures",
+      "years": "50+ Years of experience",
+      "stations": "29 Permanent stations",
+      "temporary": "22 Temporary stations",
+      "mobile": "04 Mobile stations",
+      "inspections": "300,000 Inspections in 2024",
+      "revenue": "09 billion in revenue",
+      "employees": "+ 300 employees"
+    }
+  },
+  "network": {
+    "title": "Our Network",
+    "subtitle": "29 permanent stations and 22 temporary stations spread across the entire Ivorian territory",
+    "stats": {
+      "permanent": "Permanent stations",
+      "temporary": "Temporary stations",
+      "daily": "Vehicles/day",
+      "coverage": "National coverage"
+    },
+    "search": {
+      "placeholder": "Search for a station...",
+      "filters": {
+        "all": "All",
+        "permanent": "Permanent",
+        "temporary": "Temporary",
+        "allServices": "All services",
+        "civio": "CIVIO",
+        "inspection": "Technical inspection",
+        "weighing": "Weighing"
+      }
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "SICTA offers a complete range of automobile and industrial services",
+    "technicalInspection": {
+      "title": "Vehicle Technical Inspection",
+      "description": "Complete verification of your vehicle's mechanical condition according to Ivorian regulations.",
+      "features": [
+        "123 rigorous control points",
+        "6-month valid certificate",
+        "Detailed report included",
+        "Road Code compliance"
+      ]
+    },
+    "civio": {
+      "title": "CIVIO",
+      "description": "Certificate of Vehicle Registration in Côte d'Ivoire",
+      "features": [
+        "New vehicle registration",
+        "Change of ownership",
+        "Duplicate registration card",
+        "Information update"
+      ]
+    },
+    "preVisit": {
+      "title": "Pre-inspection",
+      "description": "Voluntary service to prepare your vehicle for technical inspection",
+      "features": [
+        "Preparatory inspection",
+        "Defect identification",
+        "Repair advice",
+        "Future cost reduction"
+      ]
+    },
+    "weighing": {
+      "title": "Vehicle Weighing",
+      "description": "Official weighing service for heavy vehicles",
+      "features": [
+        "Axle and total weighing",
+        "Weighing certificate",
+        "Overload control",
+        "24/7 service"
+      ]
+    },
+    "gauging": {
+      "title": "Gauging & Barring",
+      "description": "Calibration and certification of fuel tanks",
+      "features": [
+        "Tank gauging",
+        "Official certification",
+        "Compliance control",
+        "Technical expertise"
+      ]
+    }
+  },
+  "booking": {
+    "title": "Book your technical inspection",
+    "subtitle": "Simple 3-step process: choose your agency, select your time slot and confirm your payment",
+    "steps": {
+      "station": "Agency & Date",
+      "vehicle": "Vehicle",
+      "confirmation": "Confirmation"
+    },
+    "selectStation": "Select a station",
+    "selectDate": "Select a date",
+    "selectTime": "Select a time slot",
+    "vehicleInfo": "Vehicle information",
+    "payment": "Payment",
+    "summary": "Summary"
+  }
+}
+
+

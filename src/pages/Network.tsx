@@ -3,92 +3,74 @@ import { MapPin, Clock, Phone, Car, Navigation, Users, Calendar } from "lucide-r
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import NetworkInteractiveSection from "@/components/NetworkInteractiveSection";
 import PageTransition from "@/components/PageTransition";
 import networkMapModern from "@/assets/network-map-modern.jpg";
 
+// 29 Stations Permanentes
 const permanentAgencies = [
-  {
-    name: "SICTA Abidjan Centre",
-    address: "Boulevard Lagunaire, Plateau",
-    city: "Abidjan",
-    phone: "+225 27 20 21 23 45",
-    hours: "Lun-Ven: 7h-17h, Sam: 7h-12h",
-    services: ["Contrôle technique", "CIVIO", "Pesée"],
-    capacity: "200 véhicules/jour"
-  },
-  {
-    name: "SICTA Yopougon",
-    address: "Rue principale Yopougon",
-    city: "Abidjan", 
-    phone: "+225 27 20 21 23 46",
-    hours: "Lun-Ven: 7h-17h, Sam: 7h-12h",
-    services: ["Contrôle technique", "CIVIO", "Pré-visite"],
-    capacity: "180 véhicules/jour"
-  },
-  {
-    name: "SICTA Bouaké",
-    address: "Zone industrielle Bouaké",
-    city: "Bouaké",
-    phone: "+225 31 63 45 12",
-    hours: "Lun-Ven: 7h-17h, Sam: 7h-12h", 
-    services: ["Contrôle technique", "Pesée", "Jaugeage"],
-    capacity: "120 véhicules/jour"
-  },
-  {
-    name: "SICTA San Pedro",
-    address: "Zone portuaire San Pedro", 
-    city: "San Pedro",
-    phone: "+225 34 71 23 45",
-    hours: "Lun-Ven: 7h-17h, Sam: 7h-12h",
-    services: ["Contrôle technique", "Pesée lourds", "CIVIO"],
-    capacity: "100 véhicules/jour"
-  },
-  {
-    name: "SICTA Korhogo",
-    address: "Route de Ferkessédougou",
-    city: "Korhogo", 
-    phone: "+225 36 86 12 34",
-    hours: "Lun-Ven: 7h-17h, Sam: 7h-12h",
-    services: ["Contrôle technique", "CIVIO"],
-    capacity: "80 véhicules/jour"
-  },
-  {
-    name: "SICTA Daloa",
-    address: "Quartier Commerce Daloa",
-    city: "Daloa",
-    phone: "+225 32 78 45 67", 
-    hours: "Lun-Ven: 7h-17h, Sam: 7h-12h",
-    services: ["Contrôle technique", "Pesée", "CIVIO"],
-    capacity: "90 véhicules/jour"
-  }
+  { name: "Abatta", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Angré", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Guichet Unique", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"] },
+  { name: "Marcory", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Plateau", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"] },
+  { name: "Vridi", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Yopougon Zone Industrielle", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Yopougon Niangon", city: "Abidjan", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Abengourou", city: "Abengourou", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Aboisso", city: "Aboisso", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Adzopé", city: "Adzopé", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Agnibilékro", city: "Agnibilékro", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] },
+  { name: "Agboville", city: "Agboville", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Bondoukou", city: "Bondoukou", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Bouaké", city: "Bouaké", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"] },
+  { name: "Bouaflé", city: "Bouaflé", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] },
+  { name: "Dabou", city: "Dabou", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Daloa", city: "Daloa", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"] },
+  { name: "Daoukro", city: "Daoukro", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] },
+  { name: "Divo", city: "Divo", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Gagnoa", city: "Gagnoa", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Guiglo", city: "Guiglo", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] },
+  { name: "Korhogo", city: "Korhogo", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Man", city: "Man", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] },
+  { name: "Odienné", city: "Odienné", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] },
+  { name: "San Pédro", city: "San Pédro", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"] },
+  { name: "Soubré", city: "Soubré", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Yamoussoukro", city: "Yamoussoukro", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"] },
+  { name: "Yaou", city: "Yaou", phone: "27 21 21 29 90", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"] }
 ];
 
+// 22 Stations Temporaires
 const temporaryStations = [
-  {
-    name: "Station Mobile Yamoussoukro",
-    city: "Yamoussoukro",
-    schedule: "2e et 4e semaines du mois",
-    services: ["Contrôle technique", "CIVIO"]
-  },
-  {
-    name: "Station Mobile Man", 
-    city: "Man",
-    schedule: "1ère semaine du mois",
-    services: ["Contrôle technique"]
-  },
-  {
-    name: "Station Mobile Abengourou",
-    city: "Abengourou", 
-    schedule: "3e semaine du mois",
-    services: ["Contrôle technique", "CIVIO"]
-  },
-  {
-    name: "Station Mobile Bondoukou",
-    city: "Bondoukou",
-    schedule: "2e semaine du mois", 
-    services: ["Contrôle technique"]
-  }
+  { name: "Bongouanou", city: "Bongouanou", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Boundiali", city: "Boundiali", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Bouna", city: "Bouna", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Danané", city: "Danané", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Dimbokro", city: "Dimbokro", schedule: "Hebdomadaire", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Duékoué", city: "Duékoué", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Fresco", city: "Fresco", schedule: "Hebdomadaire", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Ferkessédougou", city: "Ferkessédougou", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Grand Lahou", city: "Grand Lahou", schedule: "Hebdomadaire", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Issia", city: "Issia", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Katiola", city: "Katiola", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "M'bahiakro", city: "M'bahiakro", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Méagui", city: "Méagui", schedule: "Hebdomadaire", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Oumé", city: "Oumé", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Sassandra", city: "Sassandra", schedule: "Hebdomadaire", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Séguéla", city: "Séguéla", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Tabou", city: "Tabou", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Tiassalé", city: "Tiassalé", schedule: "Hebdomadaire", services: ["Contrôle technique", "CIVIO"] },
+  { name: "Tengrela", city: "Tengrela", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Toumodi", city: "Toumodi", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Touba", city: "Touba", schedule: "Hebdomadaire", services: ["Contrôle technique"] },
+  { name: "Zuénoula", city: "Zuénoula", schedule: "Hebdomadaire", services: ["Contrôle technique"] }
+];
+
+// 4 Équipes de Mission
+const missionTeams = [
+  { team: "Équipe 1", base: "Abidjan", zones: ["Abidjan et environs"] },
+  { team: "Équipe 2", base: "Yamoussoukro", zones: ["Centre du pays"] },
+  { team: "Équipe 3", base: "Soubré", zones: ["Ouest du pays"] },
+  { team: "Équipe 4", base: "Korhogo", zones: ["Nord du pays"] }
 ];
 
 const Network = () => {
@@ -108,7 +90,7 @@ const Network = () => {
               <span className="text-gradient">Réseau</span>
             </h1>
             <p className="text-xl text-sicta-grey-light leading-relaxed">
-              28 agences permanentes et 22 stations temporaires réparties sur l'ensemble 
+              29 stations permanentes et 22 stations temporaires réparties sur l'ensemble 
               du territoire ivoirien pour vous servir au plus près.
             </p>
           </div>
@@ -120,8 +102,8 @@ const Network = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">28</div>
-              <div className="text-sicta-grey-light">Agences permanentes</div>
+              <div className="text-4xl font-bold text-primary">29</div>
+              <div className="text-sicta-grey-light">Stations permanentes</div>
             </div>
             <div className="space-y-2">
               <div className="text-4xl font-bold text-primary">22</div>
@@ -139,40 +121,9 @@ const Network = () => {
         </div>
       </section>
 
-      {/* Interactive Network Section */}
-      <NetworkInteractiveSection />
-
-      {/* Interactive Map & Network Sections */}
+      {/* Stations List */}
       <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-              Carte Interactive du Réseau
-            </h2>
-            <p className="text-xl text-sicta-grey-light">
-              Localisez facilement l'agence SICTA la plus proche de vous et explorez notre réseau
-            </p>
-          </div>
-
-          <Card className="card-elevated h-96 flex items-center justify-center bg-gradient-to-br from-primary/5 to-secondary/20 relative overflow-hidden mb-12">
-            <img 
-              src={networkMapModern} 
-              alt="Carte du réseau SICTA" 
-              className="absolute inset-0 w-full h-full object-cover opacity-50"
-            />
-            <div className="relative z-10 text-center space-y-4 bg-white/90 backdrop-blur-sm rounded-xl p-8">
-              <MapPin className="h-16 w-16 text-primary mx-auto" />
-              <h3 className="text-2xl font-semibold">Carte Interactive</h3>
-              <p className="text-sicta-grey-light max-w-md">
-                Localisez toutes nos agences avec géolocalisation et itinéraires optimisés
-              </p>
-              <Button className="btn-hero">
-                <Navigation className="h-4 w-4 mr-2" />
-                Voir la carte complète
-              </Button>
-            </div>
-          </Card>
-
           <Tabs defaultValue="permanent" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8">
               <TabsTrigger value="permanent" className="flex items-center gap-2">
@@ -206,7 +157,6 @@ const Network = () => {
                         <div className="flex items-start space-x-2">
                           <MapPin className="h-4 w-4 text-sicta-grey-light mt-1 flex-shrink-0" />
                           <div className="text-sm">
-                            <div className="font-medium">{agency.address}</div>
                             <div className="text-sicta-grey-light">{agency.city}</div>
                           </div>
                         </div>
@@ -219,11 +169,6 @@ const Network = () => {
                         <div className="flex items-center space-x-2">
                           <Clock className="h-4 w-4 text-sicta-grey-light" />
                           <span className="text-sm text-sicta-grey-light">{agency.hours}</span>
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          <Users className="h-4 w-4 text-sicta-grey-light" />
-                          <span className="text-sm text-sicta-grey-light">{agency.capacity}</span>
                         </div>
                       </div>
 
@@ -284,21 +229,99 @@ const Network = () => {
                   </Card>
                 ))}
               </div>
-
-              <div className="text-center mt-12">
-                <Card className="card-elevated inline-block p-6">
-                  <h3 className="font-semibold mb-2">Planning des Stations Mobiles</h3>
-                  <p className="text-sicta-grey-light text-sm mb-4">
-                    Consultez le calendrier complet des passages de nos unités mobiles
-                  </p>
-                  <Button className="btn-hero">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Voir le planning complet
-                  </Button>
-                </Card>
-              </div>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* Mission Teams */}
+      <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
+              4 Équipes de Mission
+            </h2>
+            <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
+              Nos équipes parcourent les zones retirées avec des bancs mobiles pour une couverture optimale
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {missionTeams.map((team, index) => (
+              <Card key={index} className="card-elevated text-center">
+                <div className="p-6">
+                  <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{team.team}</h3>
+                  <div className="text-primary font-medium mb-3">{team.base}</div>
+                  <p className="text-sm text-sicta-grey-light">{team.zones.join(", ")}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Infrastructure */}
+      <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
+              Infrastructure Mobile
+            </h2>
+            <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
+              Unités mobiles et bancs mobiles pour desservir tout le territoire ivoirien
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* 4 Stations Mobiles */}
+            <Card className="card-elevated">
+              <div className="p-8">
+                <div className="flex items-center space-x-4 mb-6">
+                  <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Navigation className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-sicta-grey-dark">4 Stations Mobiles</h3>
+                    <p className="text-sicta-grey-light">Unités de contrôle itinérantes</p>
+                  </div>
+                </div>
+                <p className="text-sicta-grey-light mb-6">
+                  Nos stations mobiles équipées parcourent les zones moins accessibles pour apporter 
+                  nos services de contrôle technique partout en Côte d'Ivoire.
+                </p>
+                <div className="flex items-center space-x-4">
+                  <div className="text-4xl font-bold text-primary">100%</div>
+                  <div className="text-sicta-grey-light">Zone de couverture accessible</div>
+                </div>
+              </div>
+            </Card>
+
+            {/* 4 Bancs Mobiles */}
+            <Card className="card-elevated">
+              <div className="p-8">
+                <div className="flex items-center space-x-4 mb-6">
+                  <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Car className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-sicta-grey-dark">4 Bancs Mobiles</h3>
+                    <p className="text-sicta-grey-light">Équipement technique itinérant</p>
+                  </div>
+                </div>
+                <p className="text-sicta-grey-light mb-6">
+                  Nos bancs mobiles assurent la même qualité de contrôle technique que nos stations permanentes, 
+                  avec des équipements certifiés et des techniciens qualifiés.
+                </p>
+                <div className="flex items-center space-x-4">
+                  <div className="text-4xl font-bold text-primary">ISO</div>
+                  <div className="text-sicta-grey-light">Certifié 9001:2015</div>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </section>
 

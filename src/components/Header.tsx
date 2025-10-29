@@ -1,20 +1,29 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone, MapPin, Calendar } from "lucide-react";
+import { Menu, X, Phone, MapPin, Calendar, ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navigationLinks = [
-    { name: "Accueil", href: "/" },
-    { name: "À propos", href: "/a-propos" },
-    { name: "Nos services", href: "/services" },
-    { name: "Réseau SICTA", href: "/reseau" },
-    { name: "Actualités", href: "/actualites" },
-    { name: "Réservation", href: "/reservation" },
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.about"), href: "/a-propos" },
+    { name: t("nav.services"), href: "/services" },
+    { name: t("nav.network"), href: "/reseau" },
+    { name: t("nav.booking"), href: "/reservation" },
+    { name: t("nav.contact"), href: "/contact" },
   ];
 
   return (
@@ -25,15 +34,15 @@ const Header = () => {
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
               <Phone className="h-4 w-4" />
-              <span>+225 27 20 33 44 00</span>
+              <span>27 21 21 29 90</span>
             </div>
             <div className="flex items-center space-x-2">
               <MapPin className="h-4 w-4" />
-              <span>28 agences permanentes</span>
+              <span>{t("header.agencies")}</span>
             </div>
           </div>
           <div className="hidden md:block">
-            <span>Contrôle technique automobile - Côte d'Ivoire</span>
+            <span>{t("header.tagline")}</span>
           </div>
         </div>
       </div>
@@ -52,7 +61,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationLinks.map((link) => (
+            {navigationLinks.slice(0, -1).map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
@@ -61,14 +70,45 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Médiathèque Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center space-x-1 text-sicta-grey hover:text-primary transition-colors duration-200 font-medium">
+                <span>Médiathèque</span>
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <Link to="/actualites">
+                  <DropdownMenuItem className="cursor-pointer">
+                    {t("nav.news")}
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/galerie">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Galerie
+                  </DropdownMenuItem>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            {/* Contact link */}
+            <Link
+              to="/contact"
+              className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium"
+            >
+              {t("nav.contact")}
+            </Link>
           </div>
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button className="btn-hero">
-              <Calendar className="h-4 w-4 mr-2" />
-              Prendre rendez-vous
-            </Button>
+            <LanguageSwitcher />
+            <Link to="/reservation">
+              <Button className="btn-hero">
+                <Calendar className="h-4 w-4 mr-2" />
+                {t("header.bookAppointment")}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -89,7 +129,7 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-border">
             <div className="flex flex-col space-y-4 pt-4">
-              {navigationLinks.map((link) => (
+              {navigationLinks.slice(0, -1).map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
@@ -99,10 +139,46 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
-              <Button className="btn-hero mt-4 w-full">
-                <Calendar className="h-4 w-4 mr-2" />
-                Prendre rendez-vous
-              </Button>
+              
+              {/* Médiathèque in mobile */}
+              <div className="py-2">
+                <div className="font-semibold text-sicta-grey-dark mb-2">Médiathèque</div>
+                <div className="pl-4 space-y-2">
+                  <Link
+                    to="/actualites"
+                    className="text-sicta-grey hover:text-primary transition-colors duration-200 block py-1"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t("nav.news")}
+                  </Link>
+                  <Link
+                    to="/galerie"
+                    className="text-sicta-grey hover:text-primary transition-colors duration-200 block py-1"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Galerie
+                  </Link>
+                </div>
+              </div>
+              
+              {/* Contact in mobile */}
+              <Link
+                to="/contact"
+                className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium py-2 block"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("nav.contact")}
+              </Link>
+              
+              <div className="flex justify-center">
+                <LanguageSwitcher />
+              </div>
+              <Link to="/reservation" className="w-full">
+                <Button className="btn-hero w-full">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  {t("header.bookAppointment")}
+                </Button>
+              </Link>
             </div>
           </div>
         )}

@@ -9,21 +9,21 @@ import { motion, AnimatePresence } from "framer-motion";
 const slides = [
   {
     image: slider1,
-    title: "SICTA, Filiale de Mayelia Participations",
-    subtitle: "Excellence en contrôle technique automobile",
-    description: "28 agences permanentes et 22 stations temporaires à votre service pour garantir votre sécurité routière en Côte d'Ivoire.",
-    cta: "Réserver un contrôle",
+    title: "SICTA, Nouvelle Ère 2025",
+    subtitle: "Filiale de Mayelia Participations",
+    description: "Leader du contrôle technique automobile en Côte d'Ivoire depuis 1974. 29 stations permanentes et solutions innovantes pour votre sécurité routière.",
+    cta: "Prendre rendez-vous",
     stats: [
-      { icon: Shield, value: "28", label: "Agences permanentes" },
+      { icon: Shield, value: "29", label: "Stations permanentes" },
       { icon: Users, value: "1500+", label: "Véhicules contrôlés/jour" }
     ]
   },
   {
     image: slider2,
-    title: "Innovation & Mobilité",
-    subtitle: "Solutions techniques avancées",
-    description: "Nos unités mobiles et stations permanentes offrent un service de contrôle technique moderne et conforme aux standards internationaux.",
-    cta: "Trouver une agence",
+    title: "Innovation & Digitalisation",
+    subtitle: "Contrôle technique moderne",
+    description: "29 stations permanentes, 22 stations temporaires, 4 équipes de mission et 4 bancs mobiles couvrent l'ensemble du territoire ivoirien.",
+    cta: "Découvrir nos services",
     stats: [
       { icon: MapPin, value: "22", label: "Stations temporaires" },
       { icon: Shield, value: "123", label: "Points de contrôle" }
@@ -32,8 +32,8 @@ const slides = [
   {
     image: slider3,
     title: "Sécurité Routière Garantie",
-    subtitle: "Votre partenaire de confiance depuis 1974",
-    description: "Leader du contrôle technique en Afrique de l'Ouest, certifié ISO 9001:2015, au service de la sécurité routière ivoirienne.",
+    subtitle: "Leader depuis 1974 • Nouvelle ère 2025",
+    description: "Certifié ISO 9001:2015, SICTA est le partenaire de confiance pour la sécurité routière en Côte d'Ivoire et en Afrique de l'Ouest.",
     cta: "En savoir plus",
     stats: [
       { icon: Calendar, value: "50+", label: "Années d'expérience" },
@@ -107,7 +107,7 @@ const HeroSlider = () => {
                         transition={{ delay: 0.5 }}
                       >
                         <Shield className="h-4 w-4 animate-pulse" />
-                        <span>Contrôle technique agréé</span>
+                        <span>Leader sécurité routière • Nouvelle ère 2025</span>
                       </motion.div>
 
                       <motion.h1 

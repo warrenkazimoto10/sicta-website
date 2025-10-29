@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import HeroSlider from "@/components/HeroSlider";
 import AboutSictaSection from "@/components/AboutSictaSection";
+import NewEraSection from "@/components/NewEraSection";
 import ServicesSection from "@/components/ServicesSection";
-import TestimonialSection from "@/components/TestimonialSection";
 import PageTransition from "@/components/PageTransition";
 import SplashScreen from "@/components/SplashScreen";
 
@@ -34,8 +34,8 @@ const Index = () => {
       <div className="w-full">
         <HeroSlider />
         <AboutSictaSection />
+        <NewEraSection />
         <ServicesSection />
-        <TestimonialSection />
       </div>
     </PageTransition>
   );
