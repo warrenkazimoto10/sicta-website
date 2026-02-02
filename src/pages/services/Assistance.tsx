@@ -67,18 +67,18 @@ const Assistance = () => {
     <PageTransition>
       <div className="w-full">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
-          <div className="container mx-auto px-4">
+        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-12 sm:py-16 md:py-20">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Phone className="h-4 w-4" />
+              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+                <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span>Assistance & Conseils</span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
                 <span className="text-sicta-grey-dark">Support</span>{" "}
                 <span className="text-gradient">& Conseils</span>
               </h1>
-              <p className="text-xl text-sicta-grey-light leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-sicta-grey-light leading-relaxed">
                 Support technique et accompagnement personnalisé pour tous vos besoins automobiles. 
                 Nos experts sont à votre disposition pour vous conseiller.
               </p>
@@ -88,7 +88,7 @@ const Assistance = () => {
 
         {/* Description Section */}
         <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               <div className="space-y-6 text-sicta-grey-light leading-relaxed">
                 <p>
@@ -112,7 +112,7 @@ const Assistance = () => {
 
         {/* Services Section */}
         <section ref={sectionRef} className="py-20">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
                 Nos Services d'Assistance
@@ -149,7 +149,7 @@ const Assistance = () => {
 
         {/* Contact Methods */}
         <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
                 Comment Nous Contacter
@@ -189,7 +189,7 @@ const Assistance = () => {
 
         {/* FAQ Section */}
         <section className="py-20">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
                 Questions Fréquentes

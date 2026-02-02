@@ -2,12 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin, Calendar, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 
@@ -22,7 +30,6 @@ const Header = () => {
     { name: t("nav.about"), href: "/a-propos" },
     { name: t("nav.services"), href: "/services" },
     { name: t("nav.network"), href: "/reseau" },
-    { name: t("nav.booking"), href: "/reservation" },
     { name: t("nav.contact"), href: "/contact" },
   ];
 
@@ -52,9 +59,9 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img 
-              src="/logo-sicta.png" 
-              alt="SICTA Logo" 
+            <img
+              src="/logo-sicta.png"
+              alt="SICTA Logo"
               className="h-12 w-auto"
             />
           </Link>
@@ -70,7 +77,7 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
-            
+
             {/* Médiathèque Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center space-x-1 text-sicta-grey hover:text-primary transition-colors duration-200 font-medium">
@@ -90,7 +97,15 @@ const Header = () => {
                 </Link>
               </DropdownMenuContent>
             </DropdownMenu>
-            
+
+            {/* Espace PRO - Lien direct */}
+            <Link
+              to="/espace-pro"
+              className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium"
+            >
+              Espace PRO
+            </Link>
+
             {/* Contact link */}
             <Link
               to="/contact"
@@ -111,77 +126,88 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden p-2 rounded-md hover:bg-secondary transition-colors"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-sicta-grey" />
-            ) : (
-              <Menu className="h-6 w-6 text-sicta-grey" />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-border">
-            <div className="flex flex-col space-y-4 pt-4">
-              {navigationLinks.slice(0, -1).map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium py-2 block"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              
-              {/* Médiathèque in mobile */}
-              <div className="py-2">
-                <div className="font-semibold text-sicta-grey-dark mb-2">Médiathèque</div>
-                <div className="pl-4 space-y-2">
-                  <Link
-                    to="/actualites"
-                    className="text-sicta-grey hover:text-primary transition-colors duration-200 block py-1"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {t("nav.news")}
-                  </Link>
-                  <Link
-                    to="/galerie"
-                    className="text-sicta-grey hover:text-primary transition-colors duration-200 block py-1"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Galerie
-                  </Link>
-                </div>
-              </div>
-              
-              {/* Contact in mobile */}
-              <Link
-                to="/contact"
-                className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium py-2 block"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {t("nav.contact")}
-              </Link>
-              
-              <div className="flex justify-center">
-                <LanguageSwitcher />
-              </div>
-              <Link to="/reservation" className="w-full">
-                <Button className="btn-hero w-full">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  {t("header.bookAppointment")}
+          {/* Mobile Menu using Sheet */}
+          <div className="lg:hidden">
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden">
+                  <Menu className="h-6 w-6 text-sicta-grey" />
+                  <span className="sr-only">{t("header.toggleMenu")}</span>
                 </Button>
-              </Link>
-            </div>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] overflow-y-auto">
+                <SheetHeader className="text-left mb-6">
+                  <SheetTitle className="text-2xl font-bold text-sicta-grey-dark">{t("header.menu")}</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col space-y-6">
+                  <div className="flex flex-col space-y-2">
+                    {navigationLinks.slice(0, -1).map((link) => (
+                      <Link
+                        key={link.name}
+                        to={link.href}
+                        className="text-lg font-medium text-sicta-grey hover:text-primary transition-colors py-2 border-b border-border/50"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Médiathèque */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-sicta-grey-dark">Médiathèque</h4>
+                    <div className="flex flex-col space-y-2 pl-4 border-l-2 border-primary/20">
+                      <Link
+                        to="/actualites"
+                        className="text-sicta-grey hover:text-primary transition-colors py-1"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {t("nav.news")}
+                      </Link>
+                      <Link
+                        to="/galerie"
+                        className="text-sicta-grey hover:text-primary transition-colors py-1"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Galerie
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Espace PRO */}
+                  <Link
+                    to="/espace-pro"
+                    className="text-lg font-medium text-sicta-grey hover:text-primary transition-colors py-2 border-b border-border/50"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Espace PRO
+                  </Link>
+
+                  {/* Contact */}
+                  <Link
+                    to="/contact"
+                    className="text-lg font-medium text-sicta-grey hover:text-primary transition-colors py-2 border-b border-border/50"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t("nav.contact")}
+                  </Link>
+
+                  <div className="pt-4 space-y-4">
+                    <div className="flex justify-start">
+                      <LanguageSwitcher />
+                    </div>
+                    <Link to="/reservation" className="w-full block" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="btn-hero w-full">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        {t("header.bookAppointment")}
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );

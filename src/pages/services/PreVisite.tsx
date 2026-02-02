@@ -1,254 +1,513 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Eye, 
-  MapPin, 
-  CheckCircle,
-  FileText,
-  Award,
-  Users,
-  ArrowRight,
-  Shield,
+import { Badge } from "@/components/ui/badge";
+import {
+  Eye,
   Calendar,
-  DollarSign
+  MapPin,
+  CheckCircle,
+  ArrowRight,
+  Target,
+  Users,
+  FileText,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  Wrench,
+  DollarSign,
+  Award
 } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { diagnosticData } from "@/data/services/diagnostic";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const PreVisite = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
-
-  const features = [
-    {
-      icon: Eye,
-      title: "Inspection Préparatoire",
-      description: "Examen approfondi de votre véhicule avant le contrôle technique officiel."
-    },
-    {
-      icon: CheckCircle,
-      title: "Identification des Défauts",
-      description: "Détection précoce des problèmes pour éviter les contre-visites."
-    },
-    {
-      icon: FileText,
-      title: "Conseils de Réparation",
-      description: "Recommandations précises pour la mise en conformité de votre véhicule."
-    },
-    {
-      icon: DollarSign,
-      title: "Réduction des Frais",
-      description: "Économisez sur les frais de contre-visite et les réparations urgentes."
-    }
-  ];
-
-  const benefits = [
-    "Éviter les contre-visites coûteuses",
-    "Préparer votre véhicule efficacement",
-    "Gagner du temps et de l'argent",
-    "Obtenir des conseils d'experts",
-    "Service volontaire et sans engagement"
-  ];
+  const data = diagnosticData;
 
   return (
     <PageTransition>
       <div className="w-full">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Eye className="h-4 w-4" />
-                <span>Pré-visite</span>
-              </div>
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-                <span className="text-sicta-grey-dark">Pré-visite</span>{" "}
-                <span className="text-gradient">Volontaire</span>
-              </h1>
-              <p className="text-xl text-sicta-grey-light leading-relaxed">
-                Service volontaire pour préparer votre véhicule au contrôle technique et identifier les défaillances. 
-                Évitez les contre-visites et économisez sur les réparations.
-              </p>
-            </div>
+        <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] min-h-[380px] sm:min-h-[480px] lg:min-h-[600px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <img
+              src={data.imageHero}
+              alt={data.titre}
+              className="w-full h-full object-cover scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent" />
           </div>
-        </section>
 
-        {/* Description Section */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="space-y-6 text-sicta-grey-light leading-relaxed">
-                <p>
-                  La pré-visite est un contrôle identique à la visite officielle permettant de se préparer 
-                  et réduire les coûts de réparation. C'est un examen approfondi effectué par nos techniciens 
-                  certifiés avant le contrôle technique officiel.
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center text-white px-0 sm:px-2"
+              >
+                <Badge className="bg-primary/30 backdrop-blur-sm text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-white/20 hover:bg-primary/40 transition-colors">
+                  <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                  Service SICTA
+                </Badge>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                  {data.titre}
+                </h1>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed opacity-95 max-w-3xl mx-auto mb-6 sm:mb-8">
+                  {data.descriptionCourte}
                 </p>
-                
-                <div className="bg-white rounded-lg p-6 border-l-4 border-primary">
-                  <h3 className="text-2xl font-bold text-sicta-grey-dark mb-4">
-                    Pourquoi effectuer une pré-visite ?
-                  </h3>
-                  <ul className="space-y-3">
-                    {benefits.map((benefit, index) => (
-                      <li key={index} className="flex items-start space-x-3">
-                        <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <Button size="lg" className="btn-hero text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Prendre rendez-vous
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+                    <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Trouver une station
+                  </Button>
                 </div>
+              </motion.div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-2"
+            >
+              <div className="w-1 h-3 bg-white/50 rounded-full" />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Description du Produit */}
+        <section className="py-24 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-1 w-16 bg-primary rounded-full" />
+                  <Badge variant="outline" className="text-primary border-primary">
+                    À propos
+                  </Badge>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-8">
+                  Description du Produit
+                </h2>
+                <Card className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white/80 backdrop-blur-sm border-l-4 border-primary shadow-xl">
+                  <p className="text-sicta-grey-light leading-relaxed text-lg lg:text-xl">
+                    {data.descriptionProduit}
+                  </p>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Objectifs */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Nos Objectifs
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Objectifs
+                </h2>
+                <p className="text-xl text-sicta-grey-light max-w-2xl mx-auto">
+                  Quatre objectifs essentiels pour préparer votre véhicule
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {data.objectifs.map((objectif, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                  >
+                    <Card className="p-6 h-full hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-primary/20 group">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="h-16 w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                          <Target className="h-8 w-8 text-white" />
+                        </div>
+                        <div className="text-xl font-bold text-primary mb-2">0{index + 1}</div>
+                        <p className="text-sicta-grey-light leading-relaxed text-sm">
+                          {objectif}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
-        <section ref={sectionRef} className="py-20">
+        {/* Public Concerné */}
+        <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-sicta-grey/5">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Avantages de la Pré-visite
-              </h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Un service intelligent pour optimiser votre contrôle technique
-              </p>
-            </div>
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Public Cible
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Public ou Véhicules Concernés
+                </h2>
+              </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                >
-                  <Card className="p-6 text-center h-full hover:shadow-lg transition-shadow">
-                    <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-sicta-grey-dark mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sicta-grey-light text-sm">
-                      {feature.description}
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
+              <div className="grid md:grid-cols-3 gap-6">
+                {data.publicConcernes.map((publicItem, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 group h-full">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                          <Users className="h-8 w-8 text-primary" />
+                        </div>
+                        <span className="text-sicta-grey-dark font-semibold leading-relaxed">
+                          {publicItem}
+                        </span>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Benefits Section */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+        {/* Contenu de la Prestation */}
+        <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold text-sicta-grey-dark mb-6">
-                  Pourquoi Choisir la Pré-visite ?
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Prestation
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Contenu de la Prestation
                 </h2>
-                <p className="text-xl text-sicta-grey-light mb-8">
-                  Un investissement intelligent qui vous fait économiser temps et argent
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {data.contenuPrestation.map((contenu, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 h-full group">
+                      <div className="flex items-start space-x-4">
+                        <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+                          <Wrench className="h-6 w-6 text-white" />
+                        </div>
+                        <p className="text-sicta-grey-light leading-relaxed font-medium flex-1">
+                          {contenu}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Modalités */}
+        <section className="py-24 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Informations Pratiques
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Modalités
+                </h2>
+              </motion.div>
+
+              <Card className="overflow-hidden shadow-2xl border-2 border-primary/10">
+                <div className="bg-gradient-to-r from-primary to-sicta-orange-light p-6">
+                  <h3 className="text-2xl font-bold text-white text-center">
+                    Informations Pratiques
+                  </h3>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-sicta-grey/5 hover:bg-sicta-grey/10">
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Élément</TableHead>
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Description</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.modalites.map((modalite, index) => (
+                      <TableRow key={index} className="hover:bg-primary/5 transition-colors">
+                        <TableCell className="font-medium text-sicta-grey-dark text-base py-6">
+                          <div className="flex items-center gap-3">
+                            {index === 0 && <Clock className="h-5 w-5 text-primary" />}
+                            {index === 1 && <MapPin className="h-5 w-5 text-primary" />}
+                            {index === 2 && <Calendar className="h-5 w-5 text-primary" />}
+                            {index === 3 && <DollarSign className="h-5 w-5 text-primary" />}
+                            {modalite.element}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sicta-grey-light text-base">
+                          {modalite.element === "Tarif HT" ? (
+                            <Badge className="bg-primary text-white text-base px-4 py-2">
+                              {modalite.description}
+                            </Badge>
+                          ) : (
+                            modalite.description
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Avantages pour le Client */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Avantages
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Avantages pour le Client
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Pourquoi choisir le diagnostic préventif ?
                 </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {data.avantagesClient.map((avantage, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 h-full group">
+                      <div className="flex items-start space-x-4">
+                        <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+                          <Award className="h-6 w-6 text-white" />
+                        </div>
+                        <p className="text-sicta-grey-light leading-relaxed font-medium flex-1">
+                          {avantage.avantage}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Résultats Possibles */}
+        <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Résultats
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Résultats Possibles
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Deux issues possibles selon l'état de votre véhicule
+                </p>
+              </motion.div>
+
+              <Card className="overflow-hidden shadow-2xl border-2 border-primary/10">
+                <div className="bg-gradient-to-r from-primary to-sicta-orange-light p-6">
+                  <h3 className="text-2xl font-bold text-white text-center">
+                    Types de Résultats
+                  </h3>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-sicta-grey/5 hover:bg-sicta-grey/10">
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Résultats</TableHead>
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Signification</TableHead>
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Document Délivré</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.resultatsPossibles.map((resultat, index) => (
+                      <TableRow key={index} className="hover:bg-primary/5 transition-colors">
+                        <TableCell className="font-bold text-sicta-grey-dark text-base py-6">
+                          <div className="flex items-center gap-3">
+                            {index === 0 ? (
+                              <CheckCircle className="h-6 w-6 text-green-600" />
+                            ) : (
+                              <AlertCircle className="h-6 w-6 text-orange-600" />
+                            )}
+                            {resultat.resultat}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sicta-grey-light text-base">
+                          {resultat.signification}
+                        </TableCell>
+                        <TableCell className="text-sicta-grey-light text-base">
+                          <Badge variant="outline" className="border-primary text-primary">
+                            {resultat.documentDelivre}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Documents Requis */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Préparation
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Documents Requis
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Documents nécessaires pour votre diagnostic
+                </p>
+              </motion.div>
+
+              <Card className="p-4 sm:p-6 md:p-8 lg:p-12 shadow-2xl border-2 border-primary/10 bg-gradient-to-br from-white to-sicta-grey/5">
                 <div className="space-y-4">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="text-sicta-grey">{benefit}</span>
-                    </div>
+                  {data.documentsRequis.map((document, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                      className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/50 transition-colors"
+                    >
+                      <div className="h-10 w-10 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+                        {index === 0 ? (
+                          <FileText className="h-5 w-5 text-white" />
+                        ) : (
+                          <AlertCircle className="h-5 w-5 text-white" />
+                        )}
+                      </div>
+                      <p className={`leading-relaxed text-lg flex-1 ${index === 0 ? 'text-sicta-grey-dark font-medium' : 'text-sicta-grey-light italic'}`}>
+                        {document}
+                      </p>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
-              <div className="relative">
-                <Card className="p-8 bg-white/80 backdrop-blur">
-                  <div className="text-center">
-                    <div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <DollarSign className="h-10 w-10 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-sicta-grey-dark mb-4">
-                      Économies Garanties
-                    </h3>
-                    <p className="text-sicta-grey-light mb-6">
-                      Évitez les frais de contre-visite et les réparations d'urgence
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-primary">-50%</div>
-                        <div className="text-sm text-sicta-grey">Frais contre-visite</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">-30%</div>
-                        <div className="text-sm text-sicta-grey">Coût réparations</div>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Process Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Comment ça marche ?
-              </h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Un processus simple en 4 étapes pour préparer votre contrôle technique
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { step: "01", title: "Prise de rendez-vous", desc: "Réservez votre créneau de pré-visite" },
-                { step: "02", title: "Inspection", desc: "Examen approfondi de votre véhicule" },
-                { step: "03", title: "Rapport détaillé", desc: "Liste des points à corriger" },
-                { step: "04", title: "Conseils", desc: "Recommandations pour les réparations" }
-              ].map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
-                  className="text-center"
-                >
-                  <div className="h-20 w-20 bg-primary text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold mb-4">
-                    {step.step}
-                  </div>
-                  <h3 className="text-xl font-semibold text-sicta-grey-dark mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-sicta-grey-light">
-                    {step.desc}
-                  </p>
-                </motion.div>
-              ))}
+              </Card>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-sicta-grey text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Prêt pour votre pré-visite ?
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Réservez votre pré-visite et préparez votre véhicule efficacement
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="btn-hero">
-                <Calendar className="h-5 w-5 mr-2" />
-                Prendre rendez-vous
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey">
-                <MapPin className="h-5 w-5 mr-2" />
-                Trouver une agence
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-            </div>
+        <section className="py-20 bg-gradient-to-r from-sicta-grey via-sicta-grey-dark to-sicta-grey text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                Prêt pour votre diagnostic préventif ?
+              </h2>
+              <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
+                Anticipez les défauts et sécurisez votre véhicule avant le contrôle technique
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button size="lg" className="btn-hero text-lg px-10 py-7">
+                  <Calendar className="h-6 w-6 mr-3" />
+                  Prendre rendez-vous
+                </Button>
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
+                  <MapPin className="h-6 w-6 mr-3" />
+                  Trouver une station
+                  <ArrowRight className="h-6 w-6 ml-3" />
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>
@@ -257,5 +516,3 @@ const PreVisite = () => {
 };
 
 export default PreVisite;
-
-

@@ -16,8 +16,10 @@ import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
+  const navigate = useNavigate();
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
   const [formData, setFormData] = useState({
     name: "",
@@ -183,6 +185,7 @@ const Contact = () => {
                       </div>
                     </div>
                   </Card>
+                
                 </div>
               </div>
 
@@ -308,9 +311,13 @@ const Contact = () => {
               </p>
             </div>
             <div className="flex justify-center">
-              <Button size="lg" className="btn-hero">
+              <Button
+                size="lg"
+                className="btn-hero"
+                onClick={() => navigate("/reseau", { state: { rechercher: true } })}
+              >
                 <MapPin className="h-5 w-5 mr-2" />
-                Voir toutes nos agences
+                Rechercher
               </Button>
             </div>
           </div>

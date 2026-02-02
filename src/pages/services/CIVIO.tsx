@@ -1,266 +1,497 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Calendar, 
-  MapPin, 
+import { Badge } from "@/components/ui/badge";
+import {
+  Shield,
+  Calendar,
+  MapPin,
   CheckCircle,
-  FileText,
-  Award,
-  Users,
   ArrowRight,
-  Shield
+  Target,
+  Users,
+  FileText,
+  Search,
+  Clock,
+  CheckCircle2,
+  Building,
+  AlertCircle,
+  DollarSign
 } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { civioData } from "@/data/services/civio";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const CIVIO = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
-
-  const features = [
-    {
-      icon: Shield,
-      title: "Identification Véhicule",
-      description: "Vérification de l'identité du véhicule et de ses caractéristiques techniques."
-    },
-    {
-      icon: CheckCircle,
-      title: "Contrôle Organes",
-      description: "Inspection des organes principaux du véhicule pour détecter toute modification."
-    },
-    {
-      icon: FileText,
-      title: "Documentation",
-      description: "Vérification et mise à jour de tous les documents administratifs."
-    },
-    {
-      icon: Award,
-      title: "Certification",
-      description: "Délivrance du certificat CIVIO conforme aux réglementations en vigueur."
-    }
-  ];
-
-  const documents = [
-    "Carte grise du véhicule",
-    "Certificat de conformité",
-    "Facture d'achat",
-    "Justificatif d'identité du propriétaire",
-    "Attestation d'assurance"
-  ];
-
-  const pricing = [
-    {
-      category: "Véhicules légers < 3,5 tonnes",
-      price: "23 200 FCFA",
-      code: "CIVIO1",
-      description: "Véhicules de P.T.A.C. inférieur à 3,5 tonnes"
-    },
-    {
-      category: "Véhicules lourds > 3,5 tonnes (9+ places)",
-      price: "43 900 FCFA",
-      code: "CIVIO2",
-      description: "Véhicules de transport de marchandises ou de personnes"
-    },
-    {
-      category: "Identification complémentaire",
-      price: "20 800 FCFA",
-      code: "CIVIO3",
-      description: "PL déclarés VL"
-    }
-  ];
+  const data = civioData;
 
   return (
     <PageTransition>
       <div className="w-full">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Calendar className="h-4 w-4" />
-                <span>CIVIO</span>
-              </div>
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-                <span className="text-sicta-grey-dark">CIVIO</span>{" "}
-                <span className="text-gradient">Certification</span>
-              </h1>
-              <p className="text-xl text-sicta-grey-light leading-relaxed">
-                Contrôle d'identification des Véhicules Importés d'Occasion. 
-                Service fournissant un numéro d'identification du véhicule avec toutes ses caractéristiques.
-              </p>
-            </div>
+        <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] min-h-[380px] sm:min-h-[480px] lg:min-h-[600px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <img
+              src={data.imageHero}
+              alt={data.titre}
+              className="w-full h-full object-cover scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent" />
           </div>
-        </section>
 
-        {/* Description Section */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="space-y-6 text-sicta-grey-light leading-relaxed">
-                <p>
-                  Ce service fournit un numéro au véhicule neuf sortant. Ce numéro d'identification permet 
-                  de connaitre les antécédents, le passé de la voiture (sa date de fabrication, des caractéristiques 
-                  de son moteur, de son système de transmission et de ses divers équipements).
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center text-white px-0 sm:px-2"
+              >
+                <Badge className="bg-primary/30 backdrop-blur-sm text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-white/20 hover:bg-primary/40 transition-colors">
+                  <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                  Service SICTA
+                </Badge>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                  {data.titreCourt}
+                </h1>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed opacity-95 max-w-3xl mx-auto mb-6 sm:mb-8">
+                  {data.descriptionCourte}
                 </p>
-                
-                <div className="bg-white rounded-lg p-6 border-l-4 border-primary">
-                  <h3 className="text-2xl font-bold text-sicta-grey-dark mb-4">
-                    Services disponibles pour les Concessionnaires
-                  </h3>
-                  <p className="mb-4">
-                    Concessionnaires, plus besoin de vous déplacer, nos équipes viennent dans vos locaux pour assurer :
-                  </p>
-                  <ul className="space-y-2 list-disc list-inside">
-                    <li>La production du récépissé d'immatriculation provisoire sur place</li>
-                    <li>La sécurisation du récépissé d'immatriculation provisoire sur place</li>
-                  </ul>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <Button size="lg" className="btn-hero text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Prendre rendez-vous
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+                    <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Trouver une station
+                  </Button>
                 </div>
+              </motion.div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-2"
+            >
+              <div className="w-1 h-3 bg-white/50 rounded-full" />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Description du Produit */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-1 w-16 bg-primary rounded-full" />
+                  <Badge variant="outline" className="text-primary border-primary">
+                    À propos
+                  </Badge>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-8">
+                  Description du Produit
+                </h2>
+                <Card className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white/80 backdrop-blur-sm border-l-4 border-primary shadow-xl">
+                  <p className="text-sicta-grey-light leading-relaxed text-lg lg:text-xl">
+                    {data.descriptionProduit}
+                  </p>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Objectifs */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Nos Objectifs
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Objectifs
+                </h2>
+                <p className="text-xl text-sicta-grey-light max-w-2xl mx-auto">
+                  Quatre objectifs essentiels pour garantir l'authenticité et la traçabilité
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {data.objectifs.map((objectif, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                  >
+                    <Card className="p-6 h-full hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-primary/20 group">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="h-16 w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                          <Target className="h-8 w-8 text-white" />
+                        </div>
+                        <div className="text-xl font-bold text-primary mb-2">0{index + 1}</div>
+                        <p className="text-sicta-grey-light leading-relaxed text-sm">
+                          {objectif}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
-        <section ref={sectionRef} className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Processus CIVIO
-              </h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Un contrôle rigoureux pour garantir l'authenticité de votre véhicule
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                >
-                  <Card className="p-6 text-center h-full hover:shadow-lg transition-shadow">
-                    <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-sicta-grey-dark mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sicta-grey-light text-sm">
-                      {feature.description}
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Tarifs CIVIO
-              </h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Tarifs officiels selon le type de véhicule
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {pricing.map((item, index) => (
-                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="text-center mb-4">
-                    <div className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold mb-3">
-                      {item.code}
-                    </div>
-                    <h3 className="text-lg font-semibold text-sicta-grey-dark mb-2">
-                      {item.category}
-                    </h3>
-                    <div className="text-3xl font-bold text-primary mb-3">
-                      {item.price}
-                    </div>
-                    <p className="text-sicta-grey-light text-sm">
-                      {item.description}
-                    </p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Documents Section */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold text-sicta-grey-dark mb-6">
-                  Documents Requis
+        {/* Public Concerné */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Public Cible
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Public ou Véhicules Concernés
                 </h2>
-                <p className="text-xl text-sicta-grey-light mb-8">
-                  Assurez-vous d'avoir tous les documents nécessaires pour votre contrôle CIVIO
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {data.publicConcernes.map((publicItem, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 group h-full">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                          <Users className="h-8 w-8 text-primary" />
+                        </div>
+                        <span className="text-sicta-grey-dark font-semibold leading-relaxed">
+                          {publicItem}
+                        </span>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stations Équipées */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Réseau
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Les Stations SICTA Équipées pour l'Identification
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Trois stations équipées pour le contrôle CIVIO
                 </p>
-                <div className="space-y-4">
-                  {documents.map((doc, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="text-sicta-grey">{doc}</span>
-                    </div>
+              </motion.div>
+
+              <Card className="p-4 sm:p-6 md:p-8 lg:p-12 shadow-2xl border-2 border-primary/10 bg-gradient-to-br from-white to-sicta-grey/5">
+                <div className="space-y-6">
+                  {data.stationsEquipees.map((station, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                      className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/50 transition-colors"
+                    >
+                      <div className="h-10 w-10 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <Building className="h-5 w-5 text-white" />
+                      </div>
+                      <p className="text-sicta-grey-dark leading-relaxed text-lg font-medium flex-1">
+                        {station}
+                      </p>
+                    </motion.div>
                   ))}
                 </div>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Documents Requis */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Préparation
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Documents Requis
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Assurez-vous d'avoir tous les documents nécessaires
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {data.documentsRequis.map((document, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 group">
+                      <div className="flex items-center space-x-4">
+                        <div className="h-14 w-14 bg-gradient-to-br from-primary to-sicta-orange-light rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+                          <FileText className="h-7 w-7 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-sicta-grey-dark font-semibold text-lg">
+                            {document}
+                          </span>
+                        </div>
+                        <CheckCircle className="h-6 w-6 text-primary" />
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
-              <div className="relative">
-                <Card className="p-8 bg-white/80 backdrop-blur">
-                  <div className="text-center">
-                    <div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <FileText className="h-10 w-10 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-sicta-grey-dark mb-4">
-                      Service Rapide
-                    </h3>
-                    <p className="text-sicta-grey-light mb-6">
-                      Traitement en 24-48h pour les véhicules conformes
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-primary">24h</div>
-                        <div className="text-sm text-sicta-grey">Véhicules neufs</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Principales Étapes du Contrôle */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Processus
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Principales Étapes du Contrôle
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Un processus en 4 étapes pour garantir l'authenticité
+                </p>
+              </motion.div>
+
+              <Card className="overflow-hidden shadow-2xl border-2 border-primary/10">
+                <div className="bg-gradient-to-r from-primary to-sicta-orange-light p-6">
+                  <h3 className="text-2xl font-bold text-white text-center">
+                    Étapes du Contrôle CIVIO
+                  </h3>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-sicta-grey/5 hover:bg-sicta-grey/10">
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Étapes</TableHead>
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Description</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.etapesControle.map((etape, index) => (
+                      <TableRow key={index} className="hover:bg-primary/5 transition-colors">
+                        <TableCell className="font-bold text-sicta-grey-dark text-base py-6">
+                          <div className="flex items-center gap-3">
+                            <div className="h-8 w-8 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center text-white font-bold">
+                              {index + 1}
+                            </div>
+                            {etape.etape}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sicta-grey-light text-base">
+                          {etape.description}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Résultats Attendus */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/10 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Résultats
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Résultats Attendus
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Les bénéfices du contrôle CIVIO pour tous
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                {data.resultatsAttendus.map((resultat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.15, duration: 0.6 }}
+                  >
+                    <Card className="p-8 h-full hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/20 group text-center">
+                      <div className="h-16 w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                        <CheckCircle2 className="h-8 w-8 text-white" />
                       </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">48h</div>
-                        <div className="text-sm text-sicta-grey">Véhicules d'occasion</div>
+                      <p className="text-sicta-grey-dark font-semibold text-lg leading-relaxed">
+                        {resultat.resultat}
+                      </p>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tarifs */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/10 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Tarification
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Tarifs
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Tarifs transparents pour le contrôle d'identification (CIVIO)
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                {data.tarifs.map((tarif, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.15, duration: 0.6 }}
+                  >
+                    <Card className="p-8 text-center hover:shadow-2xl transition-all duration-500 border-2 border-primary/20 bg-gradient-to-br from-white to-primary/5 group">
+                      <div className="h-16 w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-xl">
+                        <DollarSign className="h-8 w-8 text-white" />
                       </div>
-                    </div>
-                  </div>
-                </Card>
+                      <h3 className="text-xl font-bold text-sicta-grey-dark mb-4">
+                        {tarif.service}
+                      </h3>
+                      <div className="text-3xl lg:text-4xl font-bold text-primary mb-3">
+                        {tarif.prix}
+                      </div>
+                      {tarif.description && (
+                        <p className="text-sm text-sicta-grey-light italic">
+                          {tarif.description}
+                        </p>
+                      )}
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-sicta-grey text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Besoin d'un contrôle CIVIO ?
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Nos experts vous accompagnent dans toutes vos démarches d'immatriculation
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="btn-hero">
-                <Calendar className="h-5 w-5 mr-2" />
-                Prendre rendez-vous
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey">
-                <MapPin className="h-5 w-5 mr-2" />
-                Trouver une agence
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-            </div>
+        <section className="py-20 bg-gradient-to-r from-sicta-grey via-sicta-grey-dark to-sicta-grey text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                Prêt pour votre contrôle CIVIO ?
+              </h2>
+              <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
+                Réservez votre créneau et bénéficiez d'un contrôle certifié pour une traçabilité complète
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button size="lg" className="btn-hero text-lg px-10 py-7">
+                  <Calendar className="h-6 w-6 mr-3" />
+                  Prendre rendez-vous
+                </Button>
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
+                  <MapPin className="h-6 w-6 mr-3" />
+                  Trouver une station
+                  <ArrowRight className="h-6 w-6 ml-3" />
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>
@@ -269,5 +500,3 @@ const CIVIO = () => {
 };
 
 export default CIVIO;
-
-

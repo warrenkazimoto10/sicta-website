@@ -1,9 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Shield, 
-  Award, 
-  MapPin, 
+import {
+  Shield,
+  Award,
+  MapPin,
   ArrowRight,
   CheckCircle
 } from "lucide-react";
@@ -27,7 +27,7 @@ const AboutSictaSection = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <motion.div 
+          <motion.div
             className="space-y-8"
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
@@ -38,15 +38,15 @@ const AboutSictaSection = () => {
                 <Shield className="h-4 w-4" />
                 <span>À Propos de SICTA</span>
               </div>
-              
+
               <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark">
                 Nouvelle Ère{" "}
                 <span className="text-gradient">SICTA 2025</span>
               </h2>
-              
+
               <p className="text-xl text-sicta-grey-light leading-relaxed">
-                Société Ivoirienne de Contrôles Techniques Automobiles et Industriels, 
-                SICTA entre dans une nouvelle phase de développement sous l'impulsion de 
+                Société Ivoirienne de Contrôles Techniques Automobiles et Industriels,
+                SICTA entre dans une nouvelle phase de développement sous l'impulsion de
                 Mayelia Participations. Leader incontesté depuis 1974.
               </p>
             </div>
@@ -79,7 +79,7 @@ const AboutSictaSection = () => {
           </motion.div>
 
           {/* Image */}
-          <motion.div 
+          <motion.div
             className="relative"
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
@@ -93,7 +93,7 @@ const AboutSictaSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
-            
+
             {/* Floating Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}

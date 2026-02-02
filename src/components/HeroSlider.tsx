@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Calendar, MapPin, Shield, Users } from "lucide-react";
-import slider1 from "@/assets/slider-1-inspection-center.jpg";
-import slider2 from "@/assets/slider-2-mobile-unit.jpg";
-import slider3 from "@/assets/slider-3-road-safety.jpg";
+import slider1 from "@/assets/sicta-van-dealership-orange.png";
+import slider2 from "@/assets/sicta-banc-mobile-african.png";
+import slider3 from "@/assets/slider-new-3-human.png";
 import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
     image: slider1,
-    title: "SICTA, Nouvelle Ère 2025",
-    subtitle: "Filiale de Mayelia Participations",
-    description: "Leader du contrôle technique automobile en Côte d'Ivoire depuis 1974. 29 stations permanentes et solutions innovantes pour votre sécurité routière.",
-    cta: "Prendre rendez-vous",
+    title: "Le Contrôle à votre Porte",
+    subtitle: "Innovation SICTA 2025",
+    description: "Nos fourgons d'intervention se déplacent dans les parcs concessionnaires et chez les grands comptes pour un service de proximité sans égal.",
+    cta: "Nos Solutions Mobiles",
     stats: [
-      { icon: Shield, value: "29", label: "Stations permanentes" },
-      { icon: Users, value: "1500+", label: "Véhicules contrôlés/jour" }
+      { icon: Shield, value: "100%", label: "Couverture Nationale" },
+      { icon: Users, value: "Proximité", label: "Service à domicile" }
     ]
   },
   {
     image: slider2,
-    title: "Innovation & Digitalisation",
-    subtitle: "Contrôle technique moderne",
-    description: "29 stations permanentes, 22 stations temporaires, 4 équipes de mission et 4 bancs mobiles couvrent l'ensemble du territoire ivoirien.",
-    cta: "Découvrir nos services",
+    title: "Banc Mobile Haute Technologie",
+    subtitle: "L'expertise partout en Côte d'Ivoire",
+    description: "Nos bancs mobiles de nouvelle génération permettent un contrôle technique complet et certifié ISO 9001:2015, même dans les zones les plus reculées.",
+    cta: "Découvrir le Banc Mobile",
     stats: [
       { icon: MapPin, value: "22", label: "Stations temporaires" },
-      { icon: Shield, value: "123", label: "Points de contrôle" }
+      { icon: Shield, value: "Certifié", label: "ISO 9001:2015" }
     ]
   },
   {
@@ -100,7 +100,7 @@ const HeroSlider = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1, delay: 0.3 }}
                     >
-                      <motion.div 
+                      <motion.div
                         className="inline-flex items-center space-x-2 bg-primary/90 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -110,7 +110,7 @@ const HeroSlider = () => {
                         <span>Leader sécurité routière • Nouvelle ère 2025</span>
                       </motion.div>
 
-                      <motion.h1 
+                      <motion.h1
                         className="text-3xl sm:text-4xl lg:text-7xl font-bold leading-tight mb-4 lg:mb-6"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -118,17 +118,24 @@ const HeroSlider = () => {
                       >
                         {slide.title}
                       </motion.h1>
-                      
-                      <motion.h2 
-                        className="text-lg sm:text-xl lg:text-3xl font-light text-orange-300 mb-6 lg:mb-8"
+
+                      <motion.h2
+                        className="text-lg sm:text-xl lg:text-3xl font-light mb-6 lg:mb-8"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.9, duration: 0.8 }}
                       >
-                        {slide.subtitle}
+                        {slide.subtitle === "Filiale de Mayelia Participations" ? (
+                          <>
+                            <span className="text-cyan-400">Filiale de </span>
+                            <span className="text-teal-400">Mayelia Participations</span>
+                          </>
+                        ) : (
+                          <span className="text-orange-300">{slide.subtitle}</span>
+                        )}
                       </motion.h2>
-                      
-                      <motion.p 
+
+                      <motion.p
                         className="text-base sm:text-lg lg:text-xl leading-relaxed mb-8 lg:mb-10 text-gray-100"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -138,15 +145,15 @@ const HeroSlider = () => {
                       </motion.p>
 
                       {/* Stats */}
-                      <motion.div 
+                      <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-wrap lg:gap-8 mb-8 lg:mb-10"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.3, duration: 0.8 }}
                       >
                         {slide.stats.map((stat, statIndex) => (
-                          <motion.div 
-                            key={statIndex} 
+                          <motion.div
+                            key={statIndex}
                             className="flex items-center space-x-3 group"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -208,9 +215,8 @@ const HeroSlider = () => {
           <motion.button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all cursor-hover ${
-              index === currentSlide ? "bg-primary" : "bg-white/40 hover:bg-white/60"
-            }`}
+            className={`w-3 h-3 rounded-full transition-all cursor-hover ${index === currentSlide ? "bg-primary" : "bg-white/40 hover:bg-white/60"
+              }`}
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
             animate={{

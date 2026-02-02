@@ -1,253 +1,605 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Scale, 
-  MapPin, 
+import { Badge } from "@/components/ui/badge";
+import {
+  Scale,
+  Calendar,
+  MapPin,
   CheckCircle,
-  FileText,
-  Award,
-  Users,
   ArrowRight,
-  Shield,
-  Calendar
+  Target,
+  Users,
+  FileText,
+  Clock,
+  CheckCircle2,
+  Award,
+  Building,
+  Package,
+  Phone,
+  Mail,
+  Wrench
 } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { jaugeageBaremageData } from "@/data/services/jaugeageBaremage";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import TableJaugeage from "@/components/TableJaugeage";
 
 const JaugeageBaremage = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
-
-  const features = [
-    {
-      icon: Scale,
-      title: "Jaugeage Réservoirs",
-      description: "Mesure précise de la capacité des réservoirs de carburant selon les normes internationales."
-    },
-    {
-      icon: Award,
-      title: "Certification Officielle",
-      description: "Délivrance de certificats officiels reconnus par les autorités compétentes."
-    },
-    {
-      icon: CheckCircle,
-      title: "Contrôle Conformité",
-      description: "Vérification de la conformité aux réglementations en vigueur."
-    },
-    {
-      icon: Shield,
-      title: "Expertise Technique",
-      description: "Intervention par nos techniciens spécialisés et certifiés."
-    }
-  ];
-
-  const applications = [
-    "Stations-service",
-    "Dépôts pétroliers",
-    "Réservoirs industriels",
-    "Citernes de transport",
-    "Installations portuaires"
-  ];
+  const data = jaugeageBaremageData;
 
   return (
     <PageTransition>
       <div className="w-full">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Scale className="h-4 w-4" />
-                <span>Jaugeage & Barémage</span>
-              </div>
-              <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-                <span className="text-sicta-grey-dark">Jaugeage</span>{" "}
-                <span className="text-gradient">& Barémage</span>
-              </h1>
-              <p className="text-xl text-sicta-grey-light leading-relaxed">
-                Le jaugeage et le baremage sont des opérations destinées à déterminer avec précision 
-                la capacité volumique des camions citernes, des citernes, des cuves ou réservoirs.
-              </p>
-            </div>
+        <section className="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] min-h-[380px] sm:min-h-[480px] lg:min-h-[600px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <img
+              src={data.imageHero}
+              alt={data.titre}
+              className="w-full h-full object-cover scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent" />
           </div>
-        </section>
 
-        {/* Description Section */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="space-y-6 text-sicta-grey-light leading-relaxed">
-                <p>
-                  Service spécialisé de métrologie pour l'étalonnage des cuves de stockage de carburants. 
-                  Nos techniciens certifiés procèdent à la mesure précise de la capacité volumique des équipements 
-                  pétroliers selon les normes en vigueur.
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center text-white px-0 sm:px-2"
+              >
+                <Badge className="bg-primary/30 backdrop-blur-sm text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-white/20 hover:bg-primary/40 transition-colors">
+                  <Scale className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                  Service SICTA
+                </Badge>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                  {data.titre}
+                </h1>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed opacity-95 max-w-3xl mx-auto mb-6 sm:mb-8">
+                  {data.descriptionCourte}
                 </p>
-                
-                <div className="bg-white rounded-lg p-6 border-l-4 border-primary">
-                  <h3 className="text-2xl font-bold text-sicta-grey-dark mb-4">
-                    Applications
-                  </h3>
-                  <p className="mb-4">
-                    Nos services s'adressent aux professionnels du secteur pétrolier et des hydrocarbures :
-                  </p>
-                  <ul className="grid md:grid-cols-2 gap-2 list-disc list-inside">
-                    {applications.map((app, index) => (
-                      <li key={index} className="text-sicta-grey-light">{app}</li>
-                    ))}
-                  </ul>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <Button size="lg" className="btn-hero text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Prendre rendez-vous
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
+                    <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Trouver un site
+                  </Button>
                 </div>
+              </motion.div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-2"
+            >
+              <div className="w-1 h-3 bg-white/50 rounded-full" />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Description du Produit */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                  <div className="h-1 w-12 sm:w-16 bg-primary rounded-full" />
+                  <Badge variant="outline" className="text-primary border-primary text-xs sm:text-sm">
+                    À propos
+                  </Badge>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-6 sm:mb-8">
+                  Description du Produit
+                </h2>
+                <Card className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white/80 backdrop-blur-sm border-l-4 border-primary shadow-xl">
+                  <p className="text-sicta-grey-light leading-relaxed text-base sm:text-lg lg:text-xl">
+                    {data.descriptionProduit}
+                  </p>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Objectifs */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-3 sm:mb-4 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm">
+                  Nos Objectifs
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-3 sm:mb-4">
+                  Objectifs
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-sicta-grey-light max-w-2xl mx-auto px-1">
+                  Six objectifs pour garantir précision et conformité
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {data.objectifs.map((objectif, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                  >
+                    <Card className="p-4 sm:p-6 h-full hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-primary/20 group">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="h-12 w-12 sm:h-16 sm:w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                          <Target className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                        </div>
+                        <div className="text-lg sm:text-xl font-bold text-primary mb-1.5 sm:mb-2">
+                          {String(index + 1).padStart(2, "0")}
+                        </div>
+                        <p className="text-sicta-grey-light leading-relaxed text-xs sm:text-sm">
+                          {objectif}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
-        <section ref={sectionRef} className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Nos Services
-              </h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Des solutions complètes pour tous vos besoins de jaugeage et barémage
-              </p>
-            </div>
+        {/* Public Concerné */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Public Cible
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Public ou Véhicules Concernés
+                </h2>
+              </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                >
-                  <Card className="p-6 text-center h-full hover:shadow-lg transition-shadow">
-                    <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-sicta-grey-dark mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sicta-grey-light text-sm">
-                      {feature.description}
-                    </p>
-                  </Card>
-                </motion.div>
-              ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+                {data.publicConcernes.map((publicItem, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-4 sm:p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 group h-full">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="h-12 w-12 sm:h-16 sm:w-16 bg-primary/10 rounded-full flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/20 transition-colors">
+                          <Users className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+                        </div>
+                        <span className="text-sicta-grey-dark font-semibold leading-relaxed text-sm">
+                          {publicItem}
+                        </span>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Applications Section */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl font-bold text-sicta-grey-dark mb-6">
-                  Secteurs d'Application
+        {/* Livrables */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Livrables
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Livrables
                 </h2>
-                <p className="text-xl text-sicta-grey-light mb-8">
-                  Nos services de jaugeage et barémage s'adressent à de nombreux secteurs d'activité
+                <p className="text-base sm:text-lg md:text-xl text-sicta-grey-light">
+                  Documents délivrés après le jaugeage
                 </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                {data.livrables.map((livrable, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 group text-center">
+                      <div className="h-14 w-14 sm:h-16 sm:w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                        <Package className="h-7 w-7 sm:h-8 sm:w-8 text-white" />
+                      </div>
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-sicta-grey-dark">
+                        {livrable}
+                      </h3>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Exemple de table de jaugeage (volume = f(hauteur produit) ou f(hauteur du creux)) */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-12"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Livrable
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Exemple de table de jaugeage
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-sicta-grey-light max-w-2xl mx-auto px-1">
+                  Capacité volumétrique du contenant à un ou plusieurs niveaux — volume en fonction de la hauteur du produit ou de la hauteur du creux.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <TableJaugeage
+                  titreContenant="Exemple — valeurs indicatives (à remplacer par les données certifiées du contenant)"
+                  showNiveauMaterialise={true}
+                />
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Bénéfices pour le Client */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Avantages
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Bénéfices pour le Client
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Pourquoi choisir notre service de jaugeage ?
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {data.beneficesClient.map((benefice, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30 h-full group">
+                      <div className="flex items-start space-x-4">
+                        <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+                          <Award className="h-6 w-6 text-white" />
+                        </div>
+                        <p className="text-sicta-grey-light leading-relaxed font-medium flex-1 text-sm">
+                          {benefice.benefice}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Étapes du Processus */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Processus
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Résultats Possibles / Étapes du Processus
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Un processus en 5 étapes pour un jaugeage certifié
+                </p>
+              </motion.div>
+
+              <Card className="overflow-hidden shadow-2xl border-2 border-primary/10">
+                <div className="bg-gradient-to-r from-primary to-sicta-orange-light p-6">
+                  <h3 className="text-2xl font-bold text-white text-center">
+                    Étapes du Processus de Jaugeage
+                  </h3>
+                </div>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-sicta-grey/5 hover:bg-sicta-grey/10">
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Étape</TableHead>
+                      <TableHead className="font-bold text-sicta-grey-dark text-lg">Description</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.etapesProcessus.map((etape, index) => (
+                      <TableRow key={index} className="hover:bg-primary/5 transition-colors">
+                        <TableCell className="font-bold text-sicta-grey-dark text-base py-6">
+                          <div className="flex items-center gap-3">
+                            <div className="h-8 w-8 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center text-white font-bold">
+                              {index + 1}
+                            </div>
+                            {etape.etape}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sicta-grey-light text-base">
+                          {etape.description}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Lieux d'Exécution */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Localisation
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Lieux d'Exécution
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Sites certifiés pour différents types de citernes
+                </p>
+              </motion.div>
+
+              <div className="space-y-6">
+                {data.lieuxExecution.map((lieu, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <Card className="p-6 sm:p-8 hover:shadow-xl transition-all duration-500 border-2 border-transparent hover:border-primary/30">
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
+                        <div className="h-14 w-14 sm:h-16 sm:w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                          <MapPin className="h-7 w-7 sm:h-8 sm:w-8 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg sm:text-xl font-bold text-sicta-grey-dark mb-2">
+                            {lieu.type}
+                          </h3>
+                          <p className="text-base sm:text-lg font-semibold text-primary mb-2">
+                            {lieu.site}
+                          </p>
+                          {lieu.description && (
+                            <p className="text-sicta-grey-light leading-relaxed text-sm sm:text-base mb-4">
+                              {lieu.description}
+                            </p>
+                          )}
+                          {typeof lieu.mapsUrl === "string" && (
+                            <a
+                              href={lieu.mapsUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white hover:bg-primary/90 transition-colors"
+                            >
+                              <MapPin className="h-4 w-4" />
+                              Itinéraire
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Documents Requis */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Préparation
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Documents Requis
+                </h2>
+                <p className="text-xl text-sicta-grey-light">
+                  Documents nécessaires pour le jaugeage
+                </p>
+              </motion.div>
+
+              <Card className="p-4 sm:p-6 md:p-8 lg:p-12 shadow-2xl border-2 border-primary/10 bg-gradient-to-br from-white to-sicta-grey/5">
                 <div className="space-y-4">
-                  {applications.map((app, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span className="text-sicta-grey">{app}</span>
-                    </div>
+                  {data.documentsRequis.map((document, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                      className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/50 transition-colors"
+                    >
+                      <div className="h-10 w-10 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <FileText className="h-5 w-5 text-white" />
+                      </div>
+                      <p className="text-sicta-grey-dark leading-relaxed text-lg font-medium flex-1">
+                        {document}
+                      </p>
+                    </motion.div>
                   ))}
                 </div>
-              </div>
-              <div className="relative">
-                <Card className="p-8 bg-white/80 backdrop-blur">
-                  <div className="text-center">
-                    <div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Calendar className="h-10 w-10 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-sicta-grey-dark mb-4">
-                      Certification Valide
-                    </h3>
-                    <p className="text-sicta-grey-light mb-6">
-                      Certificats valides selon les normes internationales
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-primary">5 ans</div>
-                        <div className="text-sm text-sicta-grey">Validité certificat</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">±0.1%</div>
-                        <div className="text-sm text-sicta-grey">Précision mesure</div>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </div>
+              </Card>
             </div>
           </div>
         </section>
 
-        {/* Process Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Processus de Jaugeage
-              </h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Un processus rigoureux en plusieurs étapes pour garantir la précision
-              </p>
-            </div>
+        {/* Contact */}
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-primary/10 via-background to-sicta-grey/5">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-10 sm:mb-12 md:mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  Contact
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4 sm:mb-6">
+                  Contactez-nous
+                </h2>
+              </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { step: "01", title: "Prise de contact", desc: "Évaluation des besoins et planification" },
-                { step: "02", title: "Préparation", desc: "Mise en place des équipements de mesure" },
-                { step: "03", title: "Mesurage", desc: "Jaugeage précis selon les normes" },
-                { step: "04", title: "Certification", desc: "Délivrance du certificat officiel" }
-              ].map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
-                  className="text-center"
-                >
-                  <div className="h-20 w-20 bg-primary text-white rounded-full flex items-center justify-center mx-auto text-2xl font-bold mb-4">
-                    {step.step}
+              <Card className="p-4 sm:p-6 md:p-8 lg:p-12 shadow-2xl border-2 border-primary/10 bg-gradient-to-br from-white to-sicta-grey/5">
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Building className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-sicta-grey-dark mb-2">Entreprise</h3>
+                      <p className="text-sicta-grey-light text-sm">{data.contact.entreprise}</p>
+                      <p className="text-sicta-grey-light text-sm">{data.contact.adresse}</p>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-sicta-grey-dark mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-sicta-grey-light">
-                    {step.desc}
-                  </p>
-                </motion.div>
-              ))}
+                  <div className="flex items-start space-x-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Mail className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-sicta-grey-dark mb-2">Email</h3>
+                      <p className="text-sicta-grey-light text-sm">{data.contact.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-4">
+                    <div className="h-12 w-12 bg-gradient-to-br from-primary to-sicta-orange-light rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Phone className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-sicta-grey-dark mb-2">Téléphone</h3>
+                      <p className="text-sicta-grey-light text-sm">27 21 21 29 90</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-sicta-grey text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Besoin d'un jaugeage ?
-            </h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Contactez nos experts pour une évaluation personnalisée de vos besoins
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="btn-hero">
-                <Calendar className="h-5 w-5 mr-2" />
-                Demander un devis
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey">
-                <MapPin className="h-5 w-5 mr-2" />
-                Nous contacter
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-            </div>
+        <section className="py-20 bg-gradient-to-r from-sicta-grey via-sicta-grey-dark to-sicta-grey text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+                Prêt pour votre jaugeage certifié ?
+              </h2>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-10 opacity-90 max-w-3xl mx-auto px-2">
+                Réservez votre créneau et bénéficiez d'un service de jaugeage conforme aux normes internationales
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center">
+                <Button size="lg" className="btn-hero text-base sm:text-lg px-6 py-4 sm:px-10 sm:py-7 w-full sm:w-auto">
+                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3" />
+                  Prendre rendez-vous
+                </Button>
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-6 py-4 sm:px-10 sm:py-7 w-full sm:w-auto">
+                  <MapPin className="h-6 w-6 mr-3" />
+                  Trouver un site
+                  <ArrowRight className="h-6 w-6 ml-3" />
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>
@@ -256,5 +608,3 @@ const JaugeageBaremage = () => {
 };
 
 export default JaugeageBaremage;
-
-

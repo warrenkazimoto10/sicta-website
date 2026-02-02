@@ -1,245 +1,289 @@
-import { Shield, Car, FileCheck, Scale, Truck, Phone, CheckCircle, Clock, MapPin, Calendar, ArrowRight } from "lucide-react";
+import {
+  Shield,
+  Truck,
+  Eye,
+  Car,
+  Crown,
+  Calendar,
+  ArrowRight,
+  CheckCircle2,
+  Sparkles,
+  MapPin,
+  Wrench,
+  Search,
+  Scale,
+  FileCheck
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import PageTransition from "@/components/PageTransition";
+import SEO from "@/components/SEO";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import { visiteTechniqueData } from "@/data/services/visiteTechnique";
+import { civioData } from "@/data/services/civio";
+import { jaugeageBaremageData } from "@/data/services/jaugeageBaremage";
+import { immatriculationData } from "@/data/services/immatriculation";
+import { stationMobileData } from "@/data/services/stationMobile";
+import { diagnosticData } from "@/data/services/diagnostic";
+import { ivnData } from "@/data/services/ivn";
+import { ppadData } from "@/data/services/ppad";
+import { vipData } from "@/data/services/vip";
 
-const services = [
-  {
-    icon: Shield,
-    title: "Contrôle Technique Automobile",
-    description: "Vérification complète de l'état mécanique de votre véhicule selon la réglementation ivoirienne.",
-    features: [
-      "123 points de contrôle rigoureux",
-      "Certificat valide 6 mois",
-      "Rapport détaillé inclus",
-      "Conformité Code de la Route"
-    ],
-    process: "Le contrôle technique permet de vérifier que votre véhicule est en bon état et répond aux conditions imposées par la réglementation.",
-    slug: "controle-technique"
-  },
-  {
-    icon: FileCheck,
-    title: "CIVIO",
-    description: "Certificat d'Immatriculation des Véhicules en Côte d'Ivoire - Service d'immatriculation officiel.",
-    features: [
-      "Immatriculation véhicules neufs",
-      "Changement de propriétaire", 
-      "Duplicata carte grise",
-      "Mise à jour informations"
-    ],
-    process: "Service complet d'immatriculation et de gestion administrative des véhicules en Côte d'Ivoire.",
-    slug: "civio"
-  },
-  {
-    icon: Car,
-    title: "Pré-visite",
-    description: "Service volontaire pour préparer votre véhicule au contrôle technique et identifier les défaillances.",
-    features: [
-      "Inspection préparatoire",
-      "Identification des défauts",
-      "Conseils de réparation",
-      "Réduction des frais futurs"
-    ],
-    process: "Contrôle identique à la visite officielle permettant de se préparer et réduire les coûts de réparation.",
-    slug: "pre-visite"
-  },
-  {
-    icon: Scale,
-    title: "Pesée de Véhicules",
-    description: "Service de pesage officiel pour véhicules lourds et transport de marchandises.",
-    features: [
-      "Pesage essieux et total",
-      "Certificat de pesée",
-      "Contrôle surcharge",
-      "Service 24h/24"
-    ],
-    process: "Pesage réglementaire pour le transport routier de marchandises et le respect des charges autorisées.",
-    slug: "pesee"
-  },
-  {
-    icon: Truck,
-    title: "Jaugeage & Barémage",
-    description: "Étalonnage et certification des réservoirs de carburant pour stations-service et industries.",
-    features: [
-      "Jaugeage réservoirs",
-      "Certification officielle",
-      "Contrôle conformité",
-      "Expertise technique"
-    ],
-    process: "Service spécialisé de métrologie pour l'étalonnage des cuves de stockage de carburants.",
-    slug: "jaugeage-baremage"
-  },
-  {
-    icon: Phone,
-    title: "Assistance & Conseils",
-    description: "Support technique et accompagnement personnalisé pour tous vos besoins automobiles.",
-    features: [
-      "Support téléphonique",
-      "Conseils techniques",
-      "Assistance administrative",
-      "Service client dédié"
-    ],
-    process: "Accompagnement complet pour toutes vos démarches liées au contrôle technique et à l'automobile.",
-    slug: "assistance"
-  },
-  {
-    icon: Car,
-    title: "Immatriculation",
-    description: "Sécurisation des plaques avec code-barres pour garantir l'authenticité et lutter contre les falsifications.",
-    features: [
-      "Sécurisation des plaques",
-      "Code-barres unique",
-      "Lutte contre la falsification",
-      "Service complet de pose"
-    ],
-    process: "Garantit l'authenticité des plaques et lutte contre les falsifications par sécurisation des plaques avec un code barre puis la pose sur les véhicules.",
-    slug: "immatriculation"
-  }
-];
 
 const Services = () => {
+  const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
+
+  // Tous les services
+  const tousLesServices = [
+    // Services phares
+    {
+      ...visiteTechniqueData,
+      icon: Shield
+    },
+    {
+      ...civioData,
+      icon: Search
+    },
+    {
+      ...jaugeageBaremageData,
+      icon: Scale
+    },
+    {
+      ...immatriculationData,
+      icon: FileCheck
+    },
+    // Autres services
+    {
+      ...stationMobileData,
+      icon: Truck
+    },
+    {
+      ...diagnosticData,
+      icon: Eye
+    },
+    {
+      ...ivnData,
+      icon: Car
+    },
+    {
+      ...ppadData,
+      icon: Wrench
+    },
+    {
+      ...vipData,
+      icon: Crown
+    }
+  ];
+
+  // Fonction pour rendre une carte de service
+  const renderServiceCard = (service: any, index: number) => {
+    const IconComponent = service.icon;
+    return (
+      <motion.div
+        key={service.id}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1, duration: 0.6 }}
+      >
+        <Link to={`/services/${service.slug}`}>
+          <Card className="overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-500 h-full group cursor-pointer relative min-h-[450px] bg-white">
+            {/* Image hero du flyer en arrière-plan */}
+            <div className="absolute inset-0 z-0">
+              <img
+                src={service.imageHero}
+                alt={service.titre}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/85 group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/75 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+
+            {/* Badge en haut */}
+            <div className="absolute top-4 right-4 z-20">
+              <Badge className="bg-primary/90 backdrop-blur-sm text-white border border-white/20 shadow-lg">
+                <IconComponent className="h-3 w-3 mr-1" />
+                Service SICTA
+              </Badge>
+            </div>
+
+            {/* Contenu */}
+            <div className="relative z-10 h-full flex flex-col p-8 text-white">
+              {/* Icône */}
+              <div className="mb-6">
+                <div className="h-20 w-20 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-2xl border-2 border-white/30">
+                  <IconComponent className="h-10 w-10 text-white" />
+                </div>
+              </div>
+
+              {/* Titre */}
+              <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors duration-300 leading-tight">
+                {service.titreCourt}
+              </h3>
+
+              {/* Description courte */}
+              <p className="text-white/95 mb-8 leading-relaxed flex-1 text-lg">
+                {service.descriptionCourte}
+              </p>
+
+              {/* Points clés */}
+              <div className="mb-6 space-y-2">
+                {'objectifs' in service && service.objectifs && service.objectifs.slice(0, 2).map((point: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm">{typeof point === 'string' ? point.split('(')[0].trim() : point}</span>
+                  </div>
+                ))}
+                {'avantages' in service && service.avantages && service.avantages.slice(0, 2).map((avantage: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm">{typeof avantage === 'object' ? avantage.avantage : avantage}</span>
+                  </div>
+                ))}
+                {'avantagesClient' in service && service.avantagesClient && service.avantagesClient.slice(0, 2).map((avantage: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm">{typeof avantage === 'object' ? avantage.avantage : avantage}</span>
+                  </div>
+                ))}
+                {'fonctionnalites' in service && service.fonctionnalites && service.fonctionnalites.slice(0, 2).map((fonc: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm">{typeof fonc === 'object' ? fonc.fonctionnalite : fonc}</span>
+                  </div>
+                ))}
+                {'pointsControle' in service && service.pointsControle && service.pointsControle.slice(0, 2).map((point: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm">{typeof point === 'string' ? point.split('(')[0].trim() : point}</span>
+                  </div>
+                ))}
+                {'beneficesClient' in service && service.beneficesClient && service.beneficesClient.slice(0, 2).map((benefice: any, idx: number) => (
+                  <div key={idx} className="flex items-center gap-2 text-white/90">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="text-sm">{typeof benefice === 'object' ? benefice.benefice : benefice}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <Button
+                className="w-full bg-white text-primary hover:bg-white/95 font-bold py-4 rounded-xl group-hover:shadow-2xl transition-all duration-300 text-lg border-2 border-transparent hover:border-primary/20"
+              >
+                Découvrir le service
+                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" />
+              </Button>
+            </div>
+
+            {/* Effet de bordure */}
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/30 rounded-lg transition-all duration-500 pointer-events-none" />
+          </Card>
+        </Link>
+      </motion.div>
+    );
+  };
+
   return (
     <PageTransition>
+      <SEO
+        title="Nos Services - Contrôle Technique et Solutions Automobiles"
+        description="Découvrez tous les services SICTA : Contrôle technique, CIVIO, IVN, Jaugeage-Barémage, Immatriculation, Station Mobile, PPAD, Service VIP. Solutions complètes pour particuliers et professionnels."
+        keywords="contrôle technique, CIVIO, IVN, jaugeage barémage, immatriculation, station mobile, PPAD, service VIP, inspection automobile, pesée véhicule"
+        url="/services"
+      />
       <div className="w-full">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Shield className="h-4 w-4" />
-              <span>Services SICTA</span>
+        {/* Hero Section */}
+        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-sicta-orange-light/10">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-5xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20 mb-6">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Services SICTA
+                </Badge>
+                <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                  <span className="text-sicta-grey-dark">Nos</span>{" "}
+                  <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-sicta-orange-light">
+                    Services
+                  </span>
+                </h1>
+                <p className="text-xl lg:text-2xl text-sicta-grey-light leading-relaxed max-w-3xl mx-auto">
+                  SICTA propose une gamme complète de services automobiles et industriels
+                  pour répondre à tous vos besoins de contrôle et de certification.
+                </p>
+              </motion.div>
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-sicta-grey-dark">Nos</span>{" "}
-              <span className="text-gradient">Services</span>
-            </h1>
-            <p className="text-xl text-sicta-grey-light leading-relaxed">
-              SICTA propose une gamme complète de services automobiles et industriels 
-              pour répondre à tous vos besoins de contrôle et de certification.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <Card key={index} className="card-elevated hover:shadow-xl transition-all duration-300 group">
-                <div className="p-6">
-                  <div className="flex items-start space-x-4 mb-6">
-                    <div className="h-14 w-14 bg-gradient-to-br from-primary to-sicta-orange-light rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <service.icon className="h-7 w-7 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-sicta-grey-dark mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
-                      <p className="text-sicta-grey-light text-sm leading-relaxed">{service.description}</p>
-                    </div>
-                  </div>
+        {/* Tous les Services */}
+        <section ref={sectionRef} className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Nos Services
+                </Badge>
+                <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
+                  Tous nos Services
+                </h2>
+                <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
+                  Des solutions complètes pour tous vos besoins automobiles
+                </p>
+              </motion.div>
 
-                  <div className="space-y-3 mb-4">
-                    <div className="grid grid-cols-1 gap-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center space-x-2">
-                          <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
-                          <span className="text-sicta-grey-light text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-primary/5 to-sicta-orange-light/5 rounded-lg p-3 mb-4">
-                    <p className="text-xs text-sicta-grey-light italic">{service.process}</p>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Button className="btn-hero flex-1 text-sm py-2">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      Réserver
-                    </Button>
-                    <Link to={`/services/${service.slug}`}>
-                      <Button variant="outline" className="flex-1 text-sm py-2 w-full">
-                        <ArrowRight className="h-3 w-3 mr-1" />
-                        En savoir plus
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="bg-secondary/30 py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-              Processus de Contrôle Technique
-            </h2>
-            <p className="text-xl text-sicta-grey-light">
-              Un processus simple et efficace en 3 étapes
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="h-20 w-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
-                1
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {tousLesServices.map((service, index) => renderServiceCard(service, index))}
               </div>
-              <h3 className="text-xl font-semibold mb-4">Réservation</h3>
-              <p className="text-sicta-grey-light">
-                Réservez votre créneau en ligne ou par téléphone dans l'une de nos 29 stations permanentes.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="h-20 w-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
-                2
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Contrôle</h3>
-              <p className="text-sicta-grey-light">
-                Nos techniciens qualifiés effectuent un contrôle rigoureux de 123 points selon les normes en vigueur.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="h-20 w-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
-                3
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Certification</h3>
-              <p className="text-sicta-grey-light">
-                Récupérez votre certificat de contrôle technique valide 6 mois avec rapport détaillé.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-primary to-orange-400 rounded-2xl p-12 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">Prêt à réserver votre contrôle ?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Choisissez l'agence la plus proche et réservez dès maintenant votre créneau
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white text-primary hover:bg-gray-100 px-8 py-4 text-lg">
-                <MapPin className="h-5 w-5 mr-3" />
-                Trouver une agence
-              </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-4 text-lg">
-                <Clock className="h-5 w-5 mr-3" />
-                Réserver en ligne
-              </Button>
-            </div>
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-to-r from-sicta-grey via-sicta-grey-dark to-sicta-grey text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+                Prêt à réserver votre service ?
+              </h2>
+              <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
+                Choisissez l'agence la plus proche et réservez dès maintenant votre créneau
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Button size="lg" className="btn-hero text-lg px-10 py-7">
+                  <MapPin className="h-6 w-6 mr-3" />
+                  Trouver une agence
+                </Button>
+                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
+                  <Calendar className="h-6 w-6 mr-3" />
+                  Réserver en ligne
+                  <ArrowRight className="h-6 w-6 ml-3" />
+                </Button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
     </PageTransition>
   );
