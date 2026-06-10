@@ -103,12 +103,7 @@ const Services = () => {
             </div>
 
             {/* Badge en haut */}
-            <div className="absolute top-4 right-4 z-20">
-              <Badge className="bg-primary/90 backdrop-blur-sm text-white border border-white/20 shadow-lg">
-                <IconComponent className="h-3 w-3 mr-1" />
-                Service SICTA
-              </Badge>
-            </div>
+            
 
             {/* Contenu */}
             <div className="relative z-10 h-full flex flex-col p-8 text-white">
@@ -205,10 +200,7 @@ const Services = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20 mb-6">
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Services SICTA
-                </Badge>
+                
                 <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="text-sicta-grey-dark">Nos</span>{" "}
                   <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-sicta-orange-light">
@@ -235,10 +227,7 @@ const Services = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Nos Services
-                </Badge>
+                
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Tous nos Services
                 </h2>

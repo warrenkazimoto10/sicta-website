@@ -215,6 +215,98 @@
     "vehicleInfo": "Vehicle information",
     "payment": "Payment",
     "summary": "Summary"
+  },
+  "heroSlider": {
+    "slide1": {
+      "title": "Inspection at Your Doorstep",
+      "subtitle": "SICTA Innovation 2025",
+      "description": "Our intervention vans travel to dealership parks and major accounts for an unmatched proximity service.",
+      "cta": "Our Mobile Solutions",
+      "stats": {
+        "coverage": "National Coverage",
+        "proximityValue": "Proximity",
+        "proximityLabel": "Home service"
+      }
+    },
+    "slide2": {
+      "title": "High-Tech Mobile Bench",
+      "subtitle": "Expertise everywhere in Côte d'Ivoire",
+      "description": "Our new generation mobile benches enable complete technical inspection certified ISO 9001:2015, even in the most remote areas.",
+      "cta": "Discover the Mobile Bench",
+      "stats": {
+        "temporary": "Temporary stations",
+        "certified": "ISO 9001:2015"
+      }
+    },
+    "slide3": {
+      "title": "Guaranteed Road Safety",
+      "subtitle": "Leader since 1974 • New era 2025",
+      "description": "Certified ISO 9001:2015, SICTA is the trusted partner for road safety in Côte d'Ivoire and West Africa.",
+      "cta": "Learn more",
+      "stats": {
+        "experience": "Years of experience",
+        "compliance": "Regulatory compliance"
+      }
+    },
+    "badge": "Road safety leader • New era 2025"
+  },
+  "newEra": {
+    "title": "New Era",
+    "titleHighlight": "SICTA 2025",
+    "description": "Ivorian Company for Technical Automobile and Industrial Inspections, SICTA enters a new phase of development under the impetus of Mayelia Participations. Undisputed leader since 1974.",
+    "keyPoints": "Key Points",
+    "highlights": [
+      "Subsidiary of Mayelia Participations since April 2025",
+      "ISO 9001:2015 certification by ABS Quality Evaluations",
+      "Leader in technical inspection in West Africa",
+      "Technological innovation and service digitalization",
+      "New era of development and modernization"
+    ],
+    "findAgency": "Find an agency",
+    "learnMore": "Learn more",
+    "isoCert": "ISO 9001:2015",
+    "isoCertLabel": "Quality Certification"
+  },
+  "controleTechnique": {
+    "readyTitle": "Ready for your technical inspection?",
+    "readySubtitle": "Book your time slot online and benefit from our professional services",
+    "bookAppointment": "Book an appointment",
+    "findAgency": "Find an agency"
+  },
+  "network": {
+    "title": "Our Network",
+    "subtitle": "29 permanent stations and 22 temporary stations spread across the entire Ivorian territory to serve you as close as possible.",
+    "stats": {
+      "permanent": "Permanent stations",
+      "temporary": "Temporary stations",
+      "daily": "Vehicles/day",
+      "coverage": "National coverage"
+    },
+    "interiorTitle": "Interior of the Country",
+    "interiorSubtitle": "Our main agencies for all your technical inspection needs",
+    "interiorDisplay": "Display",
+    "interiorOf": "of",
+    "interiorAgencies": "agencies",
+    "abidjanTitle": "Abidjan Network",
+    "abidjanSubtitle": "Find our fixed stations and mobile benches in Greater Abidjan",
+    "reserve": "Reserve",
+    "route": "Route",
+    "servicesAvailable": "Available services:",
+    "availability": "Availability:",
+    "mobileInfrastructure": "Mobile Infrastructure",
+    "mobileInfrastructureSubtitle": "Mobile units and mobile benches to serve the entire Ivorian territory",
+    "mobileStations": "4 Mobile Stations",
+    "mobileStationsDesc": "Itinerant inspection units",
+    "mobileStationsText": "Our equipped mobile stations travel through less accessible areas to bring our technical inspection services throughout Côte d'Ivoire.",
+    "mobileBancs": "4 Mobile Benches",
+    "mobileBancsDesc": "Itinerant technical equipment",
+    "mobileBancsText": "Our mobile benches ensure the same quality of technical inspection as our permanent stations, with certified equipment and qualified technicians.",
+    "ctaTitle": "An agency near you",
+    "ctaSubtitle": "Find the nearest SICTA agency and book your technical inspection",
+    "locateAgency": "Locate an agency",
+    "locating": "Searching...",
+    "previous": "Previous",
+    "next": "Next"
   }
 }
 

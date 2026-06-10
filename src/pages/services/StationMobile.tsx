@@ -50,26 +50,13 @@ const StationMobile = () => {
                 transition={{ duration: 0.8 }}
                 className="text-center text-white px-0 sm:px-2"
               >
-                <Badge className="bg-primary/30 backdrop-blur-sm text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-white/20 hover:bg-primary/40 transition-colors">
-                  <Truck className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
-                  Service SICTA
-                </Badge>
+                
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
                   {data.titre}
                 </h1>
                 <p className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed opacity-95 max-w-3xl mx-auto mb-6 sm:mb-8">
                   {data.descriptionCourte}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Button size="lg" className="btn-hero text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
-                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    Demander un devis
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
-                    <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    Nous contacter
-                  </Button>
-                </div>
               </motion.div>
             </div>
           </div>
@@ -125,9 +112,6 @@ const StationMobile = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Notre Mission
-                </Badge>
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Objectifs
                 </h2>
@@ -158,9 +142,6 @@ const StationMobile = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Public Cible
-                </Badge>
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Public ou Véhicules Concernés
                 </h2>
@@ -203,9 +184,6 @@ const StationMobile = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Avantages
-                </Badge>
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Résultats Possibles
                 </h2>
@@ -259,9 +237,6 @@ const StationMobile = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Processus
-                </Badge>
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Processus de Souscription
                 </h2>
@@ -310,9 +285,6 @@ const StationMobile = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Équipements
-                </Badge>
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Composantes / Équipements
                 </h2>
@@ -365,9 +337,6 @@ const StationMobile = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Contact
-                </Badge>
                 <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Contactez-nous
                 </h2>

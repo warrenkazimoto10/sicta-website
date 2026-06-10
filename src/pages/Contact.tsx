@@ -59,10 +59,7 @@ const Contact = () => {
         <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <MessageSquare className="h-4 w-4" />
-                <span>Contactez-nous</span>
-              </div>
+              
               <h1 className="text-5xl lg:text-6xl font-bold mb-6">
                 <span className="text-sicta-grey-dark">Besoin d'aide ?</span>{" "}
                 <span className="text-gradient">Contactez-nous</span>

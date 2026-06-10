@@ -61,13 +61,10 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-20 space-y-6"
         >
-          <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20">
-            <Sparkles className="h-4 w-4 mr-2" />
-            Services Phares
-          </Badge>
+          
           
           <h2 className="text-4xl lg:text-6xl font-bold text-sicta-grey-dark leading-tight">
-            Nos Services Phares
+            Nos Services 
           </h2>
           
           <p className="text-xl lg:text-2xl text-sicta-grey-light max-w-3xl mx-auto leading-relaxed">
@@ -110,13 +107,7 @@ const ServicesSection = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
 
-                    {/* Badge en haut */}
-                    <div className="absolute top-4 right-4 z-20">
-                      <Badge className="bg-primary/90 backdrop-blur-sm text-white border border-white/20 shadow-lg">
-                        <IconComponent className="h-3 w-3 mr-1" />
-                        Service SICTA
-                      </Badge>
-                    </div>
+                    
 
                     {/* Contenu */}
                     <div className="relative z-10 h-full flex flex-col p-8 text-white">

@@ -23,11 +23,6 @@ const NewEraSection = () => {
       description: "Acquisition stratégique en avril 2025"
     },
     {
-      icon: Star,
-      title: "Leader Sécurité Routière",
-      description: "Référence en Côte d'Ivoire depuis 1974"
-    },
-    {
       icon: Users,
       title: "29 Stations Permanentes",
       description: "Couverture nationale complète"
@@ -49,10 +44,7 @@ const NewEraSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Building2 className="h-4 w-4" />
-            <span>Nouvelle Ère SICTA 2025</span>
-          </div>
+          
           
           <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-6">
             <span className="text-gradient">Mayelia Participations</span><br />

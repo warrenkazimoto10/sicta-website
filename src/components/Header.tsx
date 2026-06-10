@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin, Calendar, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,7 +21,9 @@ import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { t } = useTranslation();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isHomePage = location.pathname === "/";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -98,14 +100,6 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Espace PRO - Lien direct */}
-            <Link
-              to="/espace-pro"
-              className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium"
-            >
-              Espace PRO
-            </Link>
-
             {/* Contact link */}
             <Link
               to="/contact"
@@ -118,12 +112,14 @@ const Header = () => {
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
-            <Link to="/reservation">
-              <Button className="btn-hero">
-                <Calendar className="h-4 w-4 mr-2" />
-                {t("header.bookAppointment")}
-              </Button>
-            </Link>
+            {!isHomePage && (
+              <Link to="/reservation">
+                <Button className="btn-hero">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  {t("header.bookAppointment")}
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu using Sheet */}
@@ -174,15 +170,6 @@ const Header = () => {
                     </div>
                   </div>
 
-                  {/* Espace PRO */}
-                  <Link
-                    to="/espace-pro"
-                    className="text-lg font-medium text-sicta-grey hover:text-primary transition-colors py-2 border-b border-border/50"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Espace PRO
-                  </Link>
-
                   {/* Contact */}
                   <Link
                     to="/contact"
@@ -196,12 +183,14 @@ const Header = () => {
                     <div className="flex justify-start">
                       <LanguageSwitcher />
                     </div>
-                    <Link to="/reservation" className="w-full block" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="btn-hero w-full">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        {t("header.bookAppointment")}
-                      </Button>
-                    </Link>
+                    {!isHomePage && (
+                      <Link to="/reservation" className="w-full block" onClick={() => setIsMenuOpen(false)}>
+                        <Button className="btn-hero w-full">
+                          <Calendar className="h-4 w-4 mr-2" />
+                          {t("header.bookAppointment")}
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </SheetContent>

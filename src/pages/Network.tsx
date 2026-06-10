@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { MapPin, Clock, Phone, Car, Building2, Map, CalendarClock, Navigation, Users, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { MapPin, Clock, Car, Building2, Map, CalendarClock, Navigation, Users, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,7 +10,7 @@ import SEO from "@/components/SEO";
 import networkMapModern from "@/assets/network-map-modern.jpg";
 
 // Tableau 1 — Intérieur du Pays (21 agences hors Abidjan)
-const agenciesInterieurPays = [
+export const agenciesInterieurPays = [
   { name: "Abengourou", city: "Abengourou", phone: "07 47 04 91 40", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"], availability: "tous les produits sauf CIVIO et jaugeage", mapsUrl: "https://www.google.com/maps/place/SICTA+ABENGOUROU/@6.1010732,-3.8581794,18.56z/data=!4m6!3m5!1s0xfc15d356f2ce2d7:0xbafe24edd21e18ec!8m2!3d6.0988769!4d-3.8548147!16s%2Fg%2F11kg_6jt83?entry=ttu" },
   { name: "Aboisso", city: "Aboisso", phone: "07 57 20 90 77", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"], availability: "tous les produits sauf CIVIO et jaugeage", mapsUrl: "https://www.google.com/maps/place/SICTA/@5.4591906,-3.2122457,17z/data=!3m1!4b1!4m6!3m5!1s0xfc25c7ad1c10279:0x492c6e162d5a5b3f!8m2!3d5.4591906!4d-3.2100517!16s%2Fg%2F11fylnd39d" },
   { name: "Adzopé", city: "Adzopé", phone: "07 69 88 40 84", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"], availability: "tous les produits sauf CIVIO et jaugeage", mapsUrl: "https://www.google.com/maps/place/SICTA+ADZOPE/@6.0988541,-3.8569304,17z/data=!3m1!4b1!4m6!3m5!1s0xfc15d356f2ce2d7:0xbafe24edd21e18ec!8m2!3d6.0988541!4d-3.8547364!16s%2Fg%2F11kg_6jt83" },
@@ -33,8 +34,8 @@ const agenciesInterieurPays = [
   { name: "Yaou", city: "Yaou", phone: "07 59 39 93 06", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique"], availability: "tous les produits sauf CIVIO et jaugeage", mapsUrl: "https://www.google.com/maps/place/SICTA+YAOU+korka/@5.2358374,-3.6397377,17z/data=!3m1!4b1!4m6!3m5!1s0xfc21b102a68fc5f:0x45cef1a5fe724728!8m2!3d5.2358374!4d-3.6375437!16s%2Fg%2F11hyl3qw82" }
 ];
 
-// Tableau 2 — Réseau Abidjan (8 stations fixes + 2 bancs mobiles)
-const agenciesReseauAbidjan = [
+// Tableau 2 — Abidjan (8 stations fixes + 2 bancs mobiles)
+export const agenciesReseauAbidjan = [
   { name: "Abatta", city: "Abidjan", phone: "07 59 08 11 84", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"], availability: "tous les produits sauf CIVIO et jaugeage", mapsUrl: "https://www.google.com/maps/place/SICTA+ABATTA/@5.3291625,-4.0768352,12z/data=!4m10!1m2!2m1!1ssicta!3m6!1s0xfc1ed756d0c968f:0xcce6b7988954da6d!8m2!3d5.341496!4d-3.9229077!15sCgVzaWN0YZIBEGNvcnBvcmF0ZV9vZmZpY2XgAQA!16s%2Fg%2F11jv5tlk03" },
   { name: "Angré", city: "Abidjan", phone: "07 67 11 04 85", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO"], availability: "tous les produits sauf CIVIO et jaugeage" },
   { name: "Guichet Unique", city: "Abidjan", phone: "07 09 52 08 09", hours: "Lun-Ven: 7h-17h", services: ["Contrôle technique", "CIVIO", "Pesée"], availability: "tous les produits sauf CIVIO et jaugeage", mapsUrl: "https://www.google.com/maps/place/Guichet+Unique+Automobile/@5.2629958,-4.0054962,17z/data=!3m1!4b1!4m6!3m5!1s0xfc1e92387961ae3:0xdd72ce3ac58181fb!8m2!3d5.2629958!4d-4.0033022!16s%2Fg%2F11c6zyhq5f" },
@@ -48,7 +49,7 @@ const agenciesReseauAbidjan = [
 ];
 
 // Tableau 3 — Stations Périodiques (22 stations temporaires)
-const stationsPeriodiques = [
+export const stationsPeriodiques = [
   { name: "Bongouanou", city: "Bongouanou", schedule: "Périodique", services: ["Contrôle technique"] },
   { name: "Boundiali", city: "Boundiali", schedule: "Périodique", services: ["Contrôle technique"] },
   { name: "Bouna", city: "Bouna", schedule: "Périodique", services: ["Contrôle technique"] },
@@ -123,6 +124,7 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
 }
 
 const Network = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const didRunRechercher = useRef(false);
@@ -137,7 +139,7 @@ const Network = () => {
   const endInterieur = startInterieur + ITEMS_PER_PAGE_PERMANENT;
   const currentInterieurAgencies = agenciesInterieurPays.slice(startInterieur, endInterieur);
 
-  // Pagination — Stations Périodiques (tableau 3) — Réseau Abidjan (tableau 2) affiché en entier, pas de pagination
+  // Pagination — Stations Périodiques (tableau 3) — Abidjan (tableau 2) affiché en entier, pas de pagination
   const totalPeriodiquesPages = Math.ceil(stationsPeriodiques.length / ITEMS_PER_PAGE_TEMPORARY);
   const startPeriodiques = (periodiquesPage - 1) * ITEMS_PER_PAGE_TEMPORARY;
   const endPeriodiques = startPeriodiques + ITEMS_PER_PAGE_TEMPORARY;
@@ -209,7 +211,7 @@ const Network = () => {
     <PageTransition>
       <SEO
         title="Notre Réseau - Agences Abidjan et Intérieur, Stations Périodiques"
-        description="Découvrez le réseau SICTA : 29 agences permanentes, dont le Réseau Abidjan avec bancs mobiles, et 22 stations périodiques pour une couverture à 100% du territoire national."
+        description="Découvrez le réseau SICTA : 29 agences permanentes, dont Abidjan avec bancs mobiles, et 22 stations périodiques pour une couverture à 100% du territoire national."
         keywords="agence SICTA, station contrôle technique, Abidjan Plateau, Vridi, Yopougon, banc mobile, station périodique, Côte d'Ivoire"
         url="/reseau"
       />
@@ -218,17 +220,12 @@ const Network = () => {
         <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <MapPin className="h-4 w-4" />
-                <span>Réseau National SICTA</span>
-              </div>
+              
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <span className="text-sicta-grey-dark">Notre</span>{" "}
-                <span className="text-gradient">Réseau</span>
+                <span className="text-sicta-grey-dark">{t("network.title")}</span>
               </h1>
-              <p className="text-lg md:text-xl text-sicta-grey-light leading-relaxed">
-                29 stations permanentes et 22 stations temporaires réparties sur l'ensemble
-                du territoire ivoirien pour vous servir au plus près.
+              <p className="text-lg md:text-xl text-sicta-grey-light leading-relaxed mb-6">
+                {t("network.subtitle")}
               </p>
             </div>
           </div>
@@ -240,19 +237,19 @@ const Network = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div className="space-y-2">
                 <div className="text-3xl md:text-4xl font-bold text-primary">29</div>
-                <div className="text-sm md:text-base text-sicta-grey-light">Stations permanentes</div>
+                <div className="text-sm md:text-base text-sicta-grey-light">{t("network.stats.permanent")}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-3xl md:text-4xl font-bold text-primary">22</div>
-                <div className="text-sm md:text-base text-sicta-grey-light">Stations temporaires</div>
+                <div className="text-sm md:text-base text-sicta-grey-light">{t("network.stats.temporary")}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-3xl md:text-4xl font-bold text-primary">1500+</div>
-                <div className="text-sm md:text-base text-sicta-grey-light">Véhicules/jour</div>
+                <div className="text-sm md:text-base text-sicta-grey-light">{t("network.stats.daily")}</div>
               </div>
               <div className="space-y-2">
                 <div className="text-3xl md:text-4xl font-bold text-primary">100%</div>
-                <div className="text-sm md:text-base text-sicta-grey-light">Couverture nationale</div>
+                <div className="text-sm md:text-base text-sicta-grey-light">{t("network.stats.coverage")}</div>
               </div>
             </div>
           </div>
@@ -262,28 +259,24 @@ const Network = () => {
         <section className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4">
             <Tabs defaultValue="permanent" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 h-auto gap-1 sm:gap-2 mb-8 bg-transparent p-0">
+              <TabsList className="grid w-full grid-cols-2 h-auto gap-1 sm:gap-2 mb-8 bg-transparent p-0">
                 <TabsTrigger value="permanent" className="flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-1 sm:px-3 text-xs sm:text-sm data-[state=active]:bg-primary data-[state=active]:text-white border border-primary/20 min-w-0">
                   <Building2 className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
-                  <span className="truncate">Intérieur du Pays</span>
+                  <span className="truncate">{t("network.interiorTitle")}</span>
                 </TabsTrigger>
                 <TabsTrigger value="abidjan" className="flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-1 sm:px-3 text-xs sm:text-sm data-[state=active]:bg-primary data-[state=active]:text-white border border-primary/20 min-w-0">
                   <Map className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
-                  <span className="truncate">Réseau Abidjan</span>
-                </TabsTrigger>
-                <TabsTrigger value="temporary" className="flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-1 sm:px-3 text-xs sm:text-sm data-[state=active]:bg-primary data-[state=active]:text-white border border-primary/20 min-w-0">
-                  <CalendarClock className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
-                  <span className="truncate">Stations Périodiques</span>
+                  <span className="truncate">{t("network.abidjanTitle")}</span>
                 </TabsTrigger>
               </TabsList>
 
               <TabsContent value="permanent">
                 <div className="text-center mb-8">
                   <p className="text-lg text-sicta-grey-light">
-                    Nos principales agences pour tous vos besoins de contrôle technique
+                    {t("network.interiorSubtitle")}
                   </p>
                   <p className="text-sm text-sicta-grey-light mt-2">
-                    Affichage {startInterieur + 1}-{Math.min(endInterieur, agenciesInterieurPays.length)} sur {agenciesInterieurPays.length} agences
+                    {t("network.interiorDisplay")} {startInterieur + 1}-{Math.min(endInterieur, agenciesInterieurPays.length)} {t("network.interiorOf")} {agenciesInterieurPays.length} {t("network.interiorAgencies")}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
@@ -306,18 +299,13 @@ const Network = () => {
                           </div>
 
                           <div className="flex items-center space-x-2">
-                            <Phone className="h-4 w-4 text-sicta-grey-light" />
-                            <span className="text-sm text-sicta-grey-light">{agency.phone}</span>
-                          </div>
-
-                          <div className="flex items-center space-x-2">
                             <Clock className="h-4 w-4 text-sicta-grey-light" />
                             <span className="text-sm text-sicta-grey-light">{agency.hours}</span>
                           </div>
                         </div>
 
                         <div className="mb-4">
-                          <div className="text-sm font-medium mb-1">Services disponibles :</div>
+                          <div className="text-sm font-medium mb-1">{t("network.servicesAvailable")}</div>
                           <div className="flex flex-wrap gap-2 mb-3">
                             {agency.services.map((service, serviceIndex) => (
                               <span
@@ -329,21 +317,18 @@ const Network = () => {
                             ))}
                           </div>
                           <div className="text-xs font-semibold text-sicta-orange-light bg-sicta-orange-light/5 p-2 rounded-md border border-sicta-orange-light/20">
-                            Disponibilité : {agency.availability || "tous les produits sauf CIVIO et jaugeage"}
+                            {t("network.availability")} {agency.availability || "tous les produits sauf CIVIO et jaugeage"}
                           </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-2">
-                          <Button className="btn-hero flex-1 text-sm py-2">
-                            Réserver
-                          </Button>
                           <Button variant="outline" className="flex-1 text-sm py-2" asChild>
                             <a
                               href={"mapsUrl" in agency && typeof agency.mapsUrl === "string" ? agency.mapsUrl : `https://www.google.com/maps/search/?api=1&query=Sicta+${encodeURIComponent(agency.name)}+${encodeURIComponent(agency.city)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              Itinéraire
+                              {t("network.route")}
                             </a>
                           </Button>
                         </div>
@@ -363,7 +348,7 @@ const Network = () => {
                       className="flex items-center gap-1"
                     >
                       <ChevronLeft className="h-4 w-4" />
-                      Précédent
+                      {t("network.previous")}
                     </Button>
 
                     <div className="flex gap-1">
@@ -387,7 +372,7 @@ const Network = () => {
                       disabled={interieurPage === totalInterieurPages}
                       className="flex items-center gap-1"
                     >
-                      Suivant
+                      {t("network.next")}
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
@@ -397,7 +382,7 @@ const Network = () => {
               <TabsContent value="abidjan">
                 <div className="text-center mb-8">
                   <p className="text-lg text-sicta-grey-light">
-                    Retrouvez nos stations fixes et nos bancs mobiles sur le Grand Abidjan
+                    {t("network.abidjanSubtitle")}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
@@ -420,34 +405,26 @@ const Network = () => {
                           </div>
 
                           <div className="flex items-center space-x-2">
-                            <Phone className="h-4 w-4 text-sicta-grey-light" />
-                            <span className="text-sm text-sicta-grey-light">{agency.phone}</span>
-                          </div>
-
-                          <div className="flex items-center space-x-2">
                             <Clock className="h-4 w-4 text-sicta-grey-light" />
                             <span className="text-sm text-sicta-grey-light">{agency.hours}</span>
                           </div>
                         </div>
 
                         <div className="mb-4">
-                          <div className="text-sm font-medium mb-2">Disponibilité :</div>
+                          <div className="text-sm font-medium mb-2">{t("network.availability")}</div>
                           <div className="text-sm font-semibold text-sicta-orange-light bg-sicta-orange-light/5 p-3 rounded-md border border-sicta-orange-light/20 italic">
                             {agency.availability}
                           </div>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-2">
-                          <Button className="btn-hero flex-1 text-sm py-2">
-                            Réserver
-                          </Button>
                           <Button variant="outline" className="flex-1 text-sm py-2" asChild>
                             <a
                               href={"mapsUrl" in agency && typeof agency.mapsUrl === "string" ? agency.mapsUrl : `https://www.google.com/maps/search/?api=1&query=Sicta+${encodeURIComponent(agency.name)}+${encodeURIComponent(agency.city)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              Itinéraire
+                              {t("network.route")}
                             </a>
                           </Button>
                         </div>
@@ -455,81 +432,6 @@ const Network = () => {
                     </Card>
                   ))}
                 </div>
-              </TabsContent>
-
-              <TabsContent value="temporary">
-                <div className="text-center mb-8">
-                  <p className="text-lg text-sicta-grey-light">
-                    Unités mobiles au service des zones périodiques et couverture 100% du territoire
-                  </p>
-                  <p className="text-sm text-sicta-grey-light mt-2">
-                    Affichage {startPeriodiques + 1}-{Math.min(endPeriodiques, stationsPeriodiques.length)} sur {stationsPeriodiques.length} stations
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                  {currentPeriodiquesStations.map((station, index) => (
-                    <Card key={index} className="card-elevated">
-                      <div className="p-6 text-center">
-                        <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <Car className="h-6 w-6 text-primary" />
-                        </div>
-                        <h3 className="font-semibold mb-2">{station.name}</h3>
-                        <div className="text-sicta-grey-light text-sm mb-3">{station.city}</div>
-                        <div className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full mb-4">
-                          {station.schedule}
-                        </div>
-                        <div className="space-y-1">
-                          {station.services.map((service, serviceIndex) => (
-                            <div key={serviceIndex} className="text-xs text-sicta-grey-light">
-                              {service}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-
-                {/* Pagination — Stations Périodiques */}
-                {totalPeriodiquesPages > 1 && (
-                  <div className="flex items-center justify-center gap-2 mt-8">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handlePeriodiquesPageChange(periodiquesPage - 1)}
-                      disabled={periodiquesPage === 1}
-                      className="flex items-center gap-1"
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                      Précédent
-                    </Button>
-
-                    <div className="flex gap-1">
-                      {Array.from({ length: totalPeriodiquesPages }, (_, i) => i + 1).map((page) => (
-                        <Button
-                          key={page}
-                          variant={page === periodiquesPage ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => handlePeriodiquesPageChange(page)}
-                          className={page === periodiquesPage ? "bg-primary text-white" : ""}
-                        >
-                          {page}
-                        </Button>
-                      ))}
-                    </div>
-
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handlePeriodiquesPageChange(periodiquesPage + 1)}
-                      disabled={periodiquesPage === totalPeriodiquesPages}
-                      className="flex items-center gap-1"
-                    >
-                      Suivant
-                      <ChevronRight className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
               </TabsContent>
             </Tabs>
           </div>
@@ -541,10 +443,10 @@ const Network = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">
-                Infrastructure Mobile
+                {t("network.mobileInfrastructure")}
               </h2>
               <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                Unités mobiles et bancs mobiles pour desservir tout le territoire ivoirien
+                {t("network.mobileInfrastructureSubtitle")}
               </p>
             </div>
 
@@ -557,13 +459,12 @@ const Network = () => {
                       <Navigation className="h-8 w-8 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-sicta-grey-dark">4 Stations Mobiles</h3>
-                      <p className="text-sicta-grey-light">Unités de contrôle itinérantes</p>
+                      <h3 className="text-2xl font-bold text-sicta-grey-dark">{t("network.mobileStations")}</h3>
+                      <p className="text-sicta-grey-light">{t("network.mobileStationsDesc")}</p>
                     </div>
                   </div>
                   <p className="text-sicta-grey-light mb-6">
-                    Nos stations mobiles équipées parcourent les zones moins accessibles pour apporter
-                    nos services de contrôle technique partout en Côte d'Ivoire.
+                    {t("network.mobileStationsText")}
                   </p>
                   <div className="flex items-center space-x-4">
                     <div className="text-4xl font-bold text-primary">100%</div>
@@ -580,13 +481,12 @@ const Network = () => {
                       <Car className="h-8 w-8 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-sicta-grey-dark">4 Bancs Mobiles</h3>
-                      <p className="text-sicta-grey-light">Équipement technique itinérant</p>
+                      <h3 className="text-2xl font-bold text-sicta-grey-dark">{t("network.mobileBancs")}</h3>
+                      <p className="text-sicta-grey-light">{t("network.mobileBancsDesc")}</p>
                     </div>
                   </div>
                   <p className="text-sicta-grey-light mb-6">
-                    Nos bancs mobiles assurent la même qualité de contrôle technique que nos stations permanentes,
-                    avec des équipements certifiés et des techniciens qualifiés.
+                    {t("network.mobileBancsText")}
                   </p>
                   <div className="flex items-center space-x-4">
                     <div className="text-4xl font-bold text-primary">ISO</div>
@@ -601,9 +501,9 @@ const Network = () => {
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary to-orange-400">
           <div className="container mx-auto px-4 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">Une agence près de chez vous</h2>
+            <h2 className="text-4xl font-bold mb-4">{t("network.ctaTitle")}</h2>
             <p className="text-xl mb-8 opacity-90">
-              Trouvez l’agence SICTA la plus proche et réservez votre contrôle technique
+              {t("network.ctaSubtitle")}
             </p>
             <Button
               className="bg-white text-primary hover:bg-gray-100 px-8 py-4 text-lg"
@@ -611,7 +511,7 @@ const Network = () => {
               disabled={locateLoading}
             >
               <MapPin className="h-5 w-5 mr-3" />
-              {locateLoading ? "Recherche en cours…" : "Localiser une agence"}
+              {locateLoading ? t("network.locating") : t("network.locateAgency")}
             </Button>
             {locateError && (
               <p className="mt-4 text-sm text-white/90 max-w-md mx-auto">{locateError}</p>

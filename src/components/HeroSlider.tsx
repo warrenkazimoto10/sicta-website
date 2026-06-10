@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Calendar, MapPin, Shield, Users } from "lucide-react";
 import slider1 from "@/assets/sicta-van-dealership-orange.png";
@@ -6,44 +8,49 @@ import slider2 from "@/assets/sicta-banc-mobile-african.png";
 import slider3 from "@/assets/slider-new-3-human.png";
 import { motion, AnimatePresence } from "framer-motion";
 
-const slides = [
-  {
-    image: slider1,
-    title: "Le Contrôle à votre Porte",
-    subtitle: "Innovation SICTA 2025",
-    description: "Nos fourgons d'intervention se déplacent dans les parcs concessionnaires et chez les grands comptes pour un service de proximité sans égal.",
-    cta: "Nos Solutions Mobiles",
-    stats: [
-      { icon: Shield, value: "100%", label: "Couverture Nationale" },
-      { icon: Users, value: "Proximité", label: "Service à domicile" }
-    ]
-  },
-  {
-    image: slider2,
-    title: "Banc Mobile Haute Technologie",
-    subtitle: "L'expertise partout en Côte d'Ivoire",
-    description: "Nos bancs mobiles de nouvelle génération permettent un contrôle technique complet et certifié ISO 9001:2015, même dans les zones les plus reculées.",
-    cta: "Découvrir le Banc Mobile",
-    stats: [
-      { icon: MapPin, value: "22", label: "Stations temporaires" },
-      { icon: Shield, value: "Certifié", label: "ISO 9001:2015" }
-    ]
-  },
-  {
-    image: slider3,
-    title: "Sécurité Routière Garantie",
-    subtitle: "Leader depuis 1974 • Nouvelle ère 2025",
-    description: "Certifié ISO 9001:2015, SICTA est le partenaire de confiance pour la sécurité routière en Côte d'Ivoire et en Afrique de l'Ouest.",
-    cta: "En savoir plus",
-    stats: [
-      { icon: Calendar, value: "50+", label: "Années d'expérience" },
-      { icon: Shield, value: "100%", label: "Conformité réglementaire" }
-    ]
-  }
-];
-
 const HeroSlider = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      image: slider1,
+      title: t("heroSlider.slide1.title"),
+      subtitle: t("heroSlider.slide1.subtitle"),
+      description: t("heroSlider.slide1.description"),
+      cta: t("heroSlider.slide1.cta"),
+      ctaLink: "/services/station-mobile",
+      stats: [
+        { icon: Shield, value: "100%", label: t("heroSlider.slide1.stats.coverage") },
+        { icon: Users, value: t("heroSlider.slide1.stats.proximityValue"), label: t("heroSlider.slide1.stats.proximityLabel") }
+      ]
+    },
+    {
+      image: slider2,
+      title: t("heroSlider.slide2.title"),
+      subtitle: t("heroSlider.slide2.subtitle"),
+      description: t("heroSlider.slide2.description"),
+      cta: t("heroSlider.slide2.cta"),
+      ctaLink: "/services/station-mobile",
+      stats: [
+        { icon: MapPin, value: "22", label: t("heroSlider.slide2.stats.temporary") },
+        { icon: Shield, value: t("heroSlider.slide2.stats.certified"), label: t("heroSlider.slide2.stats.certified") }
+      ]
+    },
+    {
+      image: slider3,
+      title: t("heroSlider.slide3.title"),
+      subtitle: t("heroSlider.slide3.subtitle"),
+      description: t("heroSlider.slide3.description"),
+      cta: t("heroSlider.slide3.cta"),
+      ctaLink: "/a-propos",
+      stats: [
+        { icon: Calendar, value: "50+", label: t("heroSlider.slide3.stats.experience") },
+        { icon: Shield, value: "100%", label: t("heroSlider.slide3.stats.compliance") }
+      ]
+    }
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -100,15 +107,6 @@ const HeroSlider = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1, delay: 0.3 }}
                     >
-                      <motion.div
-                        className="inline-flex items-center space-x-2 bg-primary/90 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 lg:mb-6"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        <Shield className="h-4 w-4 animate-pulse" />
-                        <span>Leader sécurité routière • Nouvelle ère 2025</span>
-                      </motion.div>
 
                       <motion.h1
                         className="text-3xl sm:text-4xl lg:text-7xl font-bold leading-tight mb-4 lg:mb-6"
@@ -119,21 +117,7 @@ const HeroSlider = () => {
                         {slide.title}
                       </motion.h1>
 
-                      <motion.h2
-                        className="text-lg sm:text-xl lg:text-3xl font-light mb-6 lg:mb-8"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.9, duration: 0.8 }}
-                      >
-                        {slide.subtitle === "Filiale de Mayelia Participations" ? (
-                          <>
-                            <span className="text-cyan-400">Filiale de </span>
-                            <span className="text-teal-400">Mayelia Participations</span>
-                          </>
-                        ) : (
-                          <span className="text-orange-300">{slide.subtitle}</span>
-                        )}
-                      </motion.h2>
+                     
 
                       <motion.p
                         className="text-base sm:text-lg lg:text-xl leading-relaxed mb-8 lg:mb-10 text-gray-100"
@@ -177,7 +161,10 @@ const HeroSlider = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.7, duration: 0.6 }}
                       >
-                        <Button className="btn-hero text-base lg:text-lg px-6 lg:px-10 py-3 lg:py-6 text-white bg-primary hover:bg-primary/90 cursor-hover">
+                        <Button 
+                          className="btn-hero text-base lg:text-lg px-6 lg:px-10 py-3 lg:py-6 text-white bg-primary hover:bg-primary/90 cursor-hover"
+                          onClick={() => slide.ctaLink && navigate(slide.ctaLink)}
+                        >
                           {slide.cta}
                         </Button>
                       </motion.div>

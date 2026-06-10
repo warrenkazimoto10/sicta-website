@@ -126,9 +126,6 @@ const VIP = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Nos Objectifs
-                </Badge>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Objectifs
                 </h2>
@@ -175,9 +172,6 @@ const VIP = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Public Cible
-                </Badge>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Public ou Véhicules Concernés
                 </h2>
@@ -220,9 +214,6 @@ const VIP = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Inscription
-                </Badge>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Modalités de Souscription
                 </h2>
@@ -267,9 +258,6 @@ const VIP = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Fonctionnalités
-                </Badge>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Principales Fonctionnalités / Avantages
                 </h2>
@@ -323,9 +311,6 @@ const VIP = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <Badge className="bg-primary/10 text-primary mb-4 px-4 py-2">
-                  Nos Engagements
-                </Badge>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
                   Engagements de la SICTA
                 </h2>

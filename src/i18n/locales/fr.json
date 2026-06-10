@@ -215,6 +215,97 @@
     "vehicleInfo": "Informations du véhicule",
     "payment": "Paiement",
     "summary": "Récapitulatif"
+  },
+  "heroSlider": {
+    "slide1": {
+      "title": "Le Contrôle à votre Porte",
+      "subtitle": "Innovation SICTA 2025",
+      "description": "Nos fourgons d'intervention se déplacent dans les parcs concessionnaires et chez les grands comptes pour un service de proximité sans égal.",
+      "cta": "Nos Solutions Mobiles",
+      "stats": {
+        "coverage": "Couverture Nationale",
+        "proximityValue": "Proximité",
+        "proximityLabel": "Service à domicile"
+      }
+    },
+    "slide2": {
+      "title": "Banc Mobile Haute Technologie",
+      "subtitle": "L'expertise partout en Côte d'Ivoire",
+      "description": "Nos bancs mobiles de nouvelle génération permettent un contrôle technique complet et certifié ISO 9001:2015, même dans les zones les plus reculées.",
+      "cta": "Découvrir le Banc Mobile",
+      "stats": {
+        "temporary": "Stations temporaires",
+        "certified": "ISO 9001:2015"
+      }
+    },
+    "slide3": {
+      "title": "Sécurité Routière Garantie",
+      "subtitle": "Leader depuis 1974 • Nouvelle ère 2025",
+      "description": "Certifié ISO 9001:2015, SICTA est le partenaire de confiance pour la sécurité routière en Côte d'Ivoire et en Afrique de l'Ouest.",
+      "cta": "En savoir plus",
+      "stats": {
+        "experience": "Années d'expérience",
+        "compliance": "Conformité réglementaire"
+      }
+    },
+    "badge": "Leader sécurité routière • Nouvelle ère 2025"
+  },
+  "newEra": {
+    "title": "Nouvelle Ère",
+    "titleHighlight": "SICTA 2025",
+    "description": "Société Ivoirienne de Contrôles Techniques Automobiles et Industriels, SICTA entre dans une nouvelle phase de développement sous l'impulsion de Mayelia Participations. Leader incontesté depuis 1974.",
+    "keyPoints": "Points Clés",
+    "highlights": [
+      "Filiale de Mayelia Participations depuis avril 2025",
+      "Certification ISO 9001:2015 par ABS Quality Evaluations",
+      "Leader du contrôle technique en Afrique de l'Ouest",
+      "Innovation technologique et digitalisation des services"
+    ],
+    "findAgency": "Trouver une agence",
+    "learnMore": "En savoir plus",
+    "isoCert": "ISO 9001:2015",
+    "isoCertLabel": "Certification Qualité"
+  },
+  "controleTechnique": {
+    "readyTitle": "Prêt pour votre visite technique ?",
+    "readySubtitle": "Réservez votre créneau en ligne et bénéficiez de nos services professionnels",
+    "bookAppointment": "Prendre rendez-vous",
+    "findAgency": "Trouver une agence"
+  },
+  "network": {
+    "title": "Notre Réseau",
+    "subtitle": "29 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien pour vous servir au plus près.",
+    "stats": {
+      "permanent": "Stations permanentes",
+      "temporary": "Stations temporaires",
+      "daily": "Véhicules/jour",
+      "coverage": "Couverture nationale"
+    },
+    "interiorTitle": "Intérieur du Pays",
+    "interiorSubtitle": "Nos principales agences pour tous vos besoins de contrôle technique",
+    "interiorDisplay": "Affichage",
+    "interiorOf": "sur",
+    "interiorAgencies": "agences",
+    "abidjanTitle": "Abidjan",
+    "abidjanSubtitle": "Retrouvez nos stations fixes et nos bancs mobiles sur le Grand Abidjan",
+    "reserve": "Réserver",
+    "route": "Itinéraire",
+    "servicesAvailable": "Services disponibles :",
+    "availability": "Disponibilité :",
+    "mobileInfrastructure": "Infrastructure Mobile",
+    "mobileInfrastructureSubtitle": "Unités mobiles et bancs mobiles pour desservir tout le territoire ivoirien",
+    "mobileStations": "4 Stations Mobiles",
+    "mobileStationsDesc": "Unités de contrôle itinérantes",
+    "mobileStationsText": "Nos stations mobiles équipées parcourent les zones moins accessibles pour apporter nos services de contrôle technique partout en Côte d'Ivoire.",
+    "mobileBancs": "4 Bancs Mobiles",
+    "mobileBancsDesc": "Équipement technique itinérant",
+    "mobileBancsText": "Nos bancs mobiles assurent la même qualité de contrôle technique que nos stations permanentes, avec des équipements certifiés et des techniciens qualifiés.",
+    "ctaTitle": "Une agence près de chez vous",
+    "ctaSubtitle": "Trouvez l'agence SICTA la plus proche et réservez votre contrôle technique",
+    "locateAgency": "Localiser une agence",
+    "locating": "Recherche en cours…",
+    "previous": "Précédent",
+    "next": "Suivant"
   }
 }
 

@@ -217,32 +217,7 @@ const Galerie = () => {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="bg-sicta-grey-dark text-white py-16 md:py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Visitez nos agences
-            </h2>
-            <p className="text-white/80 mb-8 max-w-xl mx-auto">
-              Découvrez nos installations et réservez votre contrôle technique.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/reseau">
-                <Button size="lg" className="bg-white text-sicta-grey-dark hover:bg-gray-100">
-                  <MapPin className="h-4 w-4 mr-2" />
-                  Trouver une agence
-                </Button>
-              </Link>
-              <Link to="/reservation">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey-dark">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Prendre rendez-vous
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+       
       </div>
 
       {/* Lightbox type portfolio — plein écran, nav prev/next */}

@@ -1,25 +1,82 @@
 import { useState } from "react";
-import { Calendar, MapPin, Clock, Car, CreditCard, Smartphone, CheckCircle, ArrowRight, Shield, FileText } from "lucide-react";
+import { Calendar, MapPin, Clock, Car, CreditCard, Smartphone, CheckCircle, ArrowRight, Shield, FileText, ChevronsUpDown, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 
-const agencies = [
-  { id: "plateau", name: "SICTA Plateau", address: "Boulevard Lagunaire, Plateau", phone: "07 00 25 88 93" },
-  { id: "vridi", name: "SICTA Vridi", address: "Zone portuaire, Vridi", phone: "07 47 59 63 00" },
-  { id: "yopougon-zi", name: "SICTA Yopougon Z.I.", address: "Zone Industrielle Yopougon", phone: "07 07 62 28 48" },
-  { id: "yopougon-niangon", name: "SICTA Yopougon Niangon", address: "Niangon, Yopougon", phone: "07 09 71 82 77" },
-  { id: "marcory", name: "SICTA Marcory", address: "Zone 4, Marcory", phone: "27 21 21 29 90" },
-  { id: "angre", name: "SICTA Angré", address: "Angré, Cocody", phone: "07 67 11 04 85" },
-  { id: "abatta", name: "SICTA Abatta", address: "Abatta, Bingerville", phone: "07 59 08 11 84" },
-  { id: "yamoussoukro", name: "SICTA Yamoussoukro", address: "Quartier Millionnaire", phone: "07 48 48 16 66" },
-  { id: "bouake", name: "SICTA Bouaké", address: "Zone industrielle Bouaké", phone: "07 59 39 93 07" },
-  { id: "san-pedro", name: "SICTA San Pedro", address: "Zone portuaire San Pedro", phone: "07 59 39 93 03" }
+// Import des données du réseau depuis Network.tsx
+// Tableau 1 — Intérieur du Pays (21 agences hors Abidjan)
+const agenciesInterieurPays = [
+  { name: "Abengourou", city: "Abengourou", phone: "07 47 04 91 40" },
+  { name: "Aboisso", city: "Aboisso", phone: "07 57 20 90 77" },
+  { name: "Adzopé", city: "Adzopé", phone: "07 69 88 40 84" },
+  { name: "Agnibilékro", city: "Agnibilékro", phone: "07 47 58 37 41" },
+  { name: "Agboville", city: "Agboville", phone: "07 68 31 15 89" },
+  { name: "Bondoukou", city: "Bondoukou", phone: "07 09 66 57 63" },
+  { name: "Bouaké", city: "Bouaké", phone: "07 59 39 93 07" },
+  { name: "Bouaflé", city: "Bouaflé", phone: "07 59 08 11 83" },
+  { name: "Dabou", city: "Dabou", phone: "07 68 62 84 35" },
+  { name: "Daloa", city: "Daloa", phone: "07 67 45 90 93" },
+  { name: "Daoukro", city: "Daoukro", phone: "07 08 26 46 19" },
+  { name: "Divo", city: "Divo", phone: "07 59 39 93 04" },
+  { name: "Gagnoa", city: "Gagnoa", phone: "07 07 00 92 12" },
+  { name: "Guiglo", city: "Guiglo", phone: "07 57 44 02 69" },
+  { name: "Korhogo", city: "Korhogo", phone: "07 59 08 11 79" },
+  { name: "Man", city: "Man", phone: "07 07 70 53 07" },
+  { name: "Odienné", city: "Odienné", phone: "07 57 43 83 68" },
+  { name: "San Pédro", city: "San Pédro", phone: "07 59 39 93 03" },
+  { name: "Soubré", city: "Soubré", phone: "07 59 39 93 05" },
+  { name: "Yamoussoukro", city: "Yamoussoukro", phone: "07 48 48 16 66" },
+  { name: "Yaou", city: "Yaou", phone: "07 59 39 93 06" }
 ];
+
+// Tableau 2 — Réseau Abidjan (8 stations fixes + 2 bancs mobiles)
+const agenciesReseauAbidjan = [
+  { name: "Abatta", city: "Abidjan", phone: "07 59 08 11 84" },
+  { name: "Angré", city: "Abidjan", phone: "07 67 11 04 85" },
+  { name: "Guichet Unique", city: "Abidjan", phone: "07 09 52 08 09" },
+  { name: "Marcory", city: "Abidjan", phone: "27 21 21 29 90" },
+  { name: "Plateau", city: "Abidjan", phone: "07 00 25 88 93" },
+  { name: "Vridi", city: "Abidjan", phone: "07 47 59 63 00" },
+  { name: "Yopougon Zone Industrielle", city: "Abidjan", phone: "07 07 62 28 48" },
+  { name: "Yopougon Niangon", city: "Abidjan", phone: "07 09 71 82 77" },
+  { name: "Banc Mobile Abidjan", city: "Rayon de 50km", phone: "07 07 74 80 79" },
+  { name: "Fourgon Intervention", city: "Abidjan & Zone Industrielle", phone: "07 57 25 31 23" }
+];
+
+// Liste des stations périodiques à exclure
+const stationsPeriodiques = [
+  "Bongouanou", "Boundiali", "Bouna", "Danané", "Dimbokro", "Duékoué", "Fresco",
+  "Ferkessédougou", "Grand Lahou", "Issia", "Katiola", "M'bahiakro", "Méagui",
+  "Oumé", "Sassandra", "Séguéla", "Tabou", "Tiassalé", "Tengrela", "Toumodi",
+  "Touba", "Zuénoula"
+];
+
+// Combiner toutes les stations permanentes (hors périodiques)
+const allPermanentStations = [
+  ...agenciesInterieurPays.map(station => ({
+    id: station.name.toLowerCase().replace(/\s+/g, '-').replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ô]/g, 'o').replace(/[ùû]/g, 'u').replace(/'/g, ''),
+    name: `SICTA ${station.name}`,
+    address: station.city,
+    phone: station.phone,
+    city: station.city
+  })),
+  ...agenciesReseauAbidjan.map(station => ({
+    id: station.name.toLowerCase().replace(/\s+/g, '-').replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ô]/g, 'o').replace(/[ùû]/g, 'u').replace(/'/g, ''),
+    name: `SICTA ${station.name}`,
+    address: station.city === "Abidjan" ? station.city : `${station.city}, Abidjan`,
+    phone: station.phone,
+    city: station.city
+  }))
+].filter(station => !stationsPeriodiques.some(periodic => station.name.toLowerCase().includes(periodic.toLowerCase())));
+
+const agencies = allPermanentStations;
 
 const timeSlots = [
   "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -51,6 +108,7 @@ const INSPECTION_PRICE = {
 
 const Booking = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     agencyId: "",
     date: "",
@@ -62,7 +120,10 @@ const Booking = () => {
     brand: "",
     model: "",
     year: new Date().getFullYear().toString(),
-    paymentMethod: ""
+    paymentMethod: "",
+    firstName: "",
+    lastName: "",
+    phone: ""
   });
 
   const nextStep = () => setCurrentStep(prev => prev + 1);
@@ -105,10 +166,7 @@ const Booking = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20 mb-6 uppercase tracking-wider">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Réservation Express 2025
-                </Badge>
+                
                 <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-sicta-grey-dark">
                   Simplifiez votre <span className="text-gradient">Contrôle Technique</span>
                 </h1>
@@ -288,21 +346,56 @@ const Booking = () => {
                       <div className="space-y-8">
                         <div>
                           <label className="text-sm font-bold text-sicta-grey-dark/70 mb-4 block uppercase tracking-widest">Agence SICTA</label>
-                          <Select value={formData.agencyId} onValueChange={(val) => setFormData({ ...formData, agencyId: val })}>
-                            <SelectTrigger className="w-full py-6 text-lg">
-                              <SelectValue placeholder="Choisir une station de contrôle" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {agencies.map(agency => (
-                                <SelectItem key={agency.id} value={agency.id} className="py-3">
-                                  <div className="flex flex-col">
-                                    <span className="font-bold">{agency.name}</span>
-                                    <span className="text-xs text-sicta-grey-light">{agency.address}</span>
-                                  </div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <Popover open={open} onOpenChange={setOpen}>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={open}
+                                className={cn(
+                                  "w-full justify-between py-6 text-lg h-auto",
+                                  !formData.agencyId && "text-muted-foreground"
+                                )}
+                              >
+                                {formData.agencyId
+                                  ? agencies.find((agency) => agency.id === formData.agencyId)?.name
+                                  : "Choisir une station de contrôle"}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
+                              <Command>
+                                <CommandInput placeholder="Rechercher une station..." />
+                                <CommandList>
+                                  <CommandEmpty>Aucune station trouvée.</CommandEmpty>
+                                  <CommandGroup>
+                                    {agencies.map((agency) => (
+                                      <CommandItem
+                                        key={agency.id}
+                                        value={`${agency.name} ${agency.address} ${agency.city}`}
+                                        onSelect={() => {
+                                          setFormData({ ...formData, agencyId: agency.id });
+                                          setOpen(false);
+                                        }}
+                                        className="py-3"
+                                      >
+                                        <Check
+                                          className={cn(
+                                            "mr-2 h-4 w-4",
+                                            formData.agencyId === agency.id ? "opacity-100" : "opacity-0"
+                                          )}
+                                        />
+                                        <div className="flex flex-col">
+                                          <span className="font-bold">{agency.name}</span>
+                                          <span className="text-xs text-sicta-grey-light">{agency.address}</span>
+                                        </div>
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -331,6 +424,40 @@ const Booking = () => {
                             </div>
                           </div>
                         </div>
+
+                        <div className="pt-6 border-t">
+                          <label className="text-sm font-bold text-sicta-grey-dark/70 mb-6 block uppercase tracking-widest">Informations de contact</label>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                              <label className="text-xs font-bold uppercase tracking-widest text-sicta-grey-light">Prénom</label>
+                              <Input
+                                placeholder="Ex: Jean"
+                                value={formData.firstName}
+                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                                className="py-6 text-lg"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <label className="text-xs font-bold uppercase tracking-widest text-sicta-grey-light">Nom</label>
+                              <Input
+                                placeholder="Ex: Kouassi"
+                                value={formData.lastName}
+                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                className="py-6 text-lg"
+                              />
+                            </div>
+                            <div className="space-y-2 md:col-span-2">
+                              <label className="text-xs font-bold uppercase tracking-widest text-sicta-grey-light">Numéro de téléphone</label>
+                              <Input
+                                placeholder="Ex: 07 12 34 56 78"
+                                value={formData.phone}
+                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                className="py-6 text-lg"
+                                type="tel"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="flex gap-4 mt-12">
@@ -338,7 +465,7 @@ const Booking = () => {
                         <Button
                           onClick={nextStep}
                           className="flex-1 btn-hero py-7 text-xl"
-                          disabled={!formData.agencyId || !formData.date || !formData.time}
+                          disabled={!formData.agencyId || !formData.date || !formData.time || !formData.firstName || !formData.lastName || !formData.phone}
                         >
                           Confirmer le créneau
                         </Button>

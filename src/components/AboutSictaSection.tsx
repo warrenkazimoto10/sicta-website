@@ -10,17 +10,15 @@ import {
 import sictaInspectionImage from "@/assets/sicta-inspection-modern.jpg";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AboutSictaSection = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
 
-  const highlights = [
-    "Filiale de Mayelia Participations depuis avril 2025",
-    "Certification ISO 9001:2015 par ABS Quality Evaluations",
-    "Leader du contrôle technique en Afrique de l'Ouest",
-    "Innovation technologique et digitalisation des services",
-    "Nouvelle ère de développement et modernisation"
-  ];
+  const highlights = t("newEra.highlights", { returnObjects: true }) as string[];
 
   return (
     <section ref={sectionRef} className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/20">
@@ -34,26 +32,21 @@ const AboutSictaSection = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
-                <Shield className="h-4 w-4" />
-                <span>À Propos de SICTA</span>
-              </div>
+              
 
               <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark">
-                Nouvelle Ère{" "}
-                <span className="text-gradient">SICTA 2025</span>
+                {t("newEra.title")}{" "}
+                <span className="text-gradient">{t("newEra.titleHighlight")}</span>
               </h2>
 
               <p className="text-xl text-sicta-grey-light leading-relaxed">
-                Société Ivoirienne de Contrôles Techniques Automobiles et Industriels,
-                SICTA entre dans une nouvelle phase de développement sous l'impulsion de
-                Mayelia Participations. Leader incontesté depuis 1974.
+                {t("newEra.description")}
               </p>
             </div>
 
             {/* Highlights */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-sicta-grey-dark">Points Clés</h3>
+              <h3 className="text-xl font-semibold text-sicta-grey-dark">{t("newEra.keyPoints")}</h3>
               <div className="space-y-3">
                 {highlights.map((highlight, index) => (
                   <div key={index} className="flex items-start space-x-3">
@@ -67,12 +60,12 @@ const AboutSictaSection = () => {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="btn-hero">
+              <Button className="btn-hero" onClick={() => navigate("/reseau")}>
                 <MapPin className="h-4 w-4 mr-2" />
-                Trouver une agence
+                {t("newEra.findAgency")}
               </Button>
-              <Button className="btn-outline">
-                En savoir plus
+              <Button className="btn-outline" onClick={() => navigate("/a-propos")}>
+                {t("newEra.learnMore")}
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
@@ -107,8 +100,8 @@ const AboutSictaSection = () => {
                     <Award className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <div className="font-bold text-sicta-grey-dark">ISO 9001:2015</div>
-                    <div className="text-sm text-sicta-grey-light">Certification Qualité</div>
+                    <div className="font-bold text-sicta-grey-dark">{t("newEra.isoCert")}</div>
+                    <div className="text-sm text-sicta-grey-light">{t("newEra.isoCertLabel")}</div>
                   </div>
                 </div>
               </Card>
