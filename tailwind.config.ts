@@ -28,6 +28,8 @@ export default {
           grey: "hsl(var(--sicta-grey))",
           "grey-light": "hsl(var(--sicta-grey-light))",
           "grey-dark": "hsl(var(--sicta-grey-dark))",
+          "bg-light": "#F8F8F8",
+          "bg-peach": "#FFF5EE",
         },
         
         primary: {

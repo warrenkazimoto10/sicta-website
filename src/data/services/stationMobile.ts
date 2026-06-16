@@ -119,8 +119,8 @@ export const stationMobileData = {
   
   // Contact / Localisation
   contact: {
-    adresse: "RUE ABOU MATHEWELL ZONE 4C ABIDJAN COTE D'IVOIRE",
-    email: "infos.sicta@sicta.ci",
+    adresse: "Rue Abli Mathieu, 1145 Zone 4C, Abidjan, Côte d'Ivoire",
+    email: "infos@sicta.ci",
     telephone: "27 21 21 29 90"
   }
 };

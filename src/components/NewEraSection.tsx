@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card";
-import { 
-  Building2, 
-  Shield, 
-  Users, 
+import {
+  Building2,
+  Shield,
+  Users,
   Award,
   Star,
   ChevronLeft,
@@ -10,11 +10,38 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStationStats } from "@/services/stationService";
+
+function useCountUp(target: number, durationMs = 1000) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!target) return;
+    const steps = 40;
+    const interval = durationMs / steps;
+    let step = 0;
+    const t = setInterval(() => {
+      step++;
+      setValue(Math.round((target * step) / steps));
+      if (step >= steps) clearInterval(t);
+    }, interval);
+    return () => clearInterval(t);
+  }, [target, durationMs]);
+  return value;
+}
 
 const NewEraSection = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
   const [currentAchievement, setCurrentAchievement] = useState(0);
+
+  const { data: stats } = useQuery({
+    queryKey: ["station-stats"],
+    queryFn: fetchStationStats,
+    staleTime: 300_000,
+  });
+
+  const stationCount = useCountUp(stats?.permanent ?? 0);
 
   const achievements = [
     {
@@ -24,7 +51,7 @@ const NewEraSection = () => {
     },
     {
       icon: Users,
-      title: "29 Stations Permanentes",
+      title: `${stationCount || (stats?.permanent ?? 28)} Stations Permanentes`,
       description: "Couverture nationale complète"
     },
     {
@@ -65,7 +92,7 @@ const NewEraSection = () => {
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           {/* Desktop Grid */}
-          <div className="hidden lg:grid grid-cols-4 gap-6">
+          <div className="hidden lg:grid grid-cols-3 gap-6">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={index}

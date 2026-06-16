@@ -9,18 +9,21 @@ import {
   MapPin,
   Clock,
   Send,
-  MessageSquare,
-  Mailbox,
+  CheckCircle,
 } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { sendContactMessage } from "@/services/contactService";
 
 const Contact = () => {
   const navigate = useNavigate();
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,18 +32,25 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logique de soumission du formulaire
-    console.log("Form submitted:", formData);
-    // Réinitialiser le formulaire
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
+    setSending(true);
+    setSendError(null);
+    try {
+      await sendContactMessage({
+        nom_complet: formData.name,
+        telephone: formData.phone,
+        email: formData.email,
+        sujet: formData.subject,
+        message: formData.message,
+      });
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : "Erreur lors de l'envoi. Réessayez.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleChange = (
@@ -73,7 +83,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Information & Form */}
-        <section ref={sectionRef} className="py-20">
+        <section ref={sectionRef} className="py-20 bg-sicta-bg-peach">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Contact Information */}
@@ -136,10 +146,10 @@ const Contact = () => {
                           Envoyez-nous un email, nous vous répondrons sous 24h
                         </p>
                         <a
-                          href="mailto:infos.sicta@sicta.ci"
+                          href="mailto:infos@sicta.ci"
                           className="text-primary hover:underline font-medium"
                         >
-                          infos.sicta@sicta.ci
+                          infos@sicta.ci
                         </a>
                       </div>
                     </div>
@@ -156,10 +166,18 @@ const Contact = () => {
                           Adresse
                         </h3>
                         <p className="text-sicta-grey-light">
-                          Zone 4C
+                          Rue Abli Mathieu, 1145 Zone 4C
                           <br />
                           Abidjan, Côte d'Ivoire
                         </p>
+                        <a
+                          href="https://maps.app.goo.gl/raaF3pipxgcsBByV7"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline text-sm mt-1 inline-block"
+                        >
+                          Voir sur Google Maps →
+                        </a>
                       </div>
                     </div>
                   </Card>
@@ -193,128 +211,187 @@ const Contact = () => {
                 transition={{ duration: 0.8 }}
               >
                 <Card className="p-8 card-elevated">
-                  <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-sicta-grey-dark mb-4">
-                      Envoyez-nous un message
-                    </h2>
-                    <p className="text-sicta-grey-light">
-                      Remplissez le formulaire ci-dessous et nous vous recontacterons
-                      dans les plus brefs délais.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="name" className="text-sicta-grey-dark">
-                          Nom complet *
-                        </Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="mt-2"
-                          placeholder="Jean Dupont"
-                        />
+                  {submitted ? (
+                    <div className="flex flex-col items-center text-center py-8 space-y-4">
+                      <div className="h-20 w-20 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle className="h-12 w-12 text-green-600" />
                       </div>
-                      <div>
-                        <Label htmlFor="phone" className="text-sicta-grey-dark">
-                          Téléphone *
-                        </Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="mt-2"
-                          placeholder="+225 XX XX XX XX XX"
-                        />
+                      <h3 className="text-2xl font-bold text-sicta-grey-dark">
+                        Message envoyé !
+                      </h3>
+                      <p className="text-sicta-grey-light max-w-sm">
+                        Merci de nous avoir contactés. Notre équipe vous répondra
+                        dans un délai de 24h à l'adresse{" "}
+                        <a href="mailto:infos@sicta.ci" className="text-primary font-medium">
+                          infos@sicta.ci
+                        </a>
+                        .
+                      </p>
+                      <Button
+                        variant="outline"
+                        className="mt-4"
+                        onClick={() => setSubmitted(false)}
+                      >
+                        Envoyer un autre message
+                      </Button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mb-8">
+                        <h2 className="text-3xl font-bold text-sicta-grey-dark mb-4">
+                          Envoyez-nous un message
+                        </h2>
+                        <p className="text-sicta-grey-light">
+                          Remplissez le formulaire ci-dessous et nous vous recontacterons
+                          dans les plus brefs délais.
+                        </p>
                       </div>
-                    </div>
 
-                    <div>
-                      <Label htmlFor="email" className="text-sicta-grey-dark">
-                        Email *
-                      </Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="mt-2"
-                        placeholder="jean.dupont@example.com"
-                      />
-                    </div>
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <Label htmlFor="name" className="text-sicta-grey-dark">
+                              Nom complet *
+                            </Label>
+                            <Input
+                              id="name"
+                              name="name"
+                              type="text"
+                              required
+                              value={formData.name}
+                              onChange={handleChange}
+                              className="mt-2"
+                              placeholder="Jean Dupont"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="phone" className="text-sicta-grey-dark">
+                              Téléphone *
+                            </Label>
+                            <Input
+                              id="phone"
+                              name="phone"
+                              type="tel"
+                              required
+                              value={formData.phone}
+                              onChange={handleChange}
+                              className="mt-2"
+                              placeholder="+225 XX XX XX XX XX"
+                            />
+                          </div>
+                        </div>
 
-                    <div>
-                      <Label htmlFor="subject" className="text-sicta-grey-dark">
-                        Sujet *
-                      </Label>
-                      <Input
-                        id="subject"
-                        name="subject"
-                        type="text"
-                        required
-                        value={formData.subject}
-                        onChange={handleChange}
-                        className="mt-2"
-                        placeholder="Sujet de votre message"
-                      />
-                    </div>
+                        <div>
+                          <Label htmlFor="email" className="text-sicta-grey-dark">
+                            Email *
+                          </Label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="mt-2"
+                            placeholder="jean.dupont@example.com"
+                          />
+                        </div>
 
-                    <div>
-                      <Label htmlFor="message" className="text-sicta-grey-dark">
-                        Message *
-                      </Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        required
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="mt-2 min-h-[150px]"
-                        placeholder="Votre message..."
-                      />
-                    </div>
+                        <div>
+                          <Label htmlFor="subject" className="text-sicta-grey-dark">
+                            Sujet *
+                          </Label>
+                          <Input
+                            id="subject"
+                            name="subject"
+                            type="text"
+                            required
+                            value={formData.subject}
+                            onChange={handleChange}
+                            className="mt-2"
+                            placeholder="Sujet de votre message"
+                          />
+                        </div>
 
-                    <Button type="submit" className="w-full btn-hero">
-                      <Send className="h-4 w-4 mr-2" />
-                      Envoyer le message
-                    </Button>
-                  </form>
+                        <div>
+                          <Label htmlFor="message" className="text-sicta-grey-dark">
+                            Message *
+                          </Label>
+                          <Textarea
+                            id="message"
+                            name="message"
+                            required
+                            value={formData.message}
+                            onChange={handleChange}
+                            className="mt-2 min-h-[150px]"
+                            placeholder="Votre message..."
+                          />
+                        </div>
+
+                        {sendError && (
+                          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
+                            {sendError}
+                          </p>
+                        )}
+                        <Button type="submit" className="w-full btn-hero" disabled={sending}>
+                          <Send className="h-4 w-4 mr-2" />
+                          {sending ? "Envoi en cours…" : "Envoyer le message"}
+                        </Button>
+                      </form>
+                    </>
+                  )}
                 </Card>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Map or Additional Info */}
+        {/* Google Maps iframe */}
         <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-sicta-grey-dark mb-4">
                 Trouvez l'agence la plus proche
               </h2>
-              <p className="text-lg text-sicta-grey-light max-w-2xl mx-auto">
-                SICTA dispose de 29 agences permanentes et 22 stations temporaires
+              <p className="text-lg text-sicta-grey-light max-w-2xl mx-auto mb-8">
+                SICTA dispose de 28 agences permanentes et 22 stations temporaires
                 réparties sur l'ensemble du territoire ivoirien.
               </p>
             </div>
-            <div className="flex justify-center">
+            <div className="rounded-xl overflow-hidden shadow-lg border border-border mb-8">
+              <iframe
+                title="SICTA - Rue Abli Mathieu, Zone 4C, Abidjan"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.7!2d-3.997!3d5.32!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMTknMTIuMCJOIDPCsDU5JzQ5LjIiVw!5e0!3m2!1sfr!2sci!4v1699999999999!5m2!1sfr!2sci&q=Rue+Abli+Mathieu+1145+Zone+4C+Abidjan"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="flex justify-center gap-4">
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+              >
+                <a
+                  href="https://maps.app.goo.gl/raaF3pipxgcsBByV7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MapPin className="h-5 w-5 mr-2" />
+                  Voir sur Google Maps
+                </a>
+              </Button>
               <Button
                 size="lg"
                 className="btn-hero"
                 onClick={() => navigate("/reseau", { state: { rechercher: true } })}
               >
                 <MapPin className="h-5 w-5 mr-2" />
-                Rechercher
+                Trouver l'agence la plus proche
               </Button>
             </div>
           </div>

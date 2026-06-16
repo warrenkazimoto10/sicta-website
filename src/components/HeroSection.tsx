@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Shield, Clock, MapPin, CheckCircle, Calendar, Phone } from "lucide-react";
 import heroImage from "@/assets/hero-automotive-service.jpg";
+import NearestAgencyModal from "@/components/NearestAgencyModal";
 
 const HeroSection = () => {
+  const [nearestOpen, setNearestOpen] = useState(false);
   return (
+    <>
     <section className="section-hero min-h-screen flex items-center py-20 relative overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
@@ -33,8 +37,8 @@ const HeroSection = () => {
               </h1>
               
               <p className="text-xl text-sicta-grey-light leading-relaxed">
-                SICTA, filiale de Mayelia Participations, assure le contrôle technique 
-                automobile en Côte d'Ivoire avec 29 stations permanentes et des solutions 
+                SICTA, filiale de Mayelia Participations, assure le contrôle technique
+                automobile en Côte d'Ivoire avec 28 stations permanentes et des solutions
                 innovantes pour votre sécurité.
               </p>
             </div>
@@ -68,7 +72,7 @@ const HeroSection = () => {
                 <Calendar className="h-5 w-5 mr-3" />
                 Réserver mon contrôle
               </Button>
-              <Button className="btn-outline text-lg px-8 py-4">
+              <Button className="btn-outline text-lg px-8 py-4" onClick={() => setNearestOpen(true)}>
                 <MapPin className="h-5 w-5 mr-3" />
                 Trouver une agence
               </Button>
@@ -145,6 +149,9 @@ const HeroSection = () => {
         </div>
       </div>
     </section>
+
+    <NearestAgencyModal open={nearestOpen} onClose={() => setNearestOpen(false)} />
+    </>
   );
 };
 

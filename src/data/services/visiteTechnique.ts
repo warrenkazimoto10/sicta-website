@@ -104,7 +104,7 @@ export const visiteTechniqueData = {
   // Réseau SICTA (liste simple)
   reseauSicta: [
     "Stations fixes dans les principales villes",
-    "Abidjan: Vridi, GUA, Marcory, Plateau, Abatta, Angré, Yopougon zone industrielle, Niangon",
+    "Abidjan: Vridi, GUA, Marcory, Plateau, Angré, Yopougon zone industrielle, Niangon",
     "Intérieur: Yamoussoukro, Bouaké, Korhogo, Odienné, Man, Guiglo, Daloa, Bouaflé, Gagnoa, Divo, Soubré, San-Pedro, Adzopé, Yaou, Aboisso, Dabou, Agboville, Abengourou, Daoukro, Agnibilekrou, Bondoukou"
   ],
 

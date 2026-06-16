@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin, Calendar, ChevronDown } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStationStats } from "@/services/stationService";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
@@ -23,6 +25,12 @@ const Header = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { data: stats } = useQuery({
+    queryKey: ["station-stats"],
+    queryFn: fetchStationStats,
+    staleTime: 300_000,
+  });
   const isHomePage = location.pathname === "/";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -47,7 +55,9 @@ const Header = () => {
             </div>
             <div className="flex items-center space-x-2">
               <MapPin className="h-4 w-4" />
-              <span>{t("header.agencies")}</span>
+              <span>
+                {stats ? `${stats.permanent} agences permanentes` : t("header.agencies")}
+              </span>
             </div>
           </div>
           <div className="hidden md:block">

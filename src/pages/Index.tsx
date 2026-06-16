@@ -65,7 +65,7 @@ const Index = () => {
     <PageTransition>
       <SEO
         title="SICTA - Contrôle Technique Automobile en Côte d'Ivoire"
-        description="Leader du contrôle technique automobile en Côte d'Ivoire depuis 1974. 29 stations permanentes, 22 stations temporaires. Réservez votre contrôle technique en ligne. Certifié ISO 9001:2015."
+        description="Leader du contrôle technique automobile en Côte d'Ivoire depuis 1974. 28 stations permanentes, 22 stations temporaires. Réservez votre contrôle technique en ligne. Certifié ISO 9001:2015."
         keywords="contrôle technique, automobile, Côte d'Ivoire, SICTA, inspection véhicule, sécurité routière, réservation en ligne, Abidjan, Yamoussoukro, Bouaké, San Pedro, Daloa"
         url="/"
       />

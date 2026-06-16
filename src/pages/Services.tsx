@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Shield,
   Truck,
@@ -22,6 +23,7 @@ import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
+import NearestAgencyModal from "@/components/NearestAgencyModal";
 import { visiteTechniqueData } from "@/data/services/visiteTechnique";
 import { civioData } from "@/data/services/civio";
 import { jaugeageBaremageData } from "@/data/services/jaugeageBaremage";
@@ -35,6 +37,7 @@ import { vipData } from "@/data/services/vip";
 
 const Services = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
+  const [nearestOpen, setNearestOpen] = useState(false);
 
   // Tous les services
   const tousLesServices = [
@@ -182,9 +185,10 @@ const Services = () => {
   };
 
   return (
+    <>
     <PageTransition>
       <SEO
-        title="Nos Services - Contrôle Technique et Solutions Automobiles"
+        title="Nos services - Contrôle Technique et Solutions Automobiles"
         description="Découvrez tous les services SICTA : Contrôle technique, CIVIO, IVN, Jaugeage-Barémage, Immatriculation, Station Mobile, PPAD, Service VIP. Solutions complètes pour particuliers et professionnels."
         keywords="contrôle technique, CIVIO, IVN, jaugeage barémage, immatriculation, station mobile, PPAD, service VIP, inspection automobile, pesée véhicule"
         url="/services"
@@ -204,7 +208,7 @@ const Services = () => {
                 <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                   <span className="text-sicta-grey-dark">Nos</span>{" "}
                   <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-sicta-orange-light">
-                    Services
+                    services
                   </span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-sicta-grey-light leading-relaxed max-w-3xl mx-auto">
@@ -217,7 +221,7 @@ const Services = () => {
         </section>
 
         {/* Tous les Services */}
-        <section ref={sectionRef} className="py-24 bg-white">
+        <section ref={sectionRef} className="py-24 bg-sicta-bg-light">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
               <motion.div
@@ -260,7 +264,7 @@ const Services = () => {
                 Choisissez l'agence la plus proche et réservez dès maintenant votre créneau
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-lg px-10 py-7">
+                <Button size="lg" className="btn-hero text-lg px-10 py-7" onClick={() => setNearestOpen(true)}>
                   <MapPin className="h-6 w-6 mr-3" />
                   Trouver une agence
                 </Button>
@@ -275,6 +279,9 @@ const Services = () => {
         </section>
       </div>
     </PageTransition>
+
+    <NearestAgencyModal open={nearestOpen} onClose={() => setNearestOpen(false)} />
+    </>
   );
 };
 

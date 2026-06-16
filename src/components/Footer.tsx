@@ -210,10 +210,17 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-gray-300 text-sm">
-                    Abidjan, Côte d'Ivoire<br />
-                    Zone 4C, Marcory
+                    Rue Abli Mathieu, 1145 Zone 4C<br />
+                    Abidjan, Côte d'Ivoire
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">29 stations permanentes</p>
+                  <a
+                    href="https://maps.app.goo.gl/raaF3pipxgcsBByV7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-primary hover:underline mt-1 inline-block"
+                  >
+                    Voir sur Google Maps →
+                  </a>
                 </div>
               </div>
 
@@ -236,7 +243,7 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 text-sm">infos.sicta@sicta.ci</p>
+                  <p className="text-gray-300 text-sm">infos@sicta.ci</p>
                   <p className="text-xs text-gray-400">Support général</p>
                 </div>
               </div>

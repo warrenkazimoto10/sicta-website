@@ -64,7 +64,7 @@ const ServicesSection = () => {
           
           
           <h2 className="text-4xl lg:text-6xl font-bold text-sicta-grey-dark leading-tight">
-            Nos Services 
+            Nos services
           </h2>
           
           <p className="text-xl lg:text-2xl text-sicta-grey-light max-w-3xl mx-auto leading-relaxed">

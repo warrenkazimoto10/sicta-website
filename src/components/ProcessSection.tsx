@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Calendar, Shield, CheckCircle, Clock, MapPin, FileText } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import inspectionProcess from "@/assets/inspection-process.jpg";
+import NearestAgencyModal from "@/components/NearestAgencyModal";
 
 const processSteps = [
   {
@@ -25,7 +27,9 @@ const processSteps = [
 ];
 
 const ProcessSection = () => {
+  const [nearestOpen, setNearestOpen] = useState(false);
   return (
+    <>
     <section className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
@@ -102,7 +106,7 @@ const ProcessSection = () => {
                 <Calendar className="h-4 w-4 mr-2" />
                 Réserver maintenant
               </Button>
-              <Button variant="outline">
+              <Button variant="outline" onClick={() => setNearestOpen(true)}>
                 <MapPin className="h-4 w-4 mr-2" />
                 Trouver une agence
               </Button>
@@ -111,6 +115,8 @@ const ProcessSection = () => {
         </div>
       </div>
     </section>
+      <NearestAgencyModal open={nearestOpen} onClose={() => setNearestOpen(false)} />
+    </>
   );
 };
 

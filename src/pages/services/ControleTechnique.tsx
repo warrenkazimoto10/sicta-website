@@ -120,7 +120,7 @@ const ControleTechnique = () => {
                 className="text-center mb-16"
               >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
-                  Pourquoi la Visite Technique ?
+                  Pourquoi faire sa visite technique ?
                 </h2>
                 <p className="text-xl text-sicta-grey-light max-w-2xl mx-auto">
                   Trois objectifs essentiels pour garantir votre sécurité et celle des autres

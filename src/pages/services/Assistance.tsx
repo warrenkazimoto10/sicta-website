@@ -58,7 +58,7 @@ const Assistance = () => {
     {
       icon: FileText,
       title: "Email",
-      contact: "infos.sicta@sicta.ci",
+      contact: "infos@sicta.ci",
       description: "Réponse sous 24h"
     }
   ];

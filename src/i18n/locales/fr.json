@@ -28,7 +28,7 @@
   "header": {
     "phone": "+225 27 21 21 29 90",
     "freeCall": "800 800 41",
-    "agencies": "29 agences permanentes",
+    "agencies": "28 agences permanentes",
     "tagline": "Contrôle technique automobile - Côte d'Ivoire",
     "bookAppointment": "Prendre rendez-vous",
     "menu": "Menu",
@@ -41,8 +41,8 @@
     "legal": "Informations légales",
     "contact": "Contactez-nous",
     "followUs": "Suivez-nous",
-    "address": "Abidjan, Côte d'Ivoire, Zone 4C",
-    "email": "infos.sicta@sicta.ci",
+    "address": "Rue Abli Mathieu, 1145 Zone 4C, Abidjan, Côte d'Ivoire",
+    "email": "infos@sicta.ci",
     "phone": "27 21 21 29 90",
     "freeCall": "N° vert : 800 800 41",
     "rights": "Tous droits réservés"
@@ -127,7 +127,7 @@
   },
   "network": {
     "title": "Notre Réseau",
-    "subtitle": "29 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien",
+    "subtitle": "28 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien",
     "stats": {
       "permanent": "Stations permanentes",
       "temporary": "Stations temporaires",
@@ -148,7 +148,7 @@
     }
   },
   "services": {
-    "title": "Nos Services",
+    "title": "Nos services",
     "subtitle": "SICTA propose une gamme complète de services automobiles et industriels",
     "technicalInspection": {
       "title": "Contrôle Technique Automobile",
@@ -274,7 +274,7 @@
   },
   "network": {
     "title": "Notre Réseau",
-    "subtitle": "29 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien pour vous servir au plus près.",
+    "subtitle": "28 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien pour vous servir au plus près.",
     "stats": {
       "permanent": "Stations permanentes",
       "temporary": "Stations temporaires",
