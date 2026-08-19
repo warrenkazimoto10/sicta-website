@@ -17,18 +17,9 @@ import ActualiteDetail from "./pages/ActualiteDetail";
 import EspacePro from "./pages/EspacePro";
 import NotFound from "./pages/NotFound";
 import AdminRedirect from "./pages/AdminRedirect";
-// Services détaillés
-import ControleTechnique from "./pages/services/ControleTechnique";
-import StationMobile from "./pages/services/StationMobile";
-import CIVIO from "./pages/services/CIVIO";
-import IVN from "./pages/services/IVN";
-import JaugeageBaremage from "./pages/services/JaugeageBaremage";
-import PreVisite from "./pages/services/PreVisite";
-import PPAD from "./pages/services/PPAD";
-import Pesee from "./pages/services/Pesee";
-import Assistance from "./pages/services/Assistance";
-import Immatriculation from "./pages/services/Immatriculation";
-import VIP from "./pages/services/VIP";
+// Services (aiguilleur : page codée ou blocs CMS selon le réglage backoffice)
+import ServiceDispatcher from "./pages/ServiceDispatcher";
+import ServiceDynamic from "./pages/ServiceDynamic";
 // Pages supplémentaires
 import Carrieres from "./pages/Carrieres";
 import MurExcellence from "./pages/MurExcellence";
@@ -62,17 +53,10 @@ const App = () => (
                     <Route path="/" element={<Index />} />
                     <Route path="/a-propos" element={<About />} />
                     <Route path="/services" element={<Services />} />
-                    <Route path="/services/controle-technique" element={<ControleTechnique />} />
-                    <Route path="/services/station-mobile" element={<StationMobile />} />
-                    <Route path="/services/civio" element={<CIVIO />} />
-                    <Route path="/services/ivn" element={<IVN />} />
-                    <Route path="/services/jaugeage-baremage" element={<JaugeageBaremage />} />
-                    <Route path="/services/pre-visite" element={<PreVisite />} />
-                    <Route path="/services/ppad" element={<PPAD />} />
-                    <Route path="/services/pesee" element={<Pesee />} />
-                    <Route path="/services/assistance" element={<Assistance />} />
-                    <Route path="/services/immatriculation" element={<Immatriculation />} />
-                    <Route path="/services/vip" element={<VIP />} />
+                    {/* Aperçu CMS forcé (même si le service est en mode « page codée ») */}
+                    <Route path="/services/apercu/:slug" element={<ServiceDynamic />} />
+                    {/* Aiguilleur : affiche la page codée ou les blocs CMS selon le réglage backoffice */}
+                    <Route path="/services/:slug" element={<ServiceDispatcher />} />
                     <Route path="/carrieres" element={<Carrieres />} />
                     <Route path="/excellence" element={<MurExcellence />} />
                     <Route path="/galerie" element={<Galerie />} />

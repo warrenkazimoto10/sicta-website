@@ -1,15 +1,27 @@
-import { Shield, Users, Award, Globe, Calendar, CheckCircle, Mail, Phone, Building, Target, TrendingUp, CheckCircle2, Sparkles, Car, MapPin, FileCheck } from "lucide-react";
+import { Shield, Users, Award, Globe, Calendar, CheckCircle, Mail, Phone, Building, Target, TrendingUp, CheckCircle2, Sparkles, Car, MapPin, FileCheck, Linkedin } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import timeline1974 from "@/assets/timeline-1974-modern.jpg";
-import timeline2024 from "@/assets/timeline-2024-modern.jpg";
 import PageTransition from "@/components/PageTransition";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPageSections } from "@/services/pageSectionService";
+import { fetchTeam, fetchHistory } from "@/services/aboutService";
 
 const About = () => {
   const { t } = useTranslation();
+
+  const { data: cms } = useQuery({ queryKey: ["page-sections", "about"], queryFn: () => fetchPageSections("about"), staleTime: 300_000 });
+  const { data: team = [] } = useQuery({ queryKey: ["team"], queryFn: fetchTeam, staleTime: 300_000 });
+  const { data: history = [] } = useQuery({ queryKey: ["history"], queryFn: fetchHistory, staleTime: 300_000 });
+
+  const historyEnabled = cms?.about_history_enabled !== "0";
+  const teamEnabled = cms?.about_team_enabled !== "0" && team.length > 0;
+  const historyTitle = cms?.about_history_title || "Notre Histoire et Évolution";
+  const historySubtitle = cms?.about_history_subtitle || "Plus de 50 ans d'excellence au service de la sécurité routière";
+  const teamTitle = cms?.about_team_title || "Notre Équipe";
+  const teamSubtitle = cms?.about_team_subtitle || "Des femmes et des hommes engagés pour la sécurité routière";
 
   return (
     <PageTransition>
@@ -197,77 +209,168 @@ const About = () => {
           </div>
         </section>
 
-        {/* Historique */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-sicta-grey-dark mb-4">Notre Histoire et Évolution</h2>
-              <p className="text-xl text-sicta-grey-light">
-                Plus de 50 ans d'excellence au service de la sécurité routière
-              </p>
+        {/* Notre Histoire et Évolution (géré depuis le backoffice) */}
+        {historyEnabled && history.length > 0 && (
+        <section className="py-24 bg-gradient-to-br from-slate-50 via-background to-primary/5 relative overflow-hidden">
+          {/* Décoration de fond */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent hidden md:block" />
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+                <Calendar className="h-4 w-4" /> Chronologie
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">{historyTitle}</h2>
+              <p className="text-xl text-sicta-grey-light max-w-2xl mx-auto">{historySubtitle}</p>
             </div>
 
-            <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* 1959 */}
-                <Card className="card-elevated p-6 relative">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-full"></div>
-                  <div className="relative">
-                    <div className="text-5xl font-bold text-primary/20 mb-2">1959</div>
-                    <h3 className="text-xl font-bold text-sicta-grey-dark mb-3">Début du contrôle technique</h3>
-                    <p className="text-sicta-grey-light">Obligation du contrôle technique automobile en Côte d'Ivoire selon la réglementation.</p>
-                  </div>
-                </Card>
-
-                {/* 1974 */}
-                <Card className="card-elevated p-6 relative">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-full"></div>
-                  <div className="relative">
-                    <div className="text-5xl font-bold text-primary/20 mb-2">1974</div>
-                    <h3 className="text-xl font-bold text-sicta-grey-dark mb-3">Création de la SICTA</h3>
-                    <p className="text-sicta-grey-light">Fondation de la Société Ivoirienne de Contrôles Techniques Automobiles et Industriels.</p>
-                    <div className="mt-4">
-                      <img src={timeline1974} alt="SICTA 1974" className="w-full h-32 object-cover rounded-lg" />
+            <div className="max-w-5xl mx-auto space-y-8">
+              {history.map((ev, i) => (
+                <motion.div
+                  key={ev.id}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.07 }}
+                  className={`flex items-start gap-6 md:gap-10 ${
+                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
+                >
+                  {/* Année badge */}
+                  <div className="flex-shrink-0 flex flex-col items-center">
+                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg font-bold text-lg ${
+                      ev.highlight
+                        ? "bg-gradient-to-br from-primary to-sicta-orange-light text-white shadow-primary/30"
+                        : "bg-white border-2 border-primary/20 text-primary"
+                    }`}>
+                      {ev.annee}
                     </div>
+                    <div className="w-0.5 h-8 bg-primary/20 mt-2 md:hidden" />
                   </div>
-                </Card>
 
-                {/* 1990 */}
-                <Card className="card-elevated p-6 relative">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-full"></div>
-                  <div className="relative">
-                    <div className="text-5xl font-bold text-primary/20 mb-2">1990</div>
-                    <h3 className="text-xl font-bold text-sicta-grey-dark mb-3">Rachat par SGS</h3>
-                    <p className="text-sicta-grey-light">La SICTA devient une société privatisée rachetée par le groupe SGS, leader mondial de l'inspection.</p>
-                  </div>
-                </Card>
-
-                {/* 2019 */}
-                <Card className="card-elevated p-6 relative">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-bl-full"></div>
-                  <div className="relative">
-                    <div className="text-5xl font-bold text-primary/20 mb-2">2019</div>
-                    <h3 className="text-xl font-bold text-sicta-grey-dark mb-3">Certification ISO 9001:2015</h3>
-                    <p className="text-sicta-grey-light">Certification qualité par ABS Quality Evaluations, garantissant l'excellence de nos services.</p>
-                  </div>
-                </Card>
-
-                {/* 2024 */}
-                <Card className="card-elevated p-6 relative border-2 border-primary">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-sicta-orange-light/10 rounded-bl-full"></div>
-                  <div className="relative">
-                    <div className="text-5xl font-bold text-sicta-orange-light/20 mb-2">2024</div>
-                    <h3 className="text-xl font-bold text-sicta-grey-dark mb-3">Rachat par Mayelia Participations</h3>
-                    <p className="text-sicta-grey-light">Nouvelle ère d'innovation et d'expansion sous l'égide de Mayelia Participations.</p>
-                    <div className="mt-4">
-                      <img src={timeline2024} alt="SICTA 2024" className="w-full h-32 object-cover rounded-lg" />
+                  {/* Contenu */}
+                  <Card className={`flex-1 p-6 lg:p-8 hover:shadow-2xl transition-all duration-500 relative overflow-hidden ${
+                    ev.highlight ? "border-2 border-primary/30 bg-gradient-to-br from-white to-primary/5" : "bg-white border border-gray-100"
+                  }`}>
+                    {ev.highlight && (
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full" />
+                    )}
+                    <div className="relative z-10">
+                      {ev.highlight && (
+                        <Badge className="bg-primary text-white mb-3">
+                          <Sparkles className="h-3 w-3 mr-1" /> Événement clé
+                        </Badge>
+                      )}
+                      <h3 className="text-xl font-bold text-sicta-grey-dark mb-2">{ev.titre}</h3>
+                      {ev.description && (
+                        <p className="text-sicta-grey-light leading-relaxed">{ev.description}</p>
+                      )}
+                      {ev.image && (
+                        <img
+                          src={ev.image}
+                          alt={`SICTA ${ev.annee}`}
+                          loading="lazy"
+                          className="mt-4 w-full h-40 object-cover rounded-xl shadow-md"
+                        />
+                      )}
                     </div>
-                  </div>
-                </Card>
-              </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
+        )}
+
+        {/* Notre Équipe (géré depuis le backoffice) */}
+        {teamEnabled && (
+        <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-primary/5">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+                <Users className="h-4 w-4" /> {teamTitle}
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">{teamTitle}</h2>
+              <p className="text-xl text-sicta-grey-light max-w-2xl mx-auto">{teamSubtitle}</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {team.map((m, i) => (
+                <motion.div
+                  key={m.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="group relative"
+                >
+                  <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-white border border-gray-100 hover:border-primary/30 hover:-translate-y-2">
+                    {/* Photo */}
+                    <div className="aspect-square bg-gradient-to-br from-orange-50 via-orange-100 to-primary/10 overflow-hidden">
+                      {m.photo ? (
+                        <img
+                          src={m.photo}
+                          alt={m.nom}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center">
+                          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-sicta-orange-light flex items-center justify-center shadow-lg">
+                            <span className="text-3xl font-bold text-white">{m.nom.charAt(0).toUpperCase()}</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Overlay au survol */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-sicta-grey-dark/95 via-sicta-grey/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-5">
+                      <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 className="font-bold text-white text-lg mb-1">{m.nom}</h3>
+                        {m.role && (
+                          <p className="text-sicta-orange-light text-sm font-medium mb-3">{m.role}</p>
+                        )}
+                        {(m.email || m.linkedin) && (
+                          <div className="flex items-center gap-3 mt-2">
+                            {m.email && (
+                              <a
+                                href={`mailto:${m.email}`}
+                                className="w-8 h-8 rounded-full bg-white/20 hover:bg-primary flex items-center justify-center transition-colors backdrop-blur-sm"
+                                aria-label="Email"
+                              >
+                                <Mail className="h-3.5 w-3.5 text-white" />
+                              </a>
+                            )}
+                            {m.linkedin && (
+                              <a
+                                href={m.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-8 h-8 rounded-full bg-white/20 hover:bg-[#0077B5] flex items-center justify-center transition-colors backdrop-blur-sm"
+                                aria-label="LinkedIn"
+                              >
+                                <Linkedin className="h-3.5 w-3.5 text-white" />
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Info bas de carte (visible sans hover) */}
+                    <div className="p-4 border-t border-gray-50 group-hover:bg-primary/5 transition-colors">
+                      <h3 className="font-bold text-sicta-grey-dark text-sm leading-tight">{m.nom}</h3>
+                      {m.role && (
+                        <p className="text-xs text-primary font-medium mt-0.5 truncate">{m.role}</p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+        )}
 
         {/* Vision et Mission */}
         <section className="py-20 bg-secondary/30">

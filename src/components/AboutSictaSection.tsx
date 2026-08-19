@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Shield,
   Award,
   MapPin,
   ArrowRight,
@@ -12,13 +11,40 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPageSections } from "@/services/pageSectionService";
 
 const AboutSictaSection = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
 
-  const highlights = t("newEra.highlights", { returnObjects: true }) as string[];
+  // Contenu piloté par l'admin (backoffice → Page d'accueil), avec repli sur les traductions
+  const { data: cms } = useQuery({
+    queryKey: ["page-sections", "home"],
+    queryFn: () => fetchPageSections("home"),
+    staleTime: 300_000,
+  });
+
+  const fallbackHighlights = t("newEra.highlights", { returnObjects: true }) as string[];
+
+  const title = cms?.home_hero_title || t("newEra.title");
+  const titleHighlight = cms?.home_hero_title_highlight || t("newEra.titleHighlight");
+  const description = cms?.home_hero_subtitle || t("newEra.description");
+  const keyPointsLabel = t("newEra.keyPoints");
+
+  const highlights = cms?.home_points_cles
+    ? cms.home_points_cles.split("\n").map((l) => l.trim()).filter(Boolean)
+    : fallbackHighlights;
+
+  const cta1Label = cms?.home_cta_button1_label || t("newEra.findAgency");
+  const cta1Url = cms?.home_cta_button1_url || "/reseau";
+  const cta2Label = cms?.home_cta_button2_label || t("newEra.learnMore");
+  const cta2Url = cms?.home_cta_button2_url || "/a-propos";
+
+  const image = cms?.home_hero_image || sictaInspectionImage;
+  const isoValue = cms?.home_iso_value || t("newEra.isoCert");
+  const isoLabel = cms?.home_iso_label || t("newEra.isoCertLabel");
 
   return (
     <section ref={sectionRef} className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/20">
@@ -32,21 +58,19 @@ const AboutSictaSection = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="space-y-4">
-              
-
               <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark">
-                {t("newEra.title")}{" "}
-                <span className="text-gradient">{t("newEra.titleHighlight")}</span>
+                {title}{" "}
+                <span className="text-gradient">{titleHighlight}</span>
               </h2>
 
               <p className="text-xl text-sicta-grey-light leading-relaxed">
-                {t("newEra.description")}
+                {description}
               </p>
             </div>
 
             {/* Highlights */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-sicta-grey-dark">{t("newEra.keyPoints")}</h3>
+              <h3 className="text-xl font-semibold text-sicta-grey-dark">{keyPointsLabel}</h3>
               <div className="space-y-3">
                 {highlights.map((highlight, index) => (
                   <div key={index} className="flex items-start space-x-3">
@@ -57,15 +81,14 @@ const AboutSictaSection = () => {
               </div>
             </div>
 
-
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="btn-hero" onClick={() => navigate("/reseau")}>
+              <Button className="btn-hero" onClick={() => navigate(cta1Url)}>
                 <MapPin className="h-4 w-4 mr-2" />
-                {t("newEra.findAgency")}
+                {cta1Label}
               </Button>
-              <Button className="btn-outline" onClick={() => navigate("/a-propos")}>
-                {t("newEra.learnMore")}
+              <Button className="btn-outline" onClick={() => navigate(cta2Url)}>
+                {cta2Label}
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
@@ -80,8 +103,8 @@ const AboutSictaSection = () => {
           >
             <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
               <img
-                src={sictaInspectionImage}
-                alt="Centre d'inspection SICTA moderne"
+                src={image}
+                alt={`${title} ${titleHighlight}`}
                 className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -100,8 +123,8 @@ const AboutSictaSection = () => {
                     <Award className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <div className="font-bold text-sicta-grey-dark">{t("newEra.isoCert")}</div>
-                    <div className="text-sm text-sicta-grey-light">{t("newEra.isoCertLabel")}</div>
+                    <div className="font-bold text-sicta-grey-dark">{isoValue}</div>
+                    <div className="text-sm text-sicta-grey-light">{isoLabel}</div>
                   </div>
                 </div>
               </Card>

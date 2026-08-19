@@ -6,17 +6,21 @@ use App\Models\Article;
 use App\Models\MessageContact;
 use App\Models\Station;
 use App\Models\MediaGalerie;
+use App\Models\TeamMember;
+use App\Models\HistoryEvent;
 
 class DashboardController extends Controller {
     public function index() {
         $stats = [
-            'reservations_total' => Reservation::count(),
+            'reservations_total'    => Reservation::count(),
             'reservations_en_attente' => Reservation::where('statut', 'en_attente')->count(),
-            'reservations_mois' => Reservation::whereMonth('created_at', now()->month)->count(),
-            'articles_publies' => Article::where('statut', 'publie')->count(),
-            'messages_non_lus' => MessageContact::where('lu', false)->count(),
-            'stations_actives' => Station::where('actif', true)->count(),
-            'medias_total' => MediaGalerie::count(),
+            'reservations_mois'     => Reservation::whereMonth('created_at', now()->month)->count(),
+            'articles_publies'      => Article::where('statut', 'publie')->count(),
+            'messages_non_lus'      => MessageContact::where('lu', false)->count(),
+            'stations_actives'      => Station::where('actif', true)->count(),
+            'medias_total'          => MediaGalerie::count(),
+            'membres_equipe'        => TeamMember::where('actif', true)->count(),
+            'etapes_histoire'       => HistoryEvent::where('actif', true)->count(),
         ];
 
         $reservations_semaine = Reservation::selectRaw('DATE(created_at) as date, COUNT(*) as total')

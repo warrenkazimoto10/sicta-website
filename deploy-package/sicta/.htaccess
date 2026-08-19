@@ -1,0 +1,20 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+# Forward the Authorization header (needed for Sanctum/API bearer tokens)
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Block direct access to the Laravel app, except its public/ front controller
+RewriteRule ^backend/(?!public/) - [F,L]
+
+# Serve existing files/directories as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Admin (Blade), API and uploaded media are handled by Laravel
+RewriteRule ^(admin|api|storage)(/.*)?$ backend/public/index.php [L,QSA]
+
+# Fallback all other routes to index.html (React SPA)
+RewriteRule ^ index.html [L]

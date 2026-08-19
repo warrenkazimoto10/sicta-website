@@ -106,7 +106,7 @@ const Services = () => {
             </div>
 
             {/* Badge en haut */}
-            
+
 
             {/* Contenu */}
             <div className="relative z-10 h-full flex flex-col p-8 text-white">
@@ -186,101 +186,87 @@ const Services = () => {
 
   return (
     <>
-    <PageTransition>
-      <SEO
-        title="Nos services - Contrôle Technique et Solutions Automobiles"
-        description="Découvrez tous les services SICTA : Contrôle technique, CIVIO, IVN, Jaugeage-Barémage, Immatriculation, Station Mobile, PPAD, Service VIP. Solutions complètes pour particuliers et professionnels."
-        keywords="contrôle technique, CIVIO, IVN, jaugeage barémage, immatriculation, station mobile, PPAD, service VIP, inspection automobile, pesée véhicule"
-        url="/services"
-      />
-      <div className="w-full">
-        {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-sicta-orange-light/10">
-          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                
-                <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                  <span className="text-sicta-grey-dark">Nos</span>{" "}
-                  <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-sicta-orange-light">
-                    services
-                  </span>
-                </h1>
-                <p className="text-xl lg:text-2xl text-sicta-grey-light leading-relaxed max-w-3xl mx-auto">
-                  SICTA propose une gamme complète de services automobiles et industriels
-                  pour répondre à tous vos besoins de contrôle et de certification.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+      <PageTransition>
+        <SEO
+          title="Nos services - Contrôle Technique et Solutions Automobiles"
+          description="Découvrez tous les services SICTA : Contrôle technique, CIVIO, IVN, Jaugeage-Barémage, Immatriculation, Station Mobile, PPAD, Service VIP. Solutions complètes pour particuliers et professionnels."
+          keywords="contrôle technique, CIVIO, IVN, jaugeage barémage, immatriculation, station mobile, PPAD, service VIP, inspection automobile, pesée véhicule"
+          url="/services"
+        />
+        <div className="w-full">
+          {/* Hero Section */}
+          <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-sicta-orange-light/10">
+            <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-5xl mx-auto text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
 
-        {/* Tous les Services */}
-        <section ref={sectionRef} className="py-24 bg-sicta-bg-light">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
+                  <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                    <span className="text-sicta-grey-dark">Nos</span>{" "}
+                    <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-sicta-orange-light">
+                      services
+                    </span>
+                  </h1>
+                  <p className="text-xl lg:text-2xl text-sicta-grey-light leading-relaxed max-w-3xl mx-auto">
+                    SICTA propose une gamme complète de services automobiles et industriels
+                    pour répondre à tous vos besoins de contrôle et de certification.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* Tous les Services */}
+          <section ref={sectionRef} className="py-24 bg-sicta-bg-light">
+            <div className="container mx-auto px-4">
+              <div className="max-w-7xl mx-auto">
+
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {tousLesServices.map((service, index) => renderServiceCard(service, index))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="py-20 bg-gradient-to-r from-sicta-grey via-sicta-grey-dark to-sicta-grey text-white relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+            <div className="container mx-auto px-4 text-center relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-16"
               >
-                
-                <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-4">
-                  Tous nos Services
+                <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+                  Prêt à réserver votre service ?
                 </h2>
-                <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-                  Des solutions complètes pour tous vos besoins automobiles
+                <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
+                  Choisissez l'agence la plus proche et réservez dès maintenant votre créneau
                 </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                  <Button size="lg" className="btn-hero text-lg px-10 py-7" onClick={() => setNearestOpen(true)}>
+                    <MapPin className="h-6 w-6 mr-3" />
+                    Trouver une agence
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-2 border-white bg-white/10 text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7 backdrop-blur-sm">
+                    <Calendar className="h-6 w-6 mr-3" />
+                    Réserver en ligne
+                    <ArrowRight className="h-6 w-6 ml-3" />
+                  </Button>
+                </div>
               </motion.div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {tousLesServices.map((service, index) => renderServiceCard(service, index))}
-              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
+      </PageTransition>
 
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-sicta-grey via-sicta-grey-dark to-sicta-grey text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Prêt à réserver votre service ?
-              </h2>
-              <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
-                Choisissez l'agence la plus proche et réservez dès maintenant votre créneau
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-lg px-10 py-7" onClick={() => setNearestOpen(true)}>
-                  <MapPin className="h-6 w-6 mr-3" />
-                  Trouver une agence
-                </Button>
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
-                  <Calendar className="h-6 w-6 mr-3" />
-                  Réserver en ligne
-                  <ArrowRight className="h-6 w-6 ml-3" />
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      </div>
-    </PageTransition>
-
-    <NearestAgencyModal open={nearestOpen} onClose={() => setNearestOpen(false)} />
+      <NearestAgencyModal open={nearestOpen} onClose={() => setNearestOpen(false)} />
     </>
   );
 };

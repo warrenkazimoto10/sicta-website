@@ -3,7 +3,7 @@
 @section('page-title', isset($article->id) ? 'Modifier l\'article' : 'Nouvel article')
 
 @section('content')
-<div class="max-w-4xl pt-2">
+<div class="max-w-6xl pt-2">
     <form method="POST"
           action="{{ isset($article->id) ? route('admin.articles.update', $article) : route('admin.articles.store') }}"
           enctype="multipart/form-data"
@@ -183,6 +183,9 @@ const easyMDE = new EasyMDE({
     spellChecker: false,
     autosave: { enabled: false },
     placeholder: 'Rédigez le contenu de l\'article en Markdown…\n\n## Titre de section\n\nParagraphe de texte…',
+    uploadImage: true,
+    imageUploadEndpoint: '{{ route("admin.upload.image") }}',
+    imageCSRFToken: '{{ csrf_token() }}',
     toolbar: [
         'bold', 'italic', 'heading', '|',
         'quote', 'unordered-list', 'ordered-list', '|',

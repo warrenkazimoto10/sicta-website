@@ -2,6 +2,10 @@ import HeroSlider from "@/components/HeroSlider";
 import AboutSictaSection from "@/components/AboutSictaSection";
 import NewEraSection from "@/components/NewEraSection";
 import ServicesSection from "@/components/ServicesSection";
+import HomeNewsSection from "@/components/HomeNewsSection";
+import IndexV2 from "@/pages/IndexV2";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPageSections } from "@/services/pageSectionService";
 import PageTransition from "@/components/PageTransition";
 import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
@@ -61,6 +65,15 @@ const SimulateurCTASection = () => {
 };
 
 const Index = () => {
+  // La nouvelle page d'accueil (V2) est activable depuis le backoffice
+  const { data: cms } = useQuery({
+    queryKey: ["page-sections", "home"],
+    queryFn: () => fetchPageSections("home"),
+    staleTime: 300_000,
+  });
+
+  if (cms?.home_v2_enabled === "1") return <IndexV2 />;
+
   return (
     <PageTransition>
       <SEO
@@ -75,6 +88,7 @@ const Index = () => {
         <NewEraSection />
         <ServicesSection />
         <SimulateurCTASection />
+        <HomeNewsSection />
       </div>
     </PageTransition>
   );

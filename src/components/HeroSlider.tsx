@@ -20,6 +20,7 @@ interface SlideItem {
   cta: string;
   ctaLink: string;
   stats: { icon: typeof Shield; value: string; label: string }[];
+  duree: number; // durée d'affichage en secondes
 }
 
 const HeroSlider = () => {
@@ -38,6 +39,7 @@ const HeroSlider = () => {
         { icon: Shield, value: "100%", label: t("heroSlider.slide1.stats.coverage") },
         { icon: Users, value: t("heroSlider.slide1.stats.proximityValue"), label: t("heroSlider.slide1.stats.proximityLabel") },
       ],
+      duree: 6,
     },
     {
       image: slider2,
@@ -49,6 +51,7 @@ const HeroSlider = () => {
         { icon: MapPin, value: "22", label: t("heroSlider.slide2.stats.temporary") },
         { icon: Shield, value: t("heroSlider.slide2.stats.certified"), label: t("heroSlider.slide2.stats.certified") },
       ],
+      duree: 6,
     },
     {
       image: slider3,
@@ -60,6 +63,7 @@ const HeroSlider = () => {
         { icon: Calendar, value: "50+", label: t("heroSlider.slide3.stats.experience") },
         { icon: Shield, value: "100%", label: t("heroSlider.slide3.stats.compliance") },
       ],
+      duree: 6,
     },
   ];
 
@@ -82,6 +86,7 @@ const HeroSlider = () => {
           value: st.value,
           label: st.label,
         })),
+        duree: s.duree && s.duree > 0 ? s.duree : 6,
       }))
     : staticSlides;
 
@@ -90,11 +95,14 @@ const HeroSlider = () => {
   }, [slides.length]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    if (slides.length <= 1) return;
+    // Vitesse pilotée par l'admin : durée (en secondes) du slide courant
+    const delay = (slides[currentSlide]?.duree ?? 6) * 1000;
+    const timer = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [currentSlide, slides]);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);

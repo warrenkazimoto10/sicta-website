@@ -1,0 +1,22 @@
+# Robots.txt pour SICTA - Contrôle Technique Automobile
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.sicta.ci/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# Autoriser tous les bots principaux
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /

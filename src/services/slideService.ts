@@ -11,6 +11,7 @@ export interface SlideAPI {
   bouton_lien: string | null;
   stats: { icon?: string; value: string; label: string }[];
   ordre: number;
+  duree: number;
 }
 
 interface SlidesResponse {
