@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder {
             ArticleSeeder::class,
             ServiceSeeder::class,
             AboutSeeder::class,
+            MapPointSeeder::class,
         ]);
     }
 }

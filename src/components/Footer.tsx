@@ -24,10 +24,25 @@ import {
   ChevronRight
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSettings } from "@/services/settingsService";
 
 const Footer = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
+
+  const { data: settings } = useQuery({
+    queryKey: ["settings"],
+    queryFn: fetchSettings,
+    staleTime: 300_000,
+  });
+
+  const facebookLink = settings?.settings_facebook || "https://www.facebook.com/p/SICTA-SA-61580641138223/";
+  const linkedinLink = settings?.settings_linkedin || "https://www.linkedin.com/company/sicta-sa";
+  const mayeliaUrl = settings?.settings_mayelia_url || "https://mayeliaparticipations.com";
+  const phoneValue = settings?.settings_phone || "27 21 21 29 90";
+  const emailValue = settings?.settings_email || "infos@sicta.ci";
+  const addressValue = settings?.settings_address || "Rue Abli Mathieu, Zone 4C, Marcory\nAbidjan, Côte d'Ivoire";
 
   return (
     <footer className="bg-gradient-to-b from-sicta-grey-dark via-sicta-grey to-sicta-grey-dark text-white relative overflow-hidden">
@@ -50,41 +65,32 @@ const Footer = () => {
             </div>
 
             <p className="text-gray-300 leading-relaxed text-sm">
-              Société Ivoirienne de Contrôle Technique Automobiles et Industriels, filiale de Mayelia Participations.
+              Société Ivoirienne de Contrôle Technique Automobile, filiale de Mayelia PARTICIPATIONS.
               Leader du contrôle technique en Côte d'Ivoire depuis 1974.
             </p>
 
-            <div className="flex items-center space-x-2 text-sm text-gray-300">
-              <Building2 className="h-4 w-4 text-primary" />
-              <span>Filiale Mayelia Participations</span>
-            </div>
 
-            {/* Certifications */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              <Badge variant="outline" className="border-primary/30 text-primary bg-primary/10 text-xs">
-                <Shield className="h-3 w-3 mr-1" />
-                ISO 9001:2015
-              </Badge>
-              <Badge variant="outline" className="border-primary/30 text-primary bg-primary/10 text-xs">
-                <Award className="h-3 w-3 mr-1" />
-                Certifié
-              </Badge>
-            </div>
+
+
 
             {/* Social Media */}
             <div className="flex space-x-3 pt-2">
-              <Button size="sm" variant="ghost" className="bg-white/10 hover:bg-primary/20 text-white p-2 rounded-full transition-all hover:scale-110">
+              <a
+                href={facebookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/10 hover:bg-primary hover:text-white text-white p-2.5 rounded-full transition-all hover:scale-110 flex items-center justify-center"
+              >
                 <Facebook className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="ghost" className="bg-white/10 hover:bg-primary/20 text-white p-2 rounded-full transition-all hover:scale-110">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="ghost" className="bg-white/10 hover:bg-primary/20 text-white p-2 rounded-full transition-all hover:scale-110">
+              </a>
+              <a
+                href={linkedinLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/10 hover:bg-primary hover:text-white text-white p-2.5 rounded-full transition-all hover:scale-110 flex items-center justify-center"
+              >
                 <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="ghost" className="bg-white/10 hover:bg-primary/20 text-white p-2 rounded-full transition-all hover:scale-110">
-                <Instagram className="h-4 w-4" />
-              </Button>
+              </a>
             </div>
           </div>
 
@@ -138,32 +144,26 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/reservation" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm font-semibold">
+                <Link to="/emplois" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
                   <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Calendar className="h-3 w-3 mr-1" />
-                  Réservation
+                  Offres d'emploi
                 </Link>
               </li>
+              {/* Lien Réservation temporairement désactivé */}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services Links */}
           <div>
             <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-              <Car className="h-5 w-5 text-primary" />
-              Services
+              <Shield className="h-5 w-5 text-primary" />
+              Nos Services
             </h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/services/controle-technique" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
                   <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Contrôle Technique
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/immatriculation" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
-                  <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Immatriculation
+                  Contrôle technique
                 </Link>
               </li>
               <li>
@@ -173,27 +173,21 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/services/jaugeage-baremage" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
+                  <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  Jaugeage-Barémage
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/immatriculation" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
+                  <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  Immatriculation
+                </Link>
+              </li>
+              <li>
                 <Link to="/services/ivn" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
                   <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   IVN
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/pre-visite" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
-                  <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Pré-visite
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/station-mobile" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
-                  <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Station Mobile
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/ppad" className="text-gray-300 hover:text-primary transition-colors flex items-center group text-sm">
-                  <ChevronRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  PPAD
                 </Link>
               </li>
             </ul>
@@ -209,9 +203,8 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 text-sm">
-                    Rue Abli Mathieu, 1145 Zone 4C<br />
-                    Abidjan, Côte d'Ivoire
+                  <p className="text-gray-300 text-sm whitespace-pre-line">
+                    {addressValue}
                   </p>
                   <a
                     href="https://maps.app.goo.gl/raaF3pipxgcsBByV7"
@@ -227,7 +220,7 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 font-semibold">27 21 21 29 90</p>
+                  <a href={`tel:${phoneValue.replace(/\s/g, "")}`} className="text-gray-300 font-semibold hover:text-primary transition-colors">{phoneValue}</a>
                   <p className="text-xs text-gray-400">Service client</p>
                 </div>
               </div>
@@ -243,63 +236,43 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 text-sm">infos@sicta.ci</p>
+                  <a href={`mailto:${emailValue}`} className="text-gray-300 text-sm hover:text-primary transition-colors">{emailValue}</a>
                   <p className="text-xs text-gray-400">Support général</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-gray-300 text-sm">
-                    Lun - Ven: 7h30 - 17h30<br />
-                    Sam: 8h00 - 12h00
-                  </p>
-                </div>
+                <p className="text-gray-300 text-sm">
+                  Lun - Ven: 7h30 - 17h00<br />
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom Footer */}
-        <div className="border-t border-white/10 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} SICTA - Société Ivoirienne de Contrôle Technique Automobiles et Industriels.
-              <br className="md:hidden" />
-              <span className="md:ml-1">Tous droits réservés.</span>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
-              <Link to="/privacy" className="text-gray-400 hover:text-primary transition-colors">
-                Politique de confidentialité
-              </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-primary transition-colors">
-                Conditions d'utilisation
-              </Link>
-              <Link to="/legal" className="text-gray-400 hover:text-primary transition-colors">
-                Mentions légales
-              </Link>
-            </div>
+      {/* Bottom Footer */}
+      <div className="border-t border-white/10 py-8">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          <div className="text-gray-400 text-sm text-center md:text-left">
+            © {currentYear} SICTA - Société Ivoirienne de Contrôle Technique Automobile.
+            <br className="md:hidden" />
+            <span className="md:ml-1">Tous droits réservés.</span>
           </div>
+        </div>
 
-          <div className="mt-6 pt-6 border-t border-white/10 text-center">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-              <div className="flex items-center gap-2 text-gray-400 text-sm">
-                <Building2 className="h-4 w-4 text-primary" />
-                <span>Filliale du groupe <span className="text-primary font-semibold">Mayelia Participations</span></span>
-              </div>
-              <span className="hidden md:inline text-gray-600">•</span>
-              <div className="flex items-center gap-2 text-gray-400 text-sm">
-                <Award className="h-4 w-4 text-primary" />
-                <span>Nouvelle ère depuis 2025</span>
-              </div>
-              <span className="hidden md:inline text-gray-600">•</span>
-              <div className="flex items-center gap-2 text-gray-400 text-sm">
-                <Shield className="h-4 w-4 text-primary" />
-                <span>Leader sécurité routière en Côte d'Ivoire</span>
-              </div>
-            </div>
+        <div className="mt-6 pt-6 border-t border-white/10 text-center">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+            <a
+              href={mayeliaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-400 text-sm hover:text-primary transition-colors"
+            >
+              <Building2 className="h-4 w-4 text-primary" />
+              <span>Filiale du groupe <span className="text-primary font-semibold">Mayelia PARTICIPATIONS</span></span>
+            </a>
           </div>
         </div>
       </div>

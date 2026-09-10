@@ -82,11 +82,11 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                   repeatDelay: 1,
                 }}
               />
-              
+
               {/* Logo principal */}
               <motion.img
                 src="/logo-sicta.png"
-                alt="SICTA - Société Ivoirienne de Contrôle Technique Automobiles"
+                alt="SICTA - Société Ivoirienne de Contrôle Technique Automobile"
                 className="h-28 w-auto relative z-10"
                 animate={{
                   filter: [

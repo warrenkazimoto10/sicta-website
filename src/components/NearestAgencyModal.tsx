@@ -18,10 +18,27 @@ type ModalState =
   | { step: "denied" }
   | { step: "error"; message: string };
 
+const getServiceSlug = (serviceName: string): string => {
+  const normalized = serviceName.toLowerCase().trim();
+  if (normalized.includes("contrôle technique") || normalized.includes("controle technique")) return "controle-technique";
+  if (normalized.includes("station mobile")) return "station-mobile";
+  if (normalized.includes("civio")) return "civio";
+  if (normalized.includes("ivn")) return "ivn";
+  if (normalized.includes("jaugeage") || normalized.includes("barémage") || normalized.includes("baremage")) return "jaugeage-baremage";
+  if (normalized.includes("pré-visite") || normalized.includes("pre-visite")) return "pre-visite";
+  if (normalized.includes("ppad")) return "ppad";
+  if (normalized.includes("pesée") || normalized.includes("pesee")) return "pesee";
+  if (normalized.includes("immatriculation")) return "immatriculation";
+  if (normalized.includes("vip")) return "vip";
+  if (normalized.includes("assistance")) return "assistance";
+  return "";
+};
+
 const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
   const navigate = useNavigate();
   const [state, setState]     = useState<ModalState>({ step: "idle" });
   const [cityInput, setCityInput] = useState("");
+  const [limit, setLimit] = useState(3);
 
   const locate = useCallback(async () => {
     if (!navigator.geolocation) {
@@ -33,7 +50,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         try {
-          const stations = await fetchNearestStations(pos.coords.latitude, pos.coords.longitude, 3);
+          const stations = await fetchNearestStations(pos.coords.latitude, pos.coords.longitude, 6);
           setState({ step: "results", stations });
         } catch {
           setState({ step: "error", message: "Impossible de charger les agences proches." });
@@ -47,6 +64,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
   const handleClose = () => {
     setState({ step: "idle" });
     setCityInput("");
+    setLimit(3);
     onClose();
   };
 
@@ -104,7 +122,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
               {state.stations.length === 0 ? (
                 <p className="text-center text-gray-400 py-4 text-sm">Aucune agence trouvée.</p>
               ) : (
-                state.stations.map((station) => (
+                state.stations.slice(0, limit).map((station) => (
                   <div
                     key={station.id}
                     className="flex items-start gap-3 p-3 rounded-lg border border-gray-100 hover:border-orange-200 hover:bg-orange-50/50 transition-colors"
@@ -122,6 +140,27 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
                             : `${station.distance_km} km`}
                         </p>
                       )}
+                      {station.services && station.services.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {station.services.map((serviceName) => {
+                            const slug = getServiceSlug(serviceName);
+                            if (!slug) return null;
+                            return (
+                              <button
+                                key={serviceName}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleClose();
+                                  navigate(`/services/${slug}`);
+                                }}
+                                className="text-[10px] bg-orange-100/70 hover:bg-orange-100 text-primary font-semibold px-2 py-0.5 rounded-full transition-colors border border-orange-200/50"
+                              >
+                                {serviceName}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                     <div className="flex flex-col gap-1.5 flex-shrink-0">
                       <Button
@@ -133,24 +172,21 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
                         <Navigation className="h-3 w-3 mr-1" />
                         Itinéraire
                       </Button>
-                      <Button
-                        size="sm"
-                        className="text-xs h-7 px-2 bg-primary hover:bg-primary/90 text-white"
-                        onClick={() => {
-                          handleClose();
-                          navigate(`/reservation?agence=${station.id}`);
-                        }}
-                      >
-                        <Calendar className="h-3 w-3 mr-1" />
-                        RDV
-                      </Button>
+                      {/* Bouton RDV temporairement désactivé */}
                     </div>
                   </div>
                 ))
               )}
-              <Button variant="ghost" size="sm" className="w-full text-xs text-gray-400" onClick={locate}>
-                Relancer la localisation
-              </Button>
+              {limit < state.stations.length && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-xs text-primary font-medium mt-2 hover:bg-orange-50"
+                  onClick={() => setLimit(6)}
+                >
+                  Afficher plus
+                </Button>
+              )}
             </div>
           )}
 

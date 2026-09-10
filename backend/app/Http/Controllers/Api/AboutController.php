@@ -14,12 +14,13 @@ class AboutController extends Controller
             ->orderBy('ordre')
             ->get()
             ->map(fn($m) => [
-                'id'       => $m->id,
-                'nom'      => $m->nom,
-                'role'     => $m->role,
-                'photo'    => $m->photo ? asset('storage/' . $m->photo) : null,
-                'email'    => $m->email,
-                'linkedin' => $m->linkedin,
+                'id'          => $m->id,
+                'nom'         => $m->nom,
+                'role'        => $m->role,
+                'photo'       => $m->photo ? asset('storage/' . $m->photo) : null,
+                'email'       => $m->email,
+                'linkedin'    => $m->linkedin,
+                'description' => $m->description,
             ]);
 
         return response()->json(['data' => $team]);

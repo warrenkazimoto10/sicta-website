@@ -583,10 +583,7 @@ const ControleTechnique = () => {
                 {t("controleTechnique.readySubtitle")}
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-lg px-10 py-7" onClick={() => navigate("/reservation")}>
-                  <Calendar className="h-6 w-6 mr-3" />
-                  {t("controleTechnique.bookAppointment")}
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7" onClick={() => navigate("/reseau")}>
                   <MapPin className="h-6 w-6 mr-3" />
                   {t("controleTechnique.findAgency")}

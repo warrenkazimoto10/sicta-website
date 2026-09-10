@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { 
-  Calendar, 
+import {
+  Calendar,
   Calculator,
   AlertCircle,
   CheckCircle2,
@@ -42,58 +42,69 @@ const SimulateurVisite = () => {
   const [lastVisitDate, setLastVisitDate] = useState("");
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
+  const [calcStep, setCalcStep] = useState(0);
 
-  // Calculer la prochaine visite
+  // Calculer la prochaine visite avec simulation d'analyse technique
   const calculateNextVisit = () => {
     if (!lastVisitDate) {
       alert("Veuillez saisir la date de votre dernière visite");
       return;
     }
 
-    const lastDate = new Date(lastVisitDate);
-    const today = new Date();
-    
-    // Périodicité selon le type de véhicule
-    let monthsToAdd = 0;
-    let periodicity = "";
+    setIsCalculating(true);
+    setCalcStep(1);
 
-    if (vehicleType === "particulier") {
-      // Véhicule particulier : contrôle tous les 2 ans (24 mois)
-      monthsToAdd = 24;
-      periodicity = "2 ans";
-    } else {
-      // Véhicule de transport : contrôle tous les ans (12 mois)
-      monthsToAdd = 12;
-      periodicity = "1 an";
-    }
-
-    // Calculer la prochaine date
-    const nextDate = new Date(lastDate);
-    nextDate.setMonth(nextDate.getMonth() + monthsToAdd);
-
-    // Calculer les jours restants
-    const diffTime = nextDate.getTime() - today.getTime();
-    const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    // Vérifier si en retard ou bientôt dû
-    const isOverdue = daysRemaining < 0;
-    const isDueSoon = daysRemaining >= 0 && daysRemaining <= 30;
-
-    setResult({
-      nextVisitDate: nextDate,
-      daysRemaining,
-      isOverdue,
-      isDueSoon,
-      periodicity
-    });
-
-    // Scroll vers le résultat
+    // Étape 1 : Analyse de la catégorie
     setTimeout(() => {
-      const resultElement = document.getElementById("result");
-      if (resultElement) {
-        resultElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 100);
+      setCalcStep(2);
+      // Étape 2 : Calcul de la périodicité réglementaire
+      setTimeout(() => {
+        setCalcStep(3);
+        // Étape 3 : Génération du certificat d'échéance
+        setTimeout(() => {
+          const lastDate = new Date(lastVisitDate);
+          const today = new Date();
+
+          let monthsToAdd = 0;
+          let periodicity = "";
+
+          if (vehicleType === "particulier") {
+            monthsToAdd = 24;
+            periodicity = "2 ans (Véhicule Particulier)";
+          } else {
+            monthsToAdd = 12;
+            periodicity = "1 an (Véhicule de Transport)";
+          }
+
+          const nextDate = new Date(lastDate);
+          nextDate.setMonth(nextDate.getMonth() + monthsToAdd);
+
+          const diffTime = nextDate.getTime() - today.getTime();
+          const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          const isOverdue = daysRemaining < 0;
+          const isDueSoon = daysRemaining >= 0 && daysRemaining <= 30;
+
+          setResult({
+            nextVisitDate: nextDate,
+            daysRemaining,
+            isOverdue,
+            isDueSoon,
+            periodicity
+          });
+          setIsCalculating(false);
+
+          // Scroll vers le résultat
+          setTimeout(() => {
+            const resultElement = document.getElementById("result");
+            if (resultElement) {
+              resultElement.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 100);
+        }, 800);
+      }, 800);
+    }, 800);
   };
 
   // Gérer le scroll pour afficher le bouton "Haut de page"
@@ -120,7 +131,7 @@ const SimulateurVisite = () => {
     <PageTransition>
       <div className="w-full">
         {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-sicta-orange-light/10">
+        <section className="relative h-[55vh] min-h-[450px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0f1117] via-[#1a1c23] to-[#251810]">
           <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto text-center">
@@ -129,18 +140,14 @@ const SimulateurVisite = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20 mb-6">
-                  <Calculator className="h-4 w-4 mr-2" />
-                  Simulateur
-                </Badge>
-                <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                  <span className="text-sicta-grey-dark">Prochain</span>{" "}
-                  <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-primary to-sicta-orange-light">
-                    Contrôle Technique
-                  </span>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 text-primary text-sm font-semibold mb-6 border border-primary/30">
+                  <Calculator className="h-4 w-4" /> Simulateur Officiel
+                </div>
+                <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight text-white">
+                  Prochain <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400">Contrôle Technique</span>
                 </h1>
-                <p className="text-xl lg:text-2xl text-sicta-grey-light leading-relaxed max-w-3xl mx-auto">
-                  Calculez la date de votre prochain contrôle technique en quelques secondes
+                <p className="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                  Calculez instantanément la date de votre prochaine visite réglementaire SICTA
                 </p>
               </motion.div>
             </div>
@@ -151,64 +158,81 @@ const SimulateurVisite = () => {
         <section ref={sectionRef} className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <Card className="p-8 lg:p-12 shadow-2xl border-2 border-primary/10 bg-gradient-to-br from-white to-sicta-grey/5">
+              <Card className="p-8 lg:p-12 shadow-2xl border-0 bg-gradient-to-br from-slate-900 via-[#1e2330] to-slate-900 text-white rounded-3xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-[0.02]" />
+
                 {/* Avertissement */}
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded-r-lg">
-                  <div className="flex items-start gap-3">
-                    <Info className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                <div className="bg-primary/10 border-l-4 border-primary p-5 mb-10 rounded-r-2xl relative z-10">
+                  <div className="flex items-start gap-4">
+                    <Info className="h-6 w-6 text-primary mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-sm text-blue-800 font-medium mb-1">
-                        Cette fonctionnalité est destinée au véhicule particulier uniquement.
+                      <p className="text-base text-orange-200 font-bold mb-1">
+                        Simulateur réglementaire SICTA
                       </p>
-                      <p className="text-sm text-blue-700">
-                        Calculez la date de votre prochain contrôle de votre véhicule particulier (inférieur à 3.5 T) en remplissant les informations ci-dessous :
+                      <p className="text-sm text-gray-300">
+                        Vérifiez si votre véhicule particulier ou de transport est à jour en renseignant les critères officiels de visite technique ci-dessous.
                       </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Formulaire */}
-                <div className="space-y-8">
+                <div className="space-y-10 relative z-10">
                   {/* Type de véhicule */}
                   <div>
-                    <Label className="text-lg font-bold text-sicta-grey-dark mb-4 block">
-                      TYPE :
+                    <Label className="text-base font-bold text-gray-300 uppercase tracking-widest mb-4 block">
+                      1. Choisissez la catégorie de votre véhicule :
                     </Label>
-                    <RadioGroup 
-                      value={vehicleType} 
-                      onValueChange={(value) => setVehicleType(value as VehicleType)}
-                      className="flex gap-6"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="particulier" id="particulier" />
-                        <Label 
-                          htmlFor="particulier" 
-                          className="cursor-pointer text-sicta-grey-dark font-medium text-lg"
-                        >
-                          Particulier
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="transport" id="transport" />
-                        <Label 
-                          htmlFor="transport" 
-                          className="cursor-pointer text-sicta-grey-dark font-medium text-lg"
-                        >
-                          Transport
-                        </Label>
-                      </div>
-                    </RadioGroup>
-                    <p className="text-sm text-sicta-grey-light mt-2">
-                      {vehicleType === "particulier" 
-                        ? "Contrôle tous les 2 ans pour les véhicules particuliers"
-                        : "Contrôle tous les ans pour les véhicules de transport"}
-                    </p>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Carte Particulier */}
+                      <button
+                        type="button"
+                        onClick={() => setVehicleType("particulier")}
+                        className={`p-6 rounded-2xl border-2 text-left transition-all duration-300 flex items-start gap-4 ${
+                          vehicleType === "particulier"
+                            ? "border-primary bg-primary/10 text-white shadow-[0_0_20px_rgba(249,115,22,0.15)]"
+                            : "border-white/10 hover:border-white/20 bg-white/5 text-gray-400 hover:text-white"
+                        }`}
+                      >
+                        <div className={`h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                          vehicleType === "particulier" ? "bg-primary text-white" : "bg-white/10 text-gray-400"
+                        }`}>
+                          <Car className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <p className="font-bold text-lg text-white">Véhicule Particulier</p>
+                          <p className="text-xs text-gray-400 mt-1">Visite obligatoire tous les 2 ans (24 mois)</p>
+                        </div>
+                      </button>
+
+                      {/* Carte Transport */}
+                      <button
+                        type="button"
+                        onClick={() => setVehicleType("transport")}
+                        className={`p-6 rounded-2xl border-2 text-left transition-all duration-300 flex items-start gap-4 ${
+                          vehicleType === "transport"
+                            ? "border-primary bg-primary/10 text-white shadow-[0_0_20px_rgba(249,115,22,0.15)]"
+                            : "border-white/10 hover:border-white/20 bg-white/5 text-gray-400 hover:text-white"
+                        }`}
+                      >
+                        <div className={`h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                          vehicleType === "transport" ? "bg-primary text-white" : "bg-white/10 text-gray-400"
+                        }`}>
+                          <Truck className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <p className="font-bold text-lg text-white">Véhicule de Transport</p>
+                          <p className="text-xs text-gray-400 mt-1">Visite obligatoire tous les ans (12 mois)</p>
+                        </div>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Date de dernière visite */}
                   <div>
-                    <Label htmlFor="lastVisit" className="text-lg font-bold text-sicta-grey-dark mb-4 block">
-                      DATE DE VOTRE DERNIÈRE VISITE :
+                    <Label htmlFor="lastVisit" className="text-base font-bold text-gray-300 uppercase tracking-widest mb-4 block">
+                      2. Date de votre dernière visite technique :
                     </Label>
                     <Input
                       id="lastVisit"
@@ -216,26 +240,66 @@ const SimulateurVisite = () => {
                       value={lastVisitDate}
                       onChange={(e) => setLastVisitDate(e.target.value)}
                       max={new Date().toISOString().split('T')[0]}
-                      className="h-14 text-lg border-2 border-sicta-grey/20 focus:border-primary transition-colors"
+                      className="h-14 text-lg border-2 border-white/10 bg-white/5 focus:border-primary text-white transition-all rounded-2xl outline-none"
                     />
                   </div>
 
                   {/* Bouton de validation */}
                   <Button
                     onClick={calculateNextVisit}
-                    className="w-full btn-hero text-lg py-6 h-auto"
+                    disabled={isCalculating}
+                    className="w-full bg-gradient-to-r from-primary to-orange-500 hover:from-primary/90 hover:to-orange-500/90 text-white text-lg py-6 h-auto rounded-2xl shadow-lg hover:shadow-orange-500/20 transition-all font-bold group"
                     size="lg"
                   >
-                    <Calculator className="h-5 w-5 mr-2" />
-                    VALIDEZ
-                    <ArrowRight className="h-5 w-5 ml-2" />
+                    {isCalculating ? (
+                      <span className="flex items-center gap-2">
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Analyse réglementaire...
+                      </span>
+                    ) : (
+                      <>
+                        <Calculator className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+                        LANCER LA SIMULATION
+                        <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </Button>
 
+                  {/* Rappel diagnostic en cours */}
+                  {isCalculating && (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-3"
+                    >
+                      <div className="flex justify-between text-xs text-gray-400">
+                        <span>Analyse en cours...</span>
+                        <span>{calcStep * 33}%</span>
+                      </div>
+                      <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-primary" 
+                          initial={{ width: "0%" }}
+                          animate={{ width: `${calcStep * 33.3}%` }}
+                          transition={{ duration: 0.5 }}
+                        />
+                      </div>
+                      <p className="text-sm text-gray-300 text-center animate-pulse">
+                        {calcStep === 1 && "1. Analyse des paramètres de carrosserie..."}
+                        {calcStep === 2 && "2. Application des barèmes officiels SICTA..."}
+                        {calcStep === 3 && "3. Génération de la fiche d'échéance..."}
+                      </p>
+                    </motion.div>
+                  )}
+
                   {/* Lien rappel email */}
-                  <div className="text-center pt-4 border-t border-sicta-grey/20">
-                    <p className="text-sicta-grey-light text-sm">
+                  <div className="text-center pt-5 border-t border-white/10">
+                    <p className="text-gray-400 text-sm">
                       Afin d'être prévenu gratuitement par email de la date de votre prochain contrôle technique,{" "}
-                      <Link to="/espace-client" className="text-primary font-semibold hover:underline">
+                      <Link to="/espace-client" className="text-primary font-bold hover:underline">
                         cliquez ici
                       </Link>
                     </p>
@@ -254,39 +318,36 @@ const SimulateurVisite = () => {
                     transition={{ duration: 0.6 }}
                     className="mt-12"
                   >
-                    <Card className={`p-8 lg:p-12 shadow-2xl border-2 ${
-                      result.isOverdue 
-                        ? "border-red-500 bg-gradient-to-br from-red-50 to-white" 
-                        : result.isDueSoon
+                    <Card className={`p-8 lg:p-12 shadow-2xl border-2 ${result.isOverdue
+                      ? "border-red-500 bg-gradient-to-br from-red-50 to-white"
+                      : result.isDueSoon
                         ? "border-orange-500 bg-gradient-to-br from-orange-50 to-white"
                         : "border-green-500 bg-gradient-to-br from-green-50 to-white"
-                    }`}>
+                      }`}>
                       <div className="text-center mb-8">
-                        <div className={`h-20 w-20 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                          result.isOverdue 
-                            ? "bg-red-500" 
-                            : result.isDueSoon
+                        <div className={`h-20 w-20 rounded-full flex items-center justify-center mx-auto mb-4 ${result.isOverdue
+                          ? "bg-red-500"
+                          : result.isDueSoon
                             ? "bg-orange-500"
                             : "bg-green-500"
-                        }`}>
+                          }`}>
                           {result.isOverdue ? (
                             <AlertCircle className="h-10 w-10 text-white" />
                           ) : (
                             <CheckCircle2 className="h-10 w-10 text-white" />
                           )}
                         </div>
-                        <Badge className={`mb-4 ${
-                          result.isOverdue 
-                            ? "bg-red-500 text-white" 
-                            : result.isDueSoon
+                        <Badge className={`mb-4 ${result.isOverdue
+                          ? "bg-red-500 text-white"
+                          : result.isDueSoon
                             ? "bg-orange-500 text-white"
                             : "bg-green-500 text-white"
-                        }`}>
-                          {result.isOverdue 
-                            ? "Contrôle en retard" 
+                          }`}>
+                          {result.isOverdue
+                            ? "Contrôle en retard"
                             : result.isDueSoon
-                            ? "Contrôle bientôt dû"
-                            : "Contrôle à venir"}
+                              ? "Contrôle bientôt dû"
+                              : "Contrôle à venir"}
                         </Badge>
                       </div>
 
@@ -306,31 +367,28 @@ const SimulateurVisite = () => {
                         <div className="bg-white rounded-xl p-6 border-2 border-sicta-grey/10">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                              <div className={`h-12 w-12 rounded-xl flex items-center justify-center ${
-                                result.isOverdue 
-                                  ? "bg-red-100" 
-                                  : result.isDueSoon
+                              <div className={`h-12 w-12 rounded-xl flex items-center justify-center ${result.isOverdue
+                                ? "bg-red-100"
+                                : result.isDueSoon
                                   ? "bg-orange-100"
                                   : "bg-green-100"
-                              }`}>
-                                <Clock className={`h-6 w-6 ${
-                                  result.isOverdue 
-                                    ? "text-red-600" 
-                                    : result.isDueSoon
+                                }`}>
+                                <Clock className={`h-6 w-6 ${result.isOverdue
+                                  ? "text-red-600"
+                                  : result.isDueSoon
                                     ? "text-orange-600"
                                     : "text-green-600"
-                                }`} />
+                                  }`} />
                               </div>
                               <div>
                                 <p className="text-sicta-grey-light text-sm">Jours restants</p>
-                                <p className={`text-2xl font-bold ${
-                                  result.isOverdue 
-                                    ? "text-red-600" 
-                                    : result.isDueSoon
+                                <p className={`text-2xl font-bold ${result.isOverdue
+                                  ? "text-red-600"
+                                  : result.isDueSoon
                                     ? "text-orange-600"
                                     : "text-green-600"
-                                }`}>
-                                  {result.isOverdue 
+                                  }`}>
+                                  {result.isOverdue
                                     ? `${Math.abs(result.daysRemaining)} jours de retard`
                                     : `${result.daysRemaining} jours`}
                                 </p>
@@ -339,17 +397,57 @@ const SimulateurVisite = () => {
                           </div>
                         </div>
 
+                        {/* Frise chronologique visuelle */}
+                        <div className="bg-white rounded-xl p-6 border-2 border-sicta-grey/10">
+                          <h4 className="font-bold text-sicta-grey-dark text-sm mb-4 uppercase tracking-wider">Ligne Temporelle de Validité</h4>
+                          <div className="relative pt-6 pb-2">
+                            {/* Ligne de fond */}
+                            <div className="h-2 w-full bg-gray-200 rounded-full relative">
+                              {/* Progression active */}
+                              <div 
+                                className={`h-full rounded-full transition-all duration-1000 ${
+                                  result.isOverdue 
+                                    ? "bg-red-500 w-full" 
+                                    : result.isDueSoon 
+                                      ? "bg-orange-500 w-[90%]" 
+                                      : "bg-green-500 w-[60%]"
+                                }`} 
+                              />
+                            </div>
+                            
+                            {/* Points d'étapes */}
+                            <div className="absolute top-4 left-0 -ml-2 flex flex-col items-center">
+                              <div className="h-5.5 w-5.5 rounded-full bg-slate-300 border-4 border-white flex items-center justify-center shadow-sm" />
+                              <span className="text-[10px] text-sicta-grey-light font-bold mt-1">Dernière visite</span>
+                            </div>
+
+                            <div className={`absolute top-4 ${
+                              result.isOverdue 
+                                ? "left-3/4" 
+                                : result.isDueSoon 
+                                  ? "left-[90%]" 
+                                  : "left-[60%]"
+                            } -ml-2 flex flex-col items-center`}>
+                              <div className={`h-5.5 w-5.5 rounded-full border-4 border-white flex items-center justify-center shadow-sm ${
+                                result.isOverdue ? "bg-red-500" : result.isDueSoon ? "bg-orange-500" : "bg-green-500"
+                              }`} />
+                              <span className="text-[10px] text-sicta-grey-light font-bold mt-1">Aujourd'hui</span>
+                            </div>
+
+                            <div className="absolute top-4 right-0 -mr-2 flex flex-col items-center">
+                              <div className={`h-5.5 w-5.5 rounded-full border-4 border-white flex items-center justify-center shadow-sm ${
+                                result.isOverdue ? "bg-red-300" : "bg-primary"
+                              }`} />
+                              <span className="text-[10px] text-sicta-grey-light font-bold mt-1">Échéance</span>
+                            </div>
+                          </div>
+                        </div>
+
                         {/* Actions */}
                         <div className="grid md:grid-cols-2 gap-4">
-                          <Button 
-                            className="btn-hero w-full"
-                            onClick={() => window.location.href = "/reservation"}
-                          >
-                            <Calendar className="h-5 w-5 mr-2" />
-                            Réserver maintenant
-                          </Button>
-                          <Button 
-                            variant="outline" 
+                          {/* Bouton RDV temporairement désactivé */}
+                          <Button
+                            variant="outline"
                             className="border-2 border-primary text-primary hover:bg-primary hover:text-white w-full"
                             onClick={() => window.location.href = "/reseau"}
                           >
@@ -434,19 +532,7 @@ const SimulateurVisite = () => {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3, duration: 0.6 }}
                 >
-                  <Link to="/reservation">
-                    <Card className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-primary/20 group h-full">
-                      <div className="h-16 w-16 bg-gradient-to-br from-primary to-sicta-orange-light rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <Calendar className="h-8 w-8 text-white" />
-                      </div>
-                      <h3 className="text-xl font-bold text-sicta-grey-dark mb-2 group-hover:text-primary transition-colors">
-                        RDV en Ligne
-                      </h3>
-                      <p className="text-sicta-grey-light">
-                        Réservez votre créneau de contrôle technique en ligne
-                      </p>
-                    </Card>
-                  </Link>
+                  {/* Carte RDV en ligne temporairement désactivée */}
                 </motion.div>
               </div>
             </div>

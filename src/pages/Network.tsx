@@ -15,6 +15,7 @@ import NearestAgencyModal from "@/components/NearestAgencyModal";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStations, fetchStationStats } from "@/services/stationService";
+import { fetchPageSections } from "@/services/pageSectionService";
 import type { ApiStation } from "@/services/stationService";
 
 const ITEMS_PER_PAGE_PERMANENT = 9;
@@ -55,11 +56,13 @@ const Network = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const didRunRechercher = useRef(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const [interieurPage, setInterieurPage] = useState(1);
   const [nearestOpen, setNearestOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [serviceFilter, setServiceFilter] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("permanent");
 
   const { data: stations = [], isLoading: loadingStations } = useQuery({
     queryKey: ["stations"],
@@ -73,19 +76,52 @@ const Network = () => {
     staleTime: 300_000,
   });
 
+  const { data: networkSections } = useQuery({
+    queryKey: ["page-sections", "network"],
+    queryFn: () => fetchPageSections("network"),
+    staleTime: 300_000,
+  });
+
+  const heroTitle = networkSections?.network_hero_title || "Trouvez la station SICTA la plus proche de vous";
+  const ctaTitle = networkSections?.network_cta_title || "Localiser un centre de contrôle technique automobile";
+  const ctaButton = networkSections?.network_cta_button || "Trouver une station SICTA à proximité";
+
   // Filtrage (recherche + service)
   const matches = (s: ApiStation) => {
     const q = normalize(query.trim());
-    const okQuery = !q || normalize(s.nom).includes(q) || normalize(s.ville).includes(q) || normalize(s.region ?? "").includes(q);
-    const okService = !serviceFilter || (Array.isArray(s.services) && s.services.some((sv) => normalize(sv) === normalize(serviceFilter)));
+    const okQuery =
+      !q ||
+      normalize(s.nom).includes(q) ||
+      normalize(s.ville).includes(q) ||
+      normalize(s.region ?? "").includes(q) ||
+      normalize(s.zone).includes(q) ||
+      (Array.isArray(s.services) && s.services.some((sv) => normalize(sv).includes(q)));
+    const okService =
+      !serviceFilter ||
+      (Array.isArray(s.services) && s.services.some((sv) => normalize(sv) === normalize(serviceFilter)));
     return okQuery && okService;
   };
 
   const stationsInterieur = useMemo(() => stations.filter((s) => s.zone === "interieur" && matches(s)), [stations, query, serviceFilter]);
   const stationsAbidjan = useMemo(() => stations.filter((s) => s.zone === "abidjan" && matches(s)), [stations, query, serviceFilter]);
 
-  // Réinitialise la pagination quand le filtre change
-  useEffect(() => { setInterieurPage(1); }, [query, serviceFilter]);
+  const scrollToResults = () => {
+    if (resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Réinitialise la pagination & bascule automatiquement sur l'onglet ayant des résultats
+  useEffect(() => {
+    setInterieurPage(1);
+    if (query.trim() || serviceFilter) {
+      if (stationsAbidjan.length > 0 && stationsInterieur.length === 0) {
+        setActiveTab("abidjan");
+      } else if (stationsInterieur.length > 0 && stationsAbidjan.length === 0) {
+        setActiveTab("permanent");
+      }
+    }
+  }, [query, serviceFilter, stationsAbidjan.length, stationsInterieur.length]);
 
   const totalInterieurPages = Math.ceil(stationsInterieur.length / ITEMS_PER_PAGE_PERMANENT) || 1;
   const startInterieur = (interieurPage - 1) * ITEMS_PER_PAGE_PERMANENT;
@@ -110,13 +146,16 @@ const Network = () => {
     s.maps_url || `https://www.google.com/maps/search/?api=1&query=Sicta+${encodeURIComponent(s.nom)}+${encodeURIComponent(s.ville)}`;
 
   /* ---------- Stats ---------- */
-  const permanentCount = useCountUp(stats?.permanent ?? 28, true);
-  const periodiqueCount = useCountUp(stats?.periodique ?? 22, true);
+  const permanentCount = useCountUp(stats?.permanent ?? 29, true);
+  const abidjanRaw = useMemo(() => stations.filter(s => s.zone === "abidjan").length, [stations]);
+  const interieurRaw = useMemo(() => stations.filter(s => s.zone === "interieur").length, [stations]);
+  const abidjanCount = useCountUp(abidjanRaw || 7, true);
+  const interieurCount = useCountUp(interieurRaw || 22, true);
   const statItems = [
-    { icon: Building2, value: `${permanentCount}`, label: t("network.stats.permanent") },
-    { icon: Navigation, value: `${periodiqueCount}`, label: t("network.stats.temporary") },
-    { icon: Car, value: "1500+", label: t("network.stats.daily") },
-    { icon: ShieldCheck, value: "100%", label: t("network.stats.coverage") },
+    { icon: Building2, value: `${permanentCount}`, label: "Stations fixes" },
+    { icon: Building2, value: `${abidjanCount}`, label: "Stations Abidjan" },
+    { icon: Navigation, value: `${interieurCount}`, label: "Stations Intérieur" },
+    { icon: ShieldCheck, value: "", label: "Couverture Nationale" },
   ];
 
   /* ---------- Carte station ---------- */
@@ -150,9 +189,9 @@ const Network = () => {
           {/* Corps */}
           <div className="p-5 pt-4 flex flex-col flex-grow gap-4">
             <div className="space-y-2 text-sm text-sicta-grey-light">
-              <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 flex-shrink-0 text-primary/70" />
-                <span>{agency.horaires}</span>
+              <div className="flex items-start gap-2">
+                <Clock className="h-4 w-4 flex-shrink-0 text-primary/70 mt-0.5" />
+                <span className="whitespace-pre-line">{agency.horaires}</span>
               </div>
               {agency.telephone && (
                 <a href={`tel:${agency.telephone.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-primary transition-colors">
@@ -166,33 +205,51 @@ const Network = () => {
               <div>
                 <div className="text-xs font-semibold text-sicta-grey-dark mb-2">{t("network.servicesAvailable")}</div>
                 <div className="flex flex-wrap gap-1.5">
-                  {stationServices.map((service, i) => (
-                    <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/8 text-primary text-xs font-medium rounded-full">
-                      <CheckCircle2 className="h-3 w-3" />{service}
-                    </span>
-                  ))}
+                  {stationServices.map((service, i) => {
+                    const SERVICE_SLUGS: Record<string, string> = {
+                      "contrôle technique": "controle-technique",
+                      "civio": "civio",
+                      "ivn": "ivn",
+                      "pesée": "pesee",
+                      "jaugeage": "jaugeage-baremage",
+                      "ppad": "ppad",
+                      "station mobile": "station-mobile",
+                      "vip": "vip"
+                    };
+                    const slug = SERVICE_SLUGS[service.trim().toLowerCase()];
+                    if (slug) {
+                      return (
+                        <button
+                          key={i}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/services/${slug}`);
+                          }}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/8 text-primary hover:bg-primary/20 text-xs font-medium rounded-full transition-colors cursor-pointer"
+                        >
+                          <CheckCircle2 className="h-3 w-3" />{service}
+                        </button>
+                      );
+                    }
+                    return (
+                      <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/8 text-primary text-xs font-medium rounded-full">
+                        <CheckCircle2 className="h-3 w-3" />{service}
+                      </span>
+                    );
+                  })}
                 </div>
-                {missing.length > 0 && (
-                  <p className="text-[11px] text-sicta-grey-light mt-2 leading-snug">
-                    {t("network.availability")} tous les produits sauf {missing.join(", ")}
-                  </p>
-                )}
+
               </div>
             )}
 
             {/* Actions */}
             <div className="mt-auto pt-1 flex gap-2">
-              <Button variant="outline" className="flex-1 h-11 text-sm border-gray-200 hover:border-primary hover:text-primary" asChild>
+              <Button variant="outline" className="flex-1 h-11 text-sm border-gray-200" asChild>
                 <a href={cardMapsHref(agency)} target="_blank" rel="noopener noreferrer">
                   <Navigation className="h-4 w-4 mr-1.5" />{t("network.route")}
                 </a>
               </Button>
-              <Button
-                className="flex-1 h-11 text-sm bg-primary text-white hover:bg-primary/90"
-                onClick={() => navigate("/reservation", { state: { stationId: stationSlug(agency.nom) } })}
-              >
-                <Calendar className="h-4 w-4 mr-1.5" />Réserver
-              </Button>
+              {/* Bouton RDV temporairement désactivé */}
             </div>
           </div>
         </Card>
@@ -242,9 +299,9 @@ const Network = () => {
   return (
     <PageTransition>
       <SEO
-        title="Notre Réseau - Agences Abidjan et Intérieur, Stations Périodiques"
-        description="Découvrez le réseau SICTA : 28 agences permanentes, dont Abidjan avec bancs mobiles, et 22 stations périodiques pour une couverture à 100% du territoire national."
-        keywords="agence SICTA, station contrôle technique, Abidjan Plateau, Vridi, Yopougon, banc mobile, station périodique, Côte d'Ivoire"
+        title="Notre Réseau - Stations de contrôle technique SICTA"
+        description="Découvrez le réseau SICTA : 29 stations fixes réparties sur l'ensemble du territoire ivoirien (07 Abidjan / 22 Intérieur) pour une couverture nationale complète."
+        keywords="agence SICTA, station contrôle technique, Abidjan, Côte d'Ivoire"
         url="/reseau"
       />
       <div className="w-full">
@@ -265,7 +322,7 @@ const Network = () => {
                 <MapPin className="h-4 w-4" />{t("network.title")}
               </span>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">
-                Trouvez l'agence SICTA<br className="hidden sm:block" /> la plus proche de vous
+                {heroTitle}
               </h1>
               <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
                 {t("network.subtitle")}
@@ -279,8 +336,11 @@ const Network = () => {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Rechercher une ville, une région, une agence…"
-                    aria-label="Rechercher une agence"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") scrollToResults();
+                    }}
+                    placeholder="Trouver une station SICTA…"
+                    aria-label="Rechercher une station SICTA"
                     className="w-full h-14 pl-12 pr-10 rounded-2xl bg-white text-sicta-grey-dark placeholder:text-gray-400 shadow-lg outline-none focus:ring-4 focus:ring-primary/30"
                   />
                   {query && (
@@ -289,10 +349,27 @@ const Network = () => {
                     </button>
                   )}
                 </div>
-                <Button className="h-14 px-6 bg-primary hover:bg-primary/90 text-white rounded-2xl shadow-lg" onClick={() => setNearestOpen(true)}>
-                  <Navigation className="h-5 w-5 mr-2" />{t("network.locateAgency")}
+                <Button className="h-14 px-6 bg-primary hover:bg-primary/90 text-white rounded-2xl shadow-lg" onClick={scrollToResults}>
+                  <Search className="h-5 w-5 mr-2" />Rechercher
+                </Button>
+                <Button className="h-14 px-5 bg-white/10 hover:bg-white/20 text-white rounded-2xl border border-white/20 backdrop-blur" onClick={() => setNearestOpen(true)} title="Localiser un centre à proximité">
+                  <Navigation className="h-5 w-5" />
                 </Button>
               </div>
+
+              {query.trim() && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4 inline-flex items-center gap-2 bg-white/95 text-sicta-grey-dark px-5 py-2.5 rounded-full text-sm font-semibold shadow-xl backdrop-blur cursor-pointer hover:bg-white transition-all border border-white/20"
+                  onClick={scrollToResults}
+                >
+                  <span>
+                    {stationsAbidjan.length + stationsInterieur.length} station(s) trouvée(s) pour « {query} »
+                  </span>
+                  <span className="text-primary font-bold ml-1">Voir les résultats ↓</span>
+                </motion.div>
+              )}
             </motion.div>
           </div>
         </section>
@@ -322,7 +399,7 @@ const Network = () => {
         </section>
 
         {/* ---------- LISTE ---------- */}
-        <section className="py-16 bg-secondary/20">
+        <section ref={resultsRef} className="py-16 bg-secondary/20 scroll-mt-6">
           <div className="container mx-auto px-4">
             {/* Filtre par service */}
             <div className="mb-8">
@@ -345,15 +422,15 @@ const Network = () => {
               </div>
             </div>
 
-            <Tabs defaultValue="permanent" className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full max-w-lg mx-auto grid-cols-2 h-auto gap-2 mb-10 bg-white p-1.5 rounded-2xl border border-gray-100 shadow-sm">
                 <TabsTrigger value="permanent" className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow">
                   <Building2 className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{t("network.interiorTitle")}</span>
+                  <span className="truncate">{t("network.interiorTitle")} ({stationsInterieur.length})</span>
                 </TabsTrigger>
                 <TabsTrigger value="abidjan" className="flex items-center justify-center gap-2 py-2.5 px-3 text-sm rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow">
                   <Map className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{t("network.abidjanTitle")}</span>
+                  <span className="truncate">{t("network.abidjanTitle")} ({stationsAbidjan.length})</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -439,63 +516,16 @@ const Network = () => {
 
         <NetworkImageMap />
 
-        {/* ---------- Infrastructure mobile ---------- */}
-        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold text-sicta-grey-dark mb-4">{t("network.mobileInfrastructure")}</h2>
-              <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">{t("network.mobileInfrastructureSubtitle")}</p>
-            </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                <div className="p-8">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="h-16 w-16 bg-primary/10 rounded-2xl flex items-center justify-center">
-                      <Navigation className="h-8 w-8 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-sicta-grey-dark">{t("network.mobileStations")}</h3>
-                      <p className="text-sicta-grey-light">{t("network.mobileStationsDesc")}</p>
-                    </div>
-                  </div>
-                  <p className="text-sicta-grey-light mb-6">{t("network.mobileStationsText")}</p>
-                  <div className="flex items-center space-x-4">
-                    <div className="text-4xl font-bold text-primary">100%</div>
-                    <div className="text-sicta-grey-light">Couverture totale avec mobilité partout</div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
-                <div className="p-8">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="h-16 w-16 bg-primary/10 rounded-2xl flex items-center justify-center">
-                      <Car className="h-8 w-8 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-sicta-grey-dark">{t("network.mobileBancs")}</h3>
-                      <p className="text-sicta-grey-light">{t("network.mobileBancsDesc")}</p>
-                    </div>
-                  </div>
-                  <p className="text-sicta-grey-light mb-6">{t("network.mobileBancsText")}</p>
-                  <div className="flex items-center space-x-4">
-                    <div className="text-4xl font-bold text-primary">ISO</div>
-                    <div className="text-sicta-grey-light">Certifié 9001:2015</div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </section>
 
         {/* ---------- CTA ---------- */}
         <section className="py-20 bg-gradient-to-r from-primary to-orange-400">
           <div className="container mx-auto px-4 text-center text-white">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">{t("network.ctaTitle")}</h2>
-            <p className="text-xl mb-8 opacity-90">{t("network.ctaSubtitle")}</p>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-8">
+              {ctaTitle}
+            </h2>
             <Button className="bg-white text-primary hover:bg-gray-100 px-8 py-6 text-lg h-auto" onClick={() => setNearestOpen(true)}>
-              <MapPin className="h-5 w-5 mr-3" />{t("network.locateAgency")}
+              <MapPin className="h-5 w-5 mr-3" />{ctaButton}
             </Button>
           </div>
         </section>

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/sheet";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { fetchSettings } from "@/services/settingsService";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -31,6 +32,15 @@ const Header = () => {
     queryFn: fetchStationStats,
     staleTime: 300_000,
   });
+
+  const { data: settings } = useQuery({
+    queryKey: ["settings"],
+    queryFn: fetchSettings,
+    staleTime: 300_000,
+  });
+
+  const phoneValue = settings?.settings_phone || "27 21 21 29 90";
+
   const isHomePage = location.pathname === "/";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -49,14 +59,14 @@ const Header = () => {
       <div className="bg-sicta-grey text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
+            <a href={`tel:${phoneValue.replace(/\s/g, "")}`} className="flex items-center space-x-2 hover:text-primary transition-colors">
               <Phone className="h-4 w-4" />
-              <span>27 21 21 29 90</span>
-            </div>
+              <span>{phoneValue}</span>
+            </a>
             <div className="flex items-center space-x-2">
               <MapPin className="h-4 w-4" />
               <span>
-                {stats ? `${stats.permanent} agences permanentes` : t("header.agencies")}
+                {stats ? `${stats.permanent} Stations permanentes` : t("header.agencies")}
               </span>
             </div>
           </div>
@@ -107,6 +117,11 @@ const Header = () => {
                     Galerie
                   </DropdownMenuItem>
                 </Link>
+                <Link to="/emplois">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Offres d'emploi
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -119,17 +134,16 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* CTA Button */}
+          {/* Logo ISO 9001 + CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <LanguageSwitcher />
-            {!isHomePage && (
-              <Link to="/reservation">
-                <Button className="btn-hero">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  {t("header.bookAppointment")}
-                </Button>
-              </Link>
-            )}
+            {/* Logo ISO 9001 */}
+            <img
+              src="/img-ISO9001.png"
+              alt="Certification ISO 9001"
+              className="h-12 w-auto object-contain"
+              title="SICTA - Certifiée ISO 9001:2015"
+            />
+            {/* Bouton RDV temporairement désactivé */}
           </div>
 
           {/* Mobile Menu using Sheet */}
@@ -177,7 +191,24 @@ const Header = () => {
                       >
                         Galerie
                       </Link>
+                      <Link
+                        to="/emplois"
+                        className="text-sicta-grey hover:text-primary transition-colors py-1"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Offres d'emploi
+                      </Link>
                     </div>
+                  </div>
+
+                  {/* Logo ISO 9001 mobile */}
+                  <div className="flex items-center gap-2 py-2">
+                    <img
+                      src="/img-ISO9001.png"
+                      alt="Certification ISO 9001"
+                      className="h-10 w-auto object-contain"
+                    />
+                    <span className="text-xs text-sicta-grey-light">Certifiée ISO 9001:2015</span>
                   </div>
 
                   {/* Contact */}
@@ -190,17 +221,7 @@ const Header = () => {
                   </Link>
 
                   <div className="pt-4 space-y-4">
-                    <div className="flex justify-start">
-                      <LanguageSwitcher />
-                    </div>
-                    {!isHomePage && (
-                      <Link to="/reservation" className="w-full block" onClick={() => setIsMenuOpen(false)}>
-                        <Button className="btn-hero w-full">
-                          <Calendar className="h-4 w-4 mr-2" />
-                          {t("header.bookAppointment")}
-                        </Button>
-                      </Link>
-                    )}
+                    {/* Bouton RDV temporairement désactivé */}
                   </div>
                 </div>
               </SheetContent>

@@ -43,10 +43,7 @@ const HomeNewsSection = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-              <Newspaper className="h-4 w-4" />
-              Actualités
-            </div>
+
             <h2 className="text-4xl lg:text-5xl font-bold text-sicta-grey-dark leading-tight">
               Les dernières{" "}
               <span className="text-gradient">nouvelles de SICTA</span>

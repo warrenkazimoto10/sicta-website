@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const ADMIN_BASE = import.meta.env.VITE_ADMIN_URL ?? "http://127.0.0.1:8000";
+const ADMIN_BASE = import.meta.env.VITE_ADMIN_URL ?? "https://sicta.cieria-app.com";
 
 const AdminRedirect = () => {
   const location = useLocation();

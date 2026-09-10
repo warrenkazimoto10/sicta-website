@@ -41,9 +41,10 @@ class StationSeeder extends Seeder {
             ['nom' => 'SICTA Soubré',       'ville' => 'Soubré',       'telephone' => '07 59 39 93 05', 'services_disponibles' => ['Contrôle technique', 'CIVIO'], 'latitude' => 5.7833, 'longitude' => -6.5833, 'region' => 'Sud'],
             ['nom' => 'SICTA Yamoussoukro', 'ville' => 'Yamoussoukro', 'telephone' => '07 48 48 16 66', 'services_disponibles' => ['Contrôle technique', 'CIVIO', 'Pesée'], 'latitude' => 6.8206, 'longitude' => -5.2756, 'region' => 'Centre'],
             ['nom' => 'SICTA Yaou',         'ville' => 'Yaou',         'telephone' => '07 59 39 93 06', 'services_disponibles' => ['Contrôle technique'],          'latitude' => 5.2400, 'longitude' => -3.6400, 'region' => 'Sud'],
+            ['nom' => 'SICTA Ferkessédougou', 'ville' => 'Ferkessédougou', 'telephone' => '07 00 00 00 00', 'services_disponibles' => ['Contrôle technique', 'CIVIO'], 'latitude' => 9.5833, 'longitude' => -5.1833, 'region' => 'Nord'],
         ];
 
-        // Stations périodiques — 22 stations
+        // Stations périodiques — 21 stations
         $periodiques = [
             ['nom' => 'SICTA Bongouanou',       'ville' => 'Bongouanou',       'telephone' => '', 'latitude' => 6.6500,  'longitude' => -4.2000,  'region' => 'Centre'],
             ['nom' => 'SICTA Boundiali',         'ville' => 'Boundiali',        'telephone' => '', 'latitude' => 9.5333,  'longitude' => -6.4833,  'region' => 'Nord'],
@@ -51,7 +52,6 @@ class StationSeeder extends Seeder {
             ['nom' => 'SICTA Danané',            'ville' => 'Danané',           'telephone' => '', 'latitude' => 7.2667,  'longitude' => -8.1500,  'region' => 'Ouest'],
             ['nom' => 'SICTA Dimbokro',          'ville' => 'Dimbokro',         'telephone' => '', 'latitude' => 6.6500,  'longitude' => -4.7000,  'region' => 'Centre'],
             ['nom' => 'SICTA Duékoué',           'ville' => 'Duékoué',          'telephone' => '', 'latitude' => 6.7400,  'longitude' => -7.3500,  'region' => 'Ouest'],
-            ['nom' => 'SICTA Ferkessédougou',    'ville' => 'Ferkessédougou',   'telephone' => '', 'latitude' => 9.5833,  'longitude' => -5.1833,  'region' => 'Nord'],
             ['nom' => 'SICTA Fresco',            'ville' => 'Fresco',           'telephone' => '', 'latitude' => 5.0700,  'longitude' => -5.5500,  'region' => 'Sud'],
             ['nom' => 'SICTA Grand Lahou',       'ville' => 'Grand Lahou',      'telephone' => '', 'latitude' => 5.1400,  'longitude' => -5.0100,  'region' => 'Sud'],
             ['nom' => 'SICTA Issia',             'ville' => 'Issia',            'telephone' => '', 'latitude' => 6.4833,  'longitude' => -6.5833,  'region' => 'Ouest'],
@@ -74,7 +74,7 @@ class StationSeeder extends Seeder {
                 ['nom' => $s['nom']],
                 array_merge($s, [
                     'zone' => 'abidjan',
-                    'horaires' => 'Lun-Ven: 7h-17h',
+                    'horaires' => 'Lun-Ven: 7h30 - 17h00',
                     'services_disponibles' => json_encode($s['services_disponibles']),
                     'type' => $s['type'] ?? 'permanent',
                     'actif' => true,
@@ -87,7 +87,7 @@ class StationSeeder extends Seeder {
                 ['nom' => $s['nom']],
                 array_merge($s, [
                     'zone' => 'interieur',
-                    'horaires' => 'Lun-Ven: 7h-17h',
+                    'horaires' => 'Lun-Ven: 7h30 - 17h00',
                     'services_disponibles' => json_encode($s['services_disponibles']),
                     'type' => 'permanent',
                     'actif' => true,

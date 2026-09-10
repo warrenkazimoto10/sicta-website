@@ -102,10 +102,7 @@ const ProcessSection = () => {
               Réservez dès maintenant votre contrôle technique dans l'agence la plus proche
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="btn-hero">
-                <Calendar className="h-4 w-4 mr-2" />
-                Réserver maintenant
-              </Button>
+              {/* Bouton RDV temporairement désactivé */}
               <Button variant="outline" onClick={() => setNearestOpen(true)}>
                 <MapPin className="h-4 w-4 mr-2" />
                 Trouver une agence

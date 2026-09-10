@@ -28,7 +28,7 @@
   "header": {
     "phone": "+225 27 21 21 29 90",
     "freeCall": "800 800 41",
-    "agencies": "28 agences permanentes",
+    "agencies": "29 stations permanentes",
     "tagline": "Contrôle technique automobile - Côte d'Ivoire",
     "bookAppointment": "Prendre rendez-vous",
     "menu": "Menu",
@@ -63,7 +63,7 @@
   },
   "about": {
     "title": "À propos de SICTA",
-    "subtitle": "Société Ivoirienne de Contrôles Techniques Automobiles et Industriels",
+    "subtitle": "Société Ivoirienne de Contrôle Technique automobile",
     "history": {
       "title": "Notre Histoire",
       "1959": {
@@ -72,7 +72,7 @@
       },
       "1974": {
         "title": "Création de la SICTA",
-        "description": "Fondation de la Société Ivoirienne de Contrôles Techniques Automobiles et Industriels."
+        "description": "Fondation de la Société Ivoirienne de Contrôle Technique automobile."
       },
       "1990": {
         "title": "Rachat par SGS",
@@ -83,8 +83,8 @@
         "description": "Certification qualité par ABS Quality Evaluations, garantissant l'excellence de nos services."
       },
       "2024": {
-        "title": "Rachat par Mayelia Participations",
-        "description": "Nouvelle ère d'innovation et d'expansion sous l'égide de Mayelia Participations."
+        "title": "Rachat par Mayelia PARTICIPATIONS",
+        "description": "Nouvelle ère d'innovation et d'expansion sous l'égide de Mayelia PARTICIPATIONS."
       }
     },
     "mission": {
@@ -118,8 +118,8 @@
       "title": "Chiffres Clés",
       "years": "50+ Années d'expérience",
       "stations": "29 Stations permanentes",
-      "temporary": "22 Stations temporaires",
-      "mobile": "04 Stations mobiles",
+      "temporary": "0 Stations temporaires",
+      "mobile": "0 Stations mobiles",
       "inspections": "300 000 Visites en 2024",
       "revenue": "09 milliards de chiffres d'affaires",
       "employees": "+ de 300 employés"
@@ -127,9 +127,9 @@
   },
   "network": {
     "title": "Notre Réseau",
-    "subtitle": "28 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien",
+    "subtitle": "29 stations fixes | 07 Abidjan / 22 Intérieur répartis sur l'ensemble du territoire ivoirien",
     "stats": {
-      "permanent": "Stations permanentes",
+      "permanent": "Stations fixes",
       "temporary": "Stations temporaires",
       "daily": "Véhicules/jour",
       "coverage": "Couverture nationale"
@@ -149,7 +149,7 @@
   },
   "services": {
     "title": "Nos services",
-    "subtitle": "SICTA propose une gamme complète de services automobiles et industriels",
+    "subtitle": "SICTA propose une gamme complète de services automobiles",
     "technicalInspection": {
       "title": "Contrôle Technique Automobile",
       "description": "Vérification complète de l'état mécanique de votre véhicule selon la réglementation ivoirienne.",
@@ -253,10 +253,10 @@
   "newEra": {
     "title": "Nouvelle Ère",
     "titleHighlight": "SICTA 2025",
-    "description": "Société Ivoirienne de Contrôles Techniques Automobiles et Industriels, SICTA entre dans une nouvelle phase de développement sous l'impulsion de Mayelia Participations. Leader incontesté depuis 1974.",
+    "description": "Société Ivoirienne de Contrôle Technique automobile, SICTA entre dans une nouvelle phase de développement sous l'impulsion de Mayelia PARTICIPATIONS. Leader incontesté depuis 1974.",
     "keyPoints": "Points Clés",
     "highlights": [
-      "Filiale de Mayelia Participations depuis avril 2025",
+      "Filiale de Mayelia PARTICIPATIONS depuis avril 2025",
       "Certification ISO 9001:2015 par ABS Quality Evaluations",
       "Leader du contrôle technique en Afrique de l'Ouest",
       "Innovation technologique et digitalisation des services"
@@ -274,10 +274,10 @@
   },
   "network": {
     "title": "Notre Réseau",
-    "subtitle": "28 stations permanentes et 22 stations temporaires réparties sur l'ensemble du territoire ivoirien pour vous servir au plus près.",
+    "subtitle": "29 stations fixes | 07 Abidjan / 22 Intérieur répartis sur l'ensemble du territoire ivoirien pour vous servir au plus près.",
     "stats": {
-      "permanent": "Stations permanentes",
-      "temporary": "Stations temporaires",
+      "permanent": "Stations fixes",
+      "temporary": "Stations fixes",
       "daily": "Véhicules/jour",
       "coverage": "Couverture nationale"
     },
@@ -287,26 +287,24 @@
     "interiorOf": "sur",
     "interiorAgencies": "agences",
     "abidjanTitle": "Abidjan",
-    "abidjanSubtitle": "Retrouvez nos stations fixes et nos bancs mobiles sur le Grand Abidjan",
+    "abidjanSubtitle": "Retrouvez nos stations fixes sur le Grand Abidjan",
     "reserve": "Réserver",
     "route": "Itinéraire",
     "servicesAvailable": "Services disponibles :",
     "availability": "Disponibilité :",
-    "mobileInfrastructure": "Infrastructure Mobile",
-    "mobileInfrastructureSubtitle": "Unités mobiles et bancs mobiles pour desservir tout le territoire ivoirien",
-    "mobileStations": "4 Stations Mobiles",
-    "mobileStationsDesc": "Unités de contrôle itinérantes",
-    "mobileStationsText": "Nos stations mobiles équipées parcourent les zones moins accessibles pour apporter nos services de contrôle technique partout en Côte d'Ivoire.",
-    "mobileBancs": "4 Bancs Mobiles",
-    "mobileBancsDesc": "Équipement technique itinérant",
-    "mobileBancsText": "Nos bancs mobiles assurent la même qualité de contrôle technique que nos stations permanentes, avec des équipements certifiés et des techniciens qualifiés.",
+    "mobileInfrastructure": "Infrastructure",
+    "mobileInfrastructureSubtitle": "Unités fixes pour desservir tout le territoire ivoirien",
+    "mobileStations": "29 Stations fixes",
+    "mobileStationsDesc": "Unités de contrôle",
+    "mobileStationsText": "Nos stations fixes équipées vous accueillent pour apporter nos services de contrôle technique partout en Côte d'Ivoire.",
+    "mobileBancs": "Qualité Garantie",
+    "mobileBancsDesc": "Équipement technique certifié",
+    "mobileBancsText": "Nos stations fixes assurent un contrôle technique rigoureux, avec des équipements certifiés et des techniciens qualifiés.",
     "ctaTitle": "Une agence près de chez vous",
-    "ctaSubtitle": "Trouvez l'agence SICTA la plus proche et réservez votre contrôle technique",
+    "ctaSubtitle": "Trouvez l'agence SICTA la plus proche",
     "locateAgency": "Localiser une agence",
     "locating": "Recherche en cours…",
     "previous": "Précédent",
     "next": "Suivant"
   }
 }
-
-

@@ -58,34 +58,35 @@ const ActualiteDetail = () => {
       <div className="w-full min-h-screen bg-white">
 
         {/* Fil d'Ariane + Retour */}
-        <section className="border-b border-gray-100 bg-[#fafafa] py-6">
-          <div className="container mx-auto px-4">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#0f1117] via-[#1a1c23] to-[#251810] text-white border-b border-white/5 py-6">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl">
               <div className="flex items-center gap-3 flex-wrap mb-4">
                 <Link
                   to="/actualites"
-                  className="inline-flex items-center gap-2 text-sicta-grey-light hover:text-primary transition-colors text-sm font-medium"
+                  className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors text-sm font-medium"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 text-primary" />
                   Retour aux actualités
                 </Link>
                 {article.has_gallery && (
                   <Link
                     to={`/galerie/article/${article.slug}`}
-                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-medium border border-primary/20 rounded-full px-3 py-1"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-medium border border-primary/30 rounded-full px-3 py-1 bg-primary/10"
                   >
                     <Images className="h-4 w-4" />
                     Voir la galerie →
                   </Link>
                 )}
               </div>
-              <div className="flex items-center gap-2 text-sm text-sicta-grey-light">
-                <Newspaper className="h-4 w-4" />
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <Newspaper className="h-4 w-4 text-primary" />
                 <Link to="/actualites" className="hover:text-primary transition-colors">
                   Actualités
                 </Link>
                 <span>/</span>
-                <span className="text-sicta-grey-dark">{article.titre}</span>
+                <span className="text-white truncate max-w-[200px] md:max-w-sm">{article.titre}</span>
               </div>
             </div>
           </div>
@@ -148,6 +149,38 @@ const ActualiteDetail = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Galerie photos inline */}
+              {article.has_gallery && article.medias && article.medias.filter(m => m.type === "image").length > 0 && (
+                <div className="mt-12 pt-8 border-t border-gray-100">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="h-0.5 w-8 bg-primary rounded-full" />
+                    <h2 className="text-xl font-bold text-sicta-grey-dark">Galerie photos</h2>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {article.medias.filter(m => m.type === "image").map((media) => (
+                      <a
+                        key={media.id}
+                        href={media.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 block"
+                      >
+                        <img
+                          src={media.url}
+                          alt={media.filename}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                          <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs font-medium bg-black/50 px-2 py-1 rounded-full">
+                            Voir
+                          </span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="mt-12 pt-8 border-t border-gray-100">
                 <Link to="/actualites">

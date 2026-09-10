@@ -50,20 +50,48 @@ const NetworkImageMap = () => {
           </a>
         )}
         {s.horaires && (
-          <p className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-gray-400" />{s.horaires}</p>
+          <p className="flex items-start gap-2"><Clock className="h-3.5 w-3.5 text-gray-400 mt-0.5 flex-shrink-0" /><span className="whitespace-pre-line">{s.horaires}</span></p>
         )}
       </div>
       {s.services.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
-          {s.services.slice(0, 5).map((srv) => (
-            <span key={srv} className="px-2 py-0.5 text-[11px] rounded-full bg-orange-50 text-orange-700 border border-orange-100">{srv}</span>
-          ))}
+          {s.services.slice(0, 5).map((srv) => {
+            const SERVICE_SLUGS: Record<string, string> = {
+              "contrôle technique": "controle-technique",
+              "civio": "civio",
+              "ivn": "ivn",
+              "pesée": "pesee",
+              "jaugeage": "jaugeage-baremage",
+              "ppad": "ppad",
+              "station mobile": "station-mobile",
+              "vip": "vip"
+            };
+            const slug = SERVICE_SLUGS[srv.trim().toLowerCase()];
+            if (slug) {
+              return (
+                <button
+                  key={srv}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenPoint(null);
+                    navigate(`/services/${slug}`);
+                  }}
+                  className="px-2 py-0.5 text-[11px] rounded-full bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-100 transition-colors cursor-pointer"
+                >
+                  {srv}
+                </button>
+              );
+            }
+            return (
+              <span key={srv} className="px-2 py-0.5 text-[11px] rounded-full bg-orange-50 text-orange-700 border border-orange-100">
+                {srv}
+              </span>
+            );
+          })}
         </div>
       )}
       <div className="mt-3 flex gap-2">
-        <Button size="sm" className="flex-1 bg-primary hover:bg-primary/90 text-white" onClick={() => { setOpenPoint(null); navigate("/reservation"); }}>
-          <Calendar className="h-3.5 w-3.5 mr-1" /> Réserver
-        </Button>
+        {/* Bouton RDV temporairement désactivé */}
         {s.maps_url && (
           <Button size="sm" variant="outline" asChild>
             <a href={s.maps_url} target="_blank" rel="noopener noreferrer"><Navigation className="h-3.5 w-3.5" /></a>
@@ -143,11 +171,6 @@ const NetworkImageMap = () => {
             })()}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6 mt-6">
-            <div className="flex items-center gap-2"><MapPin className="h-4 w-4" style={{ color: "#E87722" }} /><span className="text-sm text-sicta-grey-light">Ville (toutes ses stations)</span></div>
-            <div className="flex items-center gap-2"><Building2 className="h-4 w-4" style={{ color: "#F5A867" }} /><span className="text-sm text-sicta-grey-light">Station fixe</span></div>
-            <div className="flex items-center gap-2"><Navigation className="h-4 w-4" style={{ color: "#64748b" }} /><span className="text-sm text-sicta-grey-light">Banc mobile</span></div>
-          </div>
         </div>
       </div>
 

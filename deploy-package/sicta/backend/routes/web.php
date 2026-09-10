@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ServiceSectionController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\HistoryEventController;
 use App\Http\Controllers\Admin\MapEditorController;
+use App\Http\Controllers\Admin\UploadController;
 
 // Auth
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -25,6 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Zone protégée
     Route::middleware('admin.auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/upload/image', [UploadController::class, 'image'])->name('upload.image');
 
         // Stations
         Route::resource('stations', StationController::class);
@@ -75,9 +77,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('page-sections/home',  [PageSectionController::class, 'home'])->name('page-sections.home');
         Route::get('page-sections/about', [PageSectionController::class, 'about'])->name('page-sections.about');
         Route::put('page-sections/{page}', [PageSectionController::class, 'update'])->name('page-sections.update');
+
+        // Réglages Généraux
+        Route::get('settings', [PageSectionController::class, 'settings'])->name('settings.index');
+        Route::put('settings', [PageSectionController::class, 'updateSettings'])->name('settings.update');
+        
         Route::patch('messages/{message}/toggle-lu', [MessageContactController::class, 'toggleLu'])->name('messages.toggle-lu');
     });
 });
+
+Route::get('/storage/{path}', function ($path) {
+    $filePath = public_path('storage/' . $path);
+    $realPath = realpath($filePath);
+    $basePath = realpath(public_path('storage'));
+    
+    if (!$realPath || !str_starts_with($realPath, $basePath)) {
+        abort(404);
+    }
+    
+    if (!file_exists($realPath)) {
+        abort(404);
+    }
+    
+    return response()->file($realPath);
+})->where('path', '.*');
 
 Route::get('/', function () {
     return redirect()->route('admin.login');

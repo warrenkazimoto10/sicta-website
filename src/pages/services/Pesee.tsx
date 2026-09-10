@@ -176,10 +176,7 @@ const Pesee = () => {
               Service disponible 24h/24 pour les professionnels du transport
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="btn-hero">
-                <Clock className="h-5 w-5 mr-2" />
-                Réserver un pesage
-              </Button>
+              {/* Bouton RDV temporairement désactivé */}
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey">
                 <MapPin className="h-5 w-5 mr-2" />
                 Trouver une station

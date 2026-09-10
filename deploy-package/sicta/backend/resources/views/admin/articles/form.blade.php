@@ -183,6 +183,10 @@ const easyMDE = new EasyMDE({
     spellChecker: false,
     autosave: { enabled: false },
     placeholder: 'Rédigez le contenu de l\'article en Markdown…\n\n## Titre de section\n\nParagraphe de texte…',
+    uploadImage: true,
+    imageUploadEndpoint: '{{ route("admin.upload.image") }}',
+    imageCSRFToken: '{{ csrf_token() }}',
+    imageCSRFName: '_token',
     toolbar: [
         'bold', 'italic', 'heading', '|',
         'quote', 'unordered-list', 'ordered-list', '|',

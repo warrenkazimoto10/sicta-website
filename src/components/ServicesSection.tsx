@@ -67,10 +67,6 @@ const ServicesSection = () => {
             Nos services
           </h2>
           
-          <p className="text-xl lg:text-2xl text-sicta-grey-light max-w-3xl mx-auto leading-relaxed">
-            Découvrez nos services les plus demandés pour vos besoins de contrôle technique. 
-            Services modernisés et digitalisés sous la nouvelle ère SICTA 2025.
-          </p>
         </motion.div>
 
         {/* Services Grid - Format Teaser amélioré avec images flyers */}

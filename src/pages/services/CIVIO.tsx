@@ -447,10 +447,7 @@ const CIVIO = () => {
                 Réservez votre créneau et bénéficiez d'un contrôle certifié pour une traçabilité complète
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-lg px-10 py-7">
-                  <Calendar className="h-6 w-6 mr-3" />
-                  Prendre rendez-vous
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
                   <MapPin className="h-6 w-6 mr-3" />
                   Trouver une station

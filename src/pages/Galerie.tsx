@@ -21,6 +21,8 @@ import SEO from "@/components/SEO";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { fetchGalerie, type DossierAPI } from "@/services/galerieService";
+import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "framer-motion";
 
 type FilterCat = "tous" | "agences" | "equipements" | "evenements" | "vehicules" | "autre";
 
@@ -103,11 +105,12 @@ const Galerie = () => {
         description="Découvrez la médiathèque SICTA : nos agences, équipements, événements et contrôles techniques à travers la Côte d'Ivoire."
         url="/galerie"
       />
-      <div className="w-full min-h-screen bg-white">
+      <div className="w-full min-h-screen bg-slate-50/50">
 
         {/* Hero */}
-        <section className="border-b border-gray-100 bg-[#fafafa]">
-          <div className="container mx-auto px-4 py-16 md:py-20">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#0f1117] via-[#1a1c23] to-[#251810] text-white border-b border-white/5 py-16 md:py-20">
+          <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
+          <div className="container mx-auto px-4 relative z-10">
             {selectedDossier ? (
               /* Breadcrumb dossier ouvert */
               <div>
@@ -115,27 +118,27 @@ const Galerie = () => {
                   onClick={closeDossier}
                   className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors mb-4"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 text-primary" />
                   Retour à la galerie
                 </button>
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <span className={cn(
                       "inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3",
-                      CATEGORY_COLORS[selectedDossier.categorie as FilterCat] ?? "bg-gray-100 text-gray-600"
+                      CATEGORY_COLORS[selectedDossier.categorie as FilterCat] ?? "bg-primary/20 text-primary border border-primary/20"
                     )}>
                       {CATEGORY_LABELS[selectedDossier.categorie as FilterCat] ?? selectedDossier.categorie}
                     </span>
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark tracking-tight leading-tight">
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
                       {selectedDossier.nom}
                     </h1>
                     {selectedDossier.date && (
                       <p className="text-sm text-gray-400 mt-2">
-                        <Calendar className="h-4 w-4 inline mr-1 -mt-0.5" />
+                        <Calendar className="h-4 w-4 inline mr-1 -mt-0.5 text-primary" />
                         {new Date(selectedDossier.date).toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
                       </p>
                     )}
-                    <p className="text-gray-400 text-sm mt-1">
+                    <p className="text-primary text-sm mt-1 font-semibold">
                       {dossierMedias.length} média{dossierMedias.length > 1 ? "s" : ""}
                     </p>
                   </div>
@@ -145,10 +148,10 @@ const Galerie = () => {
               /* Hero normal */
               <div className="max-w-3xl">
                 <p className="text-sm font-medium text-primary uppercase tracking-widest mb-4">Médiathèque</p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-sicta-grey-dark tracking-tight leading-[1.1] mb-6">
-                  Galerie SICTA
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+                  Galerie <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-orange-400">SICTA</span>
                 </h1>
-                <p className="text-lg md:text-xl text-sicta-grey-light leading-relaxed">
+                <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
                   Nos implantations, nos équipements et les temps forts de l'entreprise.
                   Une vision du contrôle technique en Côte d'Ivoire.
                 </p>
@@ -159,7 +162,7 @@ const Galerie = () => {
 
         {/* Filtres (masqués quand un dossier est ouvert) */}
         {!selectedDossier && availableCategories.length > 1 && (
-          <section className="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+          <section className="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-sm">
             <div className="container mx-auto px-4">
               <div className="flex flex-wrap items-center gap-2 py-4 md:gap-4">
                 {availableCategories.map((cat) => {
@@ -169,10 +172,10 @@ const Galerie = () => {
                       key={cat}
                       onClick={() => setActiveCategory(cat)}
                       className={cn(
-                        "inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200",
+                        "inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all duration-200 border",
                         activeCategory === cat
-                          ? "bg-sicta-grey-dark text-white"
-                          : "text-sicta-grey-light hover:bg-gray-100 hover:text-sicta-grey-dark"
+                          ? "bg-primary text-white border-primary shadow-lg shadow-orange-500/10"
+                          : "text-sicta-grey-light border-transparent hover:bg-orange-50 hover:text-primary hover:border-orange-200"
                       )}
                     >
                       <Icon className="h-4 w-4" />
@@ -185,14 +188,15 @@ const Galerie = () => {
           </section>
         )}
 
-        {/* Contenu principal */}
+              {/* Contenu principal */}
         <section className="py-12 md:py-16">
           <div className="container mx-auto px-4">
             {isLoading ? (
-              <div className="flex items-center justify-center py-32">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                {[1, 2, 3, 4].map((i) => (
+                  <Skeleton key={i} className="h-[280px] rounded-2xl" />
+                ))}
               </div>
-
             ) : selectedDossier ? (
               /* Vue dossier — grille de médias */
               dossierMedias.length === 0 ? (
@@ -205,9 +209,13 @@ const Galerie = () => {
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                   {dossierMedias.map((media, index) => (
-                    <button
+                    <motion.button
                       key={media.id}
                       type="button"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: index * 0.03 }}
                       className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       onClick={() => openLightbox(index)}
                     >
@@ -235,7 +243,7 @@ const Galerie = () => {
                           : <ImageIcon className="h-3.5 w-3.5 text-sicta-grey-dark" />
                         }
                       </div>
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               )
@@ -251,15 +259,19 @@ const Galerie = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                  {filteredDossiers.map((dossier) => {
+                  {filteredDossiers.map((dossier, i) => {
                     const cat = dossier.categorie as FilterCat;
                     const Icon = CATEGORY_ICONS[cat] ?? FolderOpen;
                     return (
-                      <button
+                      <motion.button
                         key={dossier.id}
                         type="button"
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: i * 0.04 }}
                         onClick={() => openDossier(dossier)}
-                        className="group text-left rounded-2xl overflow-hidden border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        className="group text-left rounded-2xl overflow-hidden border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 w-full"
                       >
                         {/* Couverture */}
                         <div className="aspect-video bg-gray-100 overflow-hidden relative">
@@ -309,7 +321,7 @@ const Galerie = () => {
                             )}
                           </div>
                         </div>
-                      </button>
+                      </motion.button>
                     );
                   })}
                 </div>

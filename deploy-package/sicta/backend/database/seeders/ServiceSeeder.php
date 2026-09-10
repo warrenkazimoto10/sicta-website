@@ -15,9 +15,9 @@ class ServiceSeeder extends Seeder
             'ivn'                => ['IVN',                 'FileCheck',     'ivn.png',                "Identification des véhicules neufs chez le concessionnaire."],
             'jaugeage-baremage'  => ['Jaugeage & Barémage', 'Gauge',        'jaugeage-baremage.png',  "Mesure certifiée de la capacité volumétrique des citernes."],
             'pre-visite'         => ['Pré-visite',          'ClipboardCheck','pre-visite.png',        "Un pré-diagnostic préventif pour préparer votre contrôle."],
-            'ppad'               => ['PPAD',                'MapPin',        'ppad.png',               "Sécurisation et pose de plaques directement à votre domicile."],
+            'ppad'               => ['PPAD',                'MapPin',        'ppad.png',               "Sécurisation et pose de plaques directement à votre domicile (plaques bleues)."],
             'pesee'              => ['Pesée',               'Scale',         'pesee.jpg',              "Pesage certifié des véhicules et de leur charge."],
-            'immatriculation'    => ['Immatriculation',     'FileText',      'immatriculation.png',    "Immatriculation officielle et pose de plaques sécurisées."],
+            'immatriculation'    => ['Immatriculation',     'FileText',      'immatriculation.png',    "Immatriculation officielle et pose de plaques sécurisées (plaques bleues)."],
             'vip'                => ['Service VIP',         'Star',          'vip.png',                "Une prise en charge premium, sur rendez-vous et prioritaire."],
             'assistance'         => ['Assistance',          'LifeBuoy',      'assistance.jpg',         "Un accompagnement à chaque étape de vos démarches."],
         ];
@@ -258,7 +258,7 @@ class ServiceSeeder extends Seeder
             ],
 
             'ppad' => [
-                $this->intro("Pose de Plaque à Domicile (PPAD)", "<p>Le service « Plaques à Domicile » permet aux propriétaires de véhicules de faire sécuriser et poser leurs plaques sans se déplacer. Une équipe mobile se rend directement à l'adresse indiquée (domicile, lieu de travail, parking) pour procéder à la pose en toute conformité.</p>"),
+                $this->intro("Pose de Plaque à Domicile (PPAD)", "<p>Le service « Plaques à Domicile » permet aux propriétaires de véhicules de faire sécuriser et poser leurs plaques sans se déplacer. Une équipe mobile se rend directement à l'adresse indiquée (domicile, lieu de travail, parking) pour procéder à la pose en toute conformité. La pose concerne uniquement les anciens modèles de plaques, à savoir les plaques bleues.</p>"),
                 $this->avantages("Vos avantages", null, [
                     ['Clock', 'Gain de temps', "Aucun déplacement nécessaire."],
                     ['MapPin', 'Confort', "Pose à l'endroit choisi par le client."],
@@ -294,7 +294,7 @@ class ServiceSeeder extends Seeder
             ],
 
             'immatriculation' => [
-                $this->intro("Service d'Immatriculation", "<p>Le service d'immatriculation permet l'immatriculation officielle des véhicules auprès des autorités compétentes et la pose de plaques sécurisées. Il garantit l'identification légale du véhicule sur le territoire ivoirien pour une circulation conforme à la réglementation. (Concerne les anciennes plaques bleues.)</p>"),
+                $this->intro("Service d'Immatriculation", "<p>Le service d'immatriculation permet l'immatriculation officielle des véhicules auprès des autorités compétentes et la pose de plaques sécurisées. Il garantit l'identification légale du véhicule sur le territoire ivoirien pour une circulation conforme à la réglementation. La pose concerne uniquement les anciens modèles de plaques, à savoir les plaques bleues.</p>"),
                 $this->avantages("Bénéfices pour le client", null, [
                     ['Zap', 'Rapidité', "Démarches simples et rapides."],
                     ['Shield', 'Sécurité', "Plaques sécurisées."],

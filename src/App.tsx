@@ -28,6 +28,7 @@ import GalerieArticle from "./pages/GalerieArticle";
 import Telechargements from "./pages/Telechargements";
 import Contact from "./pages/Contact";
 import SimulateurVisite from "./pages/SimulateurVisite";
+import Emplois from "./pages/Emplois";
 
 const queryClient = new QueryClient();
 
@@ -68,6 +69,7 @@ const App = () => (
                     <Route path="/reservation" element={<Booking />} />
                     <Route path="/actualites" element={<News />} />
                     <Route path="/actualites/:slug" element={<ActualiteDetail />} />
+                    <Route path="/emplois" element={<Emplois />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>

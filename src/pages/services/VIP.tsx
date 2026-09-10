@@ -62,10 +62,7 @@ const VIP = () => {
                   {data.descriptionCourte}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Button size="lg" className="btn-hero text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
-                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    Réserver maintenant
-                  </Button>
+                {/* Bouton RDV temporairement désactivé */}
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-5 py-4 sm:px-8 sm:py-6 w-full sm:w-auto">
                     <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     Nous contacter
@@ -360,10 +357,7 @@ const VIP = () => {
                 Réservez votre créneau VIP et profitez d'un service premium avec accueil privilégié et accompagnement personnalisé
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-lg px-10 py-7">
-                  <Calendar className="h-6 w-6 mr-3" />
-                  Réserver maintenant
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
                   <Phone className="h-6 w-6 mr-3" />
                   Nous contacter

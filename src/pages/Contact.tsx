@@ -17,6 +17,8 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { sendContactMessage } from "@/services/contactService";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSettings } from "@/services/settingsService";
 
 const Contact = () => {
   const navigate = useNavigate();
@@ -24,6 +26,16 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+
+  const { data: settings } = useQuery({
+    queryKey: ["settings"],
+    queryFn: fetchSettings,
+    staleTime: 300_000,
+  });
+
+  const phoneValue = settings?.settings_phone || "27 21 21 29 90";
+  const emailValue = settings?.settings_email || "infos@sicta.ci";
+  const addressValue = settings?.settings_address || "Rue Abli Mathieu, Zone 4C, Marcory\nAbidjan, Côte d'Ivoire";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -69,7 +81,7 @@ const Contact = () => {
         <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              
+
               <h1 className="text-5xl lg:text-6xl font-bold mb-6">
                 <span className="text-sicta-grey-dark">Besoin d'aide ?</span>{" "}
                 <span className="text-gradient">Contactez-nous</span>
@@ -112,10 +124,10 @@ const Contact = () => {
                           Appelez-nous du lundi au vendredi de 7h30 à 17h30
                         </p>
                         <a
-                          href="tel:+2252721212990"
-                          className="text-primary hover:underline font-medium"
+                          href={`tel:${phoneValue.replace(/\s/g, "")}`}
+                          className="text-primary hover:underline font-medium animate-pulse-slow"
                         >
-                          27 21 21 29 90
+                          {phoneValue}
                         </a>
                         <div className="mt-1">
                           <span className="text-sm text-sicta-grey-light">
@@ -146,35 +158,33 @@ const Contact = () => {
                           Envoyez-nous un email, nous vous répondrons sous 24h
                         </p>
                         <a
-                          href="mailto:infos@sicta.ci"
+                          href={`mailto:${emailValue}`}
                           className="text-primary hover:underline font-medium"
                         >
-                          infos@sicta.ci
+                          {emailValue}
                         </a>
                       </div>
                     </div>
                   </Card>
 
                   {/* Address */}
-                  <Card className="p-6 hover:shadow-lg transition-shadow">
+                  <Card className="p-6 hover:shadow-lg transition-shadow border border-orange-100 bg-orange-50/20">
                     <div className="flex items-start space-x-4">
                       <div className="bg-primary/10 rounded-full p-3">
                         <MapPin className="h-6 w-6 text-primary" />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold text-sicta-grey-dark mb-1">
-                          Adresse
+                          Adresse (Siège Social)
                         </h3>
-                        <p className="text-sicta-grey-light">
-                          Rue Abli Mathieu, 1145 Zone 4C
-                          <br />
-                          Abidjan, Côte d'Ivoire
+                        <p className="text-sicta-grey-light whitespace-pre-line">
+                          {addressValue}
                         </p>
                         <a
                           href="https://maps.app.goo.gl/raaF3pipxgcsBByV7"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-primary hover:underline text-sm mt-1 inline-block"
+                          className="text-primary hover:underline text-sm mt-1 inline-block font-semibold"
                         >
                           Voir sur Google Maps →
                         </a>
@@ -193,14 +203,13 @@ const Contact = () => {
                           Horaires
                         </h3>
                         <div className="text-sicta-grey-light space-y-1">
-                          <p>Lundi - Vendredi : 7h30 - 17h30</p>
-                          <p>Samedi : 8h00 - 12h00</p>
-                          <p>Dimanche : Fermé</p>
+                          <p>Lundi - Vendredi : 7h30 - 17h00</p>
+
                         </div>
                       </div>
                     </div>
                   </Card>
-                
+
                 </div>
               </div>
 
@@ -222,8 +231,8 @@ const Contact = () => {
                       <p className="text-sicta-grey-light max-w-sm">
                         Merci de nous avoir contactés. Notre équipe vous répondra
                         dans un délai de 24h à l'adresse{" "}
-                        <a href="mailto:infos@sicta.ci" className="text-primary font-medium">
-                          infos@sicta.ci
+                        <a href={`mailto:${emailValue}`} className="text-primary font-medium">
+                          {emailValue}
                         </a>
                         .
                       </p>
@@ -351,19 +360,18 @@ const Contact = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-sicta-grey-dark mb-4">
-                Trouvez l'agence la plus proche
+                Notre Localisation (Siège Social - Zone 4C)
               </h2>
               <p className="text-lg text-sicta-grey-light max-w-2xl mx-auto mb-8">
-                SICTA dispose de 28 agences permanentes et 22 stations temporaires
-                réparties sur l'ensemble du territoire ivoirien.
+                Retrouvez notre direction générale et nos bureaux de Marcory Zone 4C.
               </p>
             </div>
-            <div className="rounded-xl overflow-hidden shadow-lg border border-border mb-8">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20 mb-8 max-w-5xl mx-auto">
               <iframe
-                title="SICTA - Rue Abli Mathieu, Zone 4C, Abidjan"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.7!2d-3.997!3d5.32!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMTknMTIuMCJOIDPCsDU5JzQ5LjIiVw!5e0!3m2!1sfr!2sci!4v1699999999999!5m2!1sfr!2sci&q=Rue+Abli+Mathieu+1145+Zone+4C+Abidjan"
+                title="SICTA Direction Générale - Zone 4C, Marcory, Abidjan"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.7824132800366!2d-3.999558985235222!3d5.321151696182186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1ef6beeeeeeeb%3A0xe54d24beceb162cd!2sRue+Abli+Mathieu%2C+Abidjan!5e0!3m2!1sfr!2sci!4v1699999999999!5m2!1sfr!2sci"
                 width="100%"
-                height="400"
+                height="450"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
@@ -381,17 +389,17 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <MapPin className="h-5 w-5 mr-2" />
-                  Voir sur Google Maps
+                  <MapPin className="h-5 w-5 mr-2 text-primary" />
+                  Ouvrir sur Google Maps
                 </a>
               </Button>
               <Button
                 size="lg"
                 className="btn-hero"
-                onClick={() => navigate("/reseau", { state: { rechercher: true } })}
+                onClick={() => navigate("/reseau")}
               >
                 <MapPin className="h-5 w-5 mr-2" />
-                Trouver l'agence la plus proche
+                Découvrir l'ensemble du réseau
               </Button>
             </div>
           </div>

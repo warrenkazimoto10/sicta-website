@@ -38,6 +38,37 @@ const SectionBlock = ({ section }: { section: ServiceSectionAPI }) => {
 
   switch (section.type) {
     case "intro":
+      return (
+        <section className="py-20 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-1 w-16 bg-primary rounded-full" />
+                  <span className="text-xs uppercase tracking-widest font-bold px-3 py-1 rounded-full border border-primary text-primary bg-primary/5">
+                    À propos
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-sicta-grey-dark mb-8">
+                  {section.titre || "Description du Produit"}
+                </h2>
+                <Card className="p-6 md:p-10 lg:p-12 bg-white/90 backdrop-blur-sm border-l-4 border-primary shadow-xl rounded-2xl">
+                  <div 
+                    className="prose prose-lg max-w-none text-sicta-grey-light leading-relaxed text-base md:text-lg"
+                    dangerouslySetInnerHTML={{ __html: c.html ?? "" }} 
+                  />
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      );
+
     case "texte":
       return (
         <section className="py-16 bg-white">
@@ -48,13 +79,21 @@ const SectionBlock = ({ section }: { section: ServiceSectionAPI }) => {
         </section>
       );
 
-    case "avantages":
+    case "avantages": {
+      const items = c.items ?? [];
+      const gridCols = items.length === 1 
+        ? "grid-cols-1 max-w-md mx-auto" 
+        : items.length === 2 
+          ? "grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto" 
+          : items.length === 3 
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto" 
+            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
       return (
         <section className="py-16 bg-gradient-to-br from-sicta-grey/5 via-background to-primary/5">
           <div className="container mx-auto px-4">
             <Header />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {(c.items ?? []).map((it: any, i: number) => (
+            <div className={`grid gap-6 ${gridCols}`}>
+              {items.map((it: any, i: number) => (
                 <Card key={i} className="p-6 text-center rounded-2xl border-primary/10 hover:shadow-lg transition-shadow">
                   <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Icon name={it.icone} className="h-7 w-7 text-primary" />
@@ -67,6 +106,7 @@ const SectionBlock = ({ section }: { section: ServiceSectionAPI }) => {
           </div>
         </section>
       );
+    }
 
     case "etapes":
       return (
@@ -120,13 +160,17 @@ const SectionBlock = ({ section }: { section: ServiceSectionAPI }) => {
       );
     }
 
-    case "documents":
+    case "documents": {
+      const items = c.items ?? [];
+      const gridCols = items.length === 1 
+        ? "grid-cols-1 max-w-md mx-auto" 
+        : "grid-cols-1 sm:grid-cols-2 max-w-4xl mx-auto";
       return (
         <section className="py-16 bg-white">
-          <div className="container mx-auto px-4 max-w-3xl">
+          <div className="container mx-auto px-4">
             <Header />
-            <div className="grid sm:grid-cols-2 gap-4">
-              {(c.items ?? []).map((it: any, i: number) => (
+            <div className={`grid gap-4 ${gridCols}`}>
+              {items.map((it: any, i: number) => (
                 <div key={i} className="flex gap-3 items-start p-4 rounded-xl border border-gray-100 bg-secondary/10">
                   <FileBadge className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <div>
@@ -139,6 +183,7 @@ const SectionBlock = ({ section }: { section: ServiceSectionAPI }) => {
           </div>
         </section>
       );
+    }
 
     case "faq":
       return (

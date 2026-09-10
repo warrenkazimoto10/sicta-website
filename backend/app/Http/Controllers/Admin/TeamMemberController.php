@@ -58,12 +58,13 @@ class TeamMemberController extends Controller
     private function validateData(Request $request): array
     {
         return $request->validate([
-            'nom'      => 'required|string|max:255',
-            'role'     => 'nullable|string|max:255',
-            'email'    => 'nullable|email|max:255',
-            'linkedin' => 'nullable|string|max:255',
-            'ordre'    => 'integer|min:0',
-            'photo'    => 'nullable|image|max:20480',
+            'nom'         => 'required|string|max:255',
+            'role'        => 'nullable|string|max:255',
+            'email'       => 'nullable|email|max:255',
+            'linkedin'    => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'ordre'       => 'integer|min:0',
+            'photo'       => 'nullable|image|max:20480',
         ]);
     }
 }

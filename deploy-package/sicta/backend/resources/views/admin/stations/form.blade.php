@@ -34,8 +34,8 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Horaires</label>
-                    <input type="text" name="horaires" value="{{ old('horaires', $station->horaires) }}" placeholder="Lun-Ven: 7h-17h"
-                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none" />
+                    <textarea name="horaires" rows="3" placeholder="Lun-Ven: 7h30 - 17h00&#10;Dim: 8h00 - 13h00"
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">{{ old('horaires', $station->horaires) }}</textarea>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Lien Google Maps</label>
@@ -46,9 +46,11 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Services disponibles</label>
                     @php
                         $existingServices = old('services_disponibles', is_array($station->services_disponibles) ? $station->services_disponibles : json_decode($station->services_disponibles ?? '[]', true) ?? []);
+                        $dbServicesList = \App\Models\Service::pluck('nom')->toArray();
+                        $servicesToShow = !empty($dbServicesList) ? $dbServicesList : ['Contrôle technique', 'CIVIO', 'IVN', 'Pesée', 'Jaugeage', 'PPAD', 'Station Mobile'];
                     @endphp
                     <div class="flex flex-wrap gap-3">
-                        @foreach(['Contrôle technique', 'CIVIO', 'IVN', 'Pesée', 'Jaugeage', 'PPAD', 'Station Mobile'] as $service)
+                        @foreach($servicesToShow as $service)
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="services_disponibles[]" value="{{ $service }}"
                                 {{ in_array($service, $existingServices) ? 'checked' : '' }}

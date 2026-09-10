@@ -18,9 +18,7 @@
                 @if($member->photo)
                     <img src="{{ Storage::url($member->photo) }}" alt="{{ $member->nom }}" class="w-full h-full object-cover" />
                 @else
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-100 to-orange-50">
-                        <span class="text-3xl font-bold text-orange-300">{{ strtoupper(mb_substr($member->nom, 0, 1)) }}</span>
-                    </div>
+                    <img src="https://cdn.vectorstock.com/i/1000v/38/71/avatar-man-in-modern-flat-design-vector-15133871.jpg" alt="{{ $member->nom }}" class="w-full h-full object-cover" />
                 @endif
             </div>
             <div class="p-4">

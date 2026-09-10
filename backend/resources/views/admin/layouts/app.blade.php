@@ -104,6 +104,9 @@
                         <span class="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-0.5">{{ $non_lus_count }}</span>
                     @endif
                 </a>
+                <a href="{{ route('admin.settings.index') }}" class="sidebar-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                    <i class="fas fa-sliders w-4"></i> Réglages généraux
+                </a>
             </nav>
 
             <!-- User -->

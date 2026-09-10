@@ -106,6 +106,9 @@ const AboutSictaSection = () => {
                 src={image}
                 alt={`${title} ${titleHighlight}`}
                 className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = sictaInspectionImage;
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>

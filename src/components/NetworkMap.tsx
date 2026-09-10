@@ -289,22 +289,6 @@ const NetworkMap = () => {
             );
           })()}
         </div>
-
-        {/* ── Légende ── */}
-        <div className="flex flex-wrap justify-center gap-6 mt-6">
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-3 w-3 rounded-full" style={{ background: "#E87722" }} />
-            <span className="text-sm text-sicta-grey-light">Agence permanente</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "#F5A867" }} />
-            <span className="text-sm text-sicta-grey-light">Station périodique</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "#94a3b8" }} />
-            <span className="text-sm text-sicta-grey-light">Banc mobile</span>
-          </div>
-        </div>
       </div>
 
       {/* ── Panel slide-in au clic ── */}
@@ -360,7 +344,7 @@ const NetworkMap = () => {
                     <Clock className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-400 uppercase tracking-wide">Horaires</p>
-                      <p className="text-sm font-medium text-gray-800">{selectedStation.horaires}</p>
+                      <p className="text-sm font-medium text-gray-800 whitespace-pre-line">{selectedStation.horaires}</p>
                     </div>
                   </div>
                 )}
@@ -381,16 +365,7 @@ const NetworkMap = () => {
               </div>
 
               <div className="flex flex-col gap-3 mt-8">
-                <Button
-                  className="w-full bg-primary hover:bg-primary/90 text-white"
-                  onClick={() => {
-                    setSelectedStation(null);
-                    navigate(`/reservation?agence=${selectedStation.id}`);
-                  }}
-                >
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Prendre rendez-vous
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
 
                 {selectedStation.maps_url && (
                   <Button variant="outline" className="w-full" asChild>

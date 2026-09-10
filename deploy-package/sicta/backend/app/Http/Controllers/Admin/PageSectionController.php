@@ -26,6 +26,9 @@ class PageSectionController extends Controller
                 ['key' => 'home_cta_button2_url',   'label' => 'Bouton secondaire — lien',       'type' => 'text',     'group' => 'Boutons d\'action',        'help' => 'La page vers laquelle mène le bouton.', 'placeholder' => '/a-propos'],
                 ['key' => 'home_iso_value',         'label' => 'Badge — titre',                  'type' => 'text',     'group' => 'Badge de certification',   'help' => 'Le texte en gras dans la carte blanche sur l\'image.', 'placeholder' => 'ISO 9001:2015'],
                 ['key' => 'home_iso_label',         'label' => 'Badge — sous-titre',             'type' => 'text',     'group' => 'Badge de certification',   'help' => 'Le texte gris sous le titre du badge.', 'placeholder' => 'Certification Qualité'],
+                ['key' => 'home_era_title_highlight', 'label' => 'Section 2 — Titre (partie orange)', 'type' => 'text',     'group' => 'Section « L\'expertise au cœur »', 'help' => 'Première ligne en orange.', 'placeholder' => "L'expertise"],
+                ['key' => 'home_era_title',           'label' => 'Section 2 — Titre (partie noire)',  'type' => 'text',     'group' => 'Section « L\'expertise au cœur »', 'help' => 'Deuxième ligne en noir.', 'placeholder' => "au cœur de notre métier"],
+                ['key' => 'home_era_subtitle',        'label' => 'Section 2 — Sous-titre',           'type' => 'text',     'group' => 'Section « L\'expertise au cœur »', 'help' => 'La description sous le titre de la section 2.', 'placeholder' => 'Rigueur, innovation et excellence...'],
             ],
             'about' => [
                 ['key' => 'about_title',    'label' => 'Titre de la page',   'type' => 'text',     'group' => 'En-tête',    'help' => 'Le grand titre en haut de la page À propos.', 'placeholder' => 'À propos de SICTA'],
@@ -102,5 +105,32 @@ class PageSectionController extends Controller
         }
 
         return back()->with('success', 'Contenu mis à jour avec succès.');
+    }
+
+    public function settings()
+    {
+        $settings = PageSection::where('page', 'settings')->pluck('value', 'section_key');
+        return view('admin.settings.index', compact('settings'));
+    }
+
+    public function updateSettings(Request $request)
+    {
+        $keys = [
+            'settings_phone',
+            'settings_email',
+            'settings_address',
+            'settings_facebook',
+            'settings_linkedin',
+            'settings_mayelia_url'
+        ];
+
+        foreach ($keys as $key) {
+            PageSection::updateOrCreate(
+                ['page' => 'settings', 'section_key' => $key],
+                ['value' => $request->input($key) ?? '', 'type' => $key === 'settings_address' ? 'richtext' : 'text']
+            );
+        }
+
+        return redirect()->route('admin.settings.index')->with('success', 'Réglages mis à jour avec succès.');
     }
 }

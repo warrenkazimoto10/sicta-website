@@ -3,10 +3,12 @@ import { apiClient } from "@/lib/apiClient";
 export interface TeamMemberAPI {
   id: number;
   nom: string;
+  prenom: string | null;
   role: string | null;
   photo: string | null;
   email: string | null;
   linkedin: string | null;
+  description: string | null;
 }
 
 export interface HistoryEventAPI {

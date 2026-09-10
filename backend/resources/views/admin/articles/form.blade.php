@@ -186,6 +186,7 @@ const easyMDE = new EasyMDE({
     uploadImage: true,
     imageUploadEndpoint: '{{ route("admin.upload.image") }}',
     imageCSRFToken: '{{ csrf_token() }}',
+    imageCSRFName: '_token',
     toolbar: [
         'bold', 'italic', 'heading', '|',
         'quote', 'unordered-list', 'ordered-list', '|',

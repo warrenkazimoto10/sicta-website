@@ -27,7 +27,44 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
                 <textarea name="description" rows="3" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">{{ old('description', $slide->description ?? '') }}</textarea>
+            <div class="border-t border-gray-100 pt-4">
+                <h4 class="font-semibold text-gray-800 text-sm mb-3">Badges / Statitistiques du slide</h4>
+                @php
+                    $stats = is_array($slide->stats ?? null) ? $slide->stats : [];
+                    $st1 = $stats[0] ?? ['icon' => 'Shield', 'value' => '', 'label' => ''];
+                    $st2 = $stats[1] ?? ['icon' => 'Users', 'value' => '', 'label' => ''];
+                @endphp
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 space-y-2">
+                        <label class="block text-xs font-bold text-gray-700">Badge 1</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <select name="stat_1_icon" class="px-2 py-1.5 border rounded text-xs">
+                                <option value="Shield" {{ ($st1['icon'] ?? '') == 'Shield' ? 'selected' : '' }}>Bouclier (Shield)</option>
+                                <option value="Users" {{ ($st1['icon'] ?? '') == 'Users' ? 'selected' : '' }}>Utilisateurs (Users)</option>
+                                <option value="MapPin" {{ ($st1['icon'] ?? '') == 'MapPin' ? 'selected' : '' }}>Carte (MapPin)</option>
+                                <option value="Calendar" {{ ($st1['icon'] ?? '') == 'Calendar' ? 'selected' : '' }}>Calendrier (Calendar)</option>
+                            </select>
+                            <input type="text" name="stat_1_value" value="{{ old('stat_1_value', $st1['value'] ?? '') }}" placeholder="Valeur (ex: 50+)" class="px-2 py-1.5 border rounded text-xs col-span-2" />
+                        </div>
+                        <input type="text" name="stat_1_label" value="{{ old('stat_1_label', $st1['label'] ?? '') }}" placeholder="Libellé (ex: ans d'expertise)" class="w-full px-2 py-1.5 border rounded text-xs" />
+                    </div>
+
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 space-y-2">
+                        <label class="block text-xs font-bold text-gray-700">Badge 2</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <select name="stat_2_icon" class="px-2 py-1.5 border rounded text-xs">
+                                <option value="Users" {{ ($st2['icon'] ?? '') == 'Users' ? 'selected' : '' }}>Utilisateurs (Users)</option>
+                                <option value="Shield" {{ ($st2['icon'] ?? '') == 'Shield' ? 'selected' : '' }}>Bouclier (Shield)</option>
+                                <option value="MapPin" {{ ($st2['icon'] ?? '') == 'MapPin' ? 'selected' : '' }}>Carte (MapPin)</option>
+                                <option value="Calendar" {{ ($st2['icon'] ?? '') == 'Calendar' ? 'selected' : '' }}>Calendrier (Calendar)</option>
+                            </select>
+                            <input type="text" name="stat_2_value" value="{{ old('stat_2_value', $st2['value'] ?? '') }}" placeholder="Valeur (optionnelle)" class="px-2 py-1.5 border rounded text-xs col-span-2" />
+                        </div>
+                        <input type="text" name="stat_2_label" value="{{ old('stat_2_label', $st2['label'] ?? '') }}" placeholder="Libellé (ex: Leader du contrôle...)" class="w-full px-2 py-1.5 border rounded text-xs" />
+                    </div>
+                </div>
             </div>
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Texte bouton CTA</label>
@@ -36,10 +73,6 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Lien bouton CTA</label>
                     <input type="text" name="bouton_lien" value="{{ old('bouton_lien', $slide->bouton_lien ?? '') }}" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Badge texte</label>
-                    <input type="text" name="badge_texte" value="{{ old('badge_texte', $slide->badge_texte ?? '') }}" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Ordre</label>

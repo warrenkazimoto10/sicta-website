@@ -13,7 +13,8 @@ import {
   Wrench,
   Search,
   Scale,
-  FileCheck
+  FileCheck,
+  Loader2
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,8 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Link } from "react-router-dom";
 import NearestAgencyModal from "@/components/NearestAgencyModal";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/services/serviceService";
 import { visiteTechniqueData } from "@/data/services/visiteTechnique";
 import { civioData } from "@/data/services/civio";
 import { jaugeageBaremageData } from "@/data/services/jaugeageBaremage";
@@ -34,52 +37,67 @@ import { ivnData } from "@/data/services/ivn";
 import { ppadData } from "@/data/services/ppad";
 import { vipData } from "@/data/services/vip";
 
+const ICONS_MAP: Record<string, any> = {
+  Shield, Search, Scale, FileCheck, Truck, Eye, Car, Wrench, Crown
+};
+
+// Données locales pour les fallbacks (icônes, images et points clés par défaut)
+const localFallbackDetails: Record<string, any> = {
+  "controle-technique": { ...visiteTechniqueData, icon: Shield },
+  "civio": { ...civioData, icon: Search },
+  "jaugeage-baremage": { ...jaugeageBaremageData, icon: Scale },
+  "immatriculation": { ...immatriculationData, icon: FileCheck },
+  "station-mobile": { ...stationMobileData, icon: Truck },
+  "diagnostic": { ...diagnosticData, icon: Eye },
+  "ivn": { ...ivnData, icon: Car },
+  "ppad": { ...ppadData, icon: Wrench },
+  "vip": { ...vipData, icon: Crown }
+};
 
 const Services = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
   const [nearestOpen, setNearestOpen] = useState(false);
 
-  // Tous les services
-  const tousLesServices = [
-    // Services phares
-    {
-      ...visiteTechniqueData,
+  // Récupérer les services de la base de données
+  const { data: dbServices = [], isLoading } = useQuery({
+    queryKey: ["services"],
+    queryFn: fetchServices,
+    staleTime: 60_000,
+  });
+
+  // Fusionner les données de la base de données avec nos détails de repli locaux
+  const tousLesServices = dbServices.map((apiService) => {
+    const fallback = localFallbackDetails[apiService.slug] ?? {
+      titreCourt: apiService.nom,
+      descriptionCourte: apiService.resume,
+      imageHero: apiService.image || "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=800",
       icon: Shield
-    },
-    {
-      ...civioData,
-      icon: Search
-    },
-    {
-      ...jaugeageBaremageData,
-      icon: Scale
-    },
-    {
-      ...immatriculationData,
-      icon: FileCheck
-    },
-    // Autres services
-    {
-      ...stationMobileData,
-      icon: Truck
-    },
-    {
-      ...diagnosticData,
-      icon: Eye
-    },
-    {
-      ...ivnData,
-      icon: Car
-    },
-    {
-      ...ppadData,
-      icon: Wrench
-    },
-    {
-      ...vipData,
-      icon: Crown
+    };
+
+    // Déterminer l'icône à utiliser
+    let IconComponent = Shield;
+    if (apiService.icone && ICONS_MAP[apiService.icone]) {
+      IconComponent = ICONS_MAP[apiService.icone];
+    } else if (fallback.icon) {
+      IconComponent = fallback.icon;
     }
-  ];
+
+    return {
+      id: apiService.slug,
+      slug: apiService.slug,
+      titre: apiService.nom,
+      titreCourt: apiService.nom,
+      descriptionCourte: apiService.resume || fallback.descriptionCourte,
+      imageHero: apiService.image || fallback.imageHero,
+      icon: IconComponent,
+      objectifs: fallback.objectifs,
+      avantages: fallback.avantages,
+      avantagesClient: fallback.avantagesClient,
+      fonctionnalites: fallback.fonctionnalites,
+      pointsControle: fallback.pointsControle,
+      beneficesClient: fallback.beneficesClient,
+    };
+  });
 
   // Fonction pour rendre une carte de service
   const renderServiceCard = (service: any, index: number) => {
@@ -212,7 +230,7 @@ const Services = () => {
                     </span>
                   </h1>
                   <p className="text-xl lg:text-2xl text-sicta-grey-light leading-relaxed max-w-3xl mx-auto">
-                    SICTA propose une gamme complète de services automobiles et industriels
+                    SICTA propose une gamme complète de services automobiles
                     pour répondre à tous vos besoins de contrôle et de certification.
                   </p>
                 </motion.div>
@@ -224,11 +242,16 @@ const Services = () => {
           <section ref={sectionRef} className="py-24 bg-sicta-bg-light">
             <div className="container mx-auto px-4">
               <div className="max-w-7xl mx-auto">
-
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {tousLesServices.map((service, index) => renderServiceCard(service, index))}
-                </div>
+                {isLoading ? (
+                  <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                    <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                    <p className="text-sicta-grey-light font-medium text-sm">Chargement des services SICTA...</p>
+                  </div>
+                ) : (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {tousLesServices.map((service, index) => renderServiceCard(service, index))}
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -244,21 +267,15 @@ const Services = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                  Prêt à réserver votre service ?
+                  Prêt à passer votre visite technique ?
                 </h2>
-                <p className="text-xl lg:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
-                  Choisissez l'agence la plus proche et réservez dès maintenant votre créneau
-                </p>
+
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
                   <Button size="lg" className="btn-hero text-lg px-10 py-7" onClick={() => setNearestOpen(true)}>
                     <MapPin className="h-6 w-6 mr-3" />
-                    Trouver une agence
+                    Trouver un centre de contrôle technique automobile
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-white bg-white/10 text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7 backdrop-blur-sm">
-                    <Calendar className="h-6 w-6 mr-3" />
-                    Réserver en ligne
-                    <ArrowRight className="h-6 w-6 ml-3" />
-                  </Button>
+                  {/* Bouton RDV temporairement désactivé */}
                 </div>
               </motion.div>
             </div>

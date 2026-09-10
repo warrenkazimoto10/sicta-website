@@ -22,6 +22,12 @@ class SlideController extends Controller {
             'badge_texte' => 'nullable|string|max:255',
             'bouton_texte' => 'nullable|string|max:100',
             'bouton_lien' => 'nullable|string|max:255',
+            'stat_1_icon' => 'nullable|string',
+            'stat_1_value' => 'nullable|string|max:100',
+            'stat_1_label' => 'nullable|string|max:255',
+            'stat_2_icon' => 'nullable|string',
+            'stat_2_value' => 'nullable|string|max:100',
+            'stat_2_label' => 'nullable|string|max:255',
             'ordre' => 'integer|min:0',
             'duree' => 'integer|min:1|max:60',
             'actif' => 'boolean',
@@ -31,6 +37,25 @@ class SlideController extends Controller {
         if ($request->hasFile('image')) {
             $data['image'] = ImageUploadService::store($request->file('image'), 'slides');
         }
+
+        // Traitement des stats sous forme de tableau JSON
+        $stats = [];
+        if (!empty($request->stat_1_value) || !empty($request->stat_1_label)) {
+            $stats[] = [
+                'icon' => $request->stat_1_icon ?? 'Shield',
+                'value' => $request->stat_1_value ?? '',
+                'label' => $request->stat_1_label ?? '',
+            ];
+        }
+        if (!empty($request->stat_2_value) || !empty($request->stat_2_label)) {
+            $stats[] = [
+                'icon' => $request->stat_2_icon ?? 'Users',
+                'value' => $request->stat_2_value ?? '',
+                'label' => $request->stat_2_label ?? '',
+            ];
+        }
+        $data['stats'] = $stats;
+
         Slide::create($data);
         return redirect()->route('admin.slides.index')->with('success', 'Slide créé.');
     }
@@ -45,6 +70,12 @@ class SlideController extends Controller {
             'badge_texte' => 'nullable|string|max:255',
             'bouton_texte' => 'nullable|string|max:100',
             'bouton_lien' => 'nullable|string|max:255',
+            'stat_1_icon' => 'nullable|string',
+            'stat_1_value' => 'nullable|string|max:100',
+            'stat_1_label' => 'nullable|string|max:255',
+            'stat_2_icon' => 'nullable|string',
+            'stat_2_value' => 'nullable|string|max:100',
+            'stat_2_label' => 'nullable|string|max:255',
             'ordre' => 'integer|min:0',
             'duree' => 'integer|min:1|max:60',
             'actif' => 'boolean',
@@ -55,6 +86,25 @@ class SlideController extends Controller {
             if ($slide->image) Storage::disk('public')->delete($slide->image);
             $data['image'] = ImageUploadService::store($request->file('image'), 'slides');
         }
+
+        // Traitement des stats sous forme de tableau JSON
+        $stats = [];
+        if (!empty($request->stat_1_value) || !empty($request->stat_1_label)) {
+            $stats[] = [
+                'icon' => $request->stat_1_icon ?? 'Shield',
+                'value' => $request->stat_1_value ?? '',
+                'label' => $request->stat_1_label ?? '',
+            ];
+        }
+        if (!empty($request->stat_2_value) || !empty($request->stat_2_label)) {
+            $stats[] = [
+                'icon' => $request->stat_2_icon ?? 'Users',
+                'value' => $request->stat_2_value ?? '',
+                'label' => $request->stat_2_label ?? '',
+            ];
+        }
+        $data['stats'] = $stats;
+
         $slide->update($data);
         return redirect()->route('admin.slides.index')->with('success', 'Slide mis à jour.');
     }

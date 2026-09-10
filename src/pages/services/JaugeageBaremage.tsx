@@ -549,10 +549,7 @@ const JaugeageBaremage = () => {
                 Réservez votre créneau et bénéficiez d'un service de jaugeage conforme aux normes internationales
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-base sm:text-lg px-6 py-4 sm:px-10 sm:py-7 w-full sm:w-auto">
-                  <Calendar className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3" />
-                  Prendre rendez-vous
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-base sm:text-lg px-6 py-4 sm:px-10 sm:py-7 w-full sm:w-auto">
                   <MapPin className="h-6 w-6 mr-3" />
                   Trouver un site

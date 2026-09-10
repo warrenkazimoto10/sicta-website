@@ -26,11 +26,11 @@ export const ACTUALITES: Article[] = [
   {
     id: "1",
     slug: "sicta-mayelia-participations-nouvelle-ere",
-    title: "SICTA rejoint le groupe Mayelia Participations : une nouvelle ère d'innovation",
-    excerpt: "Le rachat de SICTA par Mayelia Participations marque un tournant stratégique pour le leader du contrôle technique automobile en Côte d'Ivoire. Cette acquisition ouvre de nouvelles perspectives d'innovation et de développement au service des usagers.",
+    title: "SICTA rejoint le groupe Mayelia PARTICIPATIONS : une nouvelle ère d'innovation",
+    excerpt: "Le rachat de SICTA par Mayelia PARTICIPATIONS marque un tournant stratégique pour le leader du contrôle technique automobile en Côte d'Ivoire. Cette acquisition ouvre de nouvelles perspectives d'innovation et de développement au service des usagers.",
     content: [
-      "Le rachat de SICTA par Mayelia Participations, annoncé en décembre 2024, constitue une étape majeure dans l'histoire de la Société Ivoirienne de Contrôles Techniques Automobiles et Industriels. Filiale historique du groupe SGS, SICTA reprend son destin en main sous l'égide d'un acteur ivoirien résolument tourné vers l'innovation et la modernisation.",
-      "Cette transition s'inscrit dans une dynamique de renforcement des capacités nationales dans le domaine du contrôle technique. Mayelia Participations apporte à SICTA les moyens financiers et stratégiques pour accélérer la digitalisation, l'extension du réseau et l'amélioration continue de la qualité de service.",
+      "Le rachat de SICTA par Mayelia PARTICIPATIONS, annoncé en décembre 2024, constitue une étape majeure dans l'histoire de la Société Ivoirienne de Contrôle Technique et Industriels. Filiale historique du groupe SGS, SICTA reprend son destin en main sous l'égide d'un acteur ivoirien résolument tourné vers l'innovation et la modernisation.",
+      "Cette transition s'inscrit dans une dynamique de renforcement des capacités nationales dans le domaine du contrôle technique. Mayelia PARTICIPATIONS apporte à SICTA les moyens financiers et stratégiques pour accélérer la digitalisation, l'extension du réseau et l'amélioration continue de la qualité de service.",
       "Les usagers peuvent compter sur la continuité des services : même équipe, même engagement, avec à la clé des investissements renforcés dans les équipements et les formations. La nouvelle ère SICTA 2025 place la sécurité routière et la satisfaction client au cœur des priorités.",
     ],
     date: "2024-12-15",

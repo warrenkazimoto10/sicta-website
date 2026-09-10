@@ -14,7 +14,7 @@
                     @if($member->photo)
                         <img src="{{ Storage::url($member->photo) }}" class="w-full h-full object-cover" />
                     @else
-                        <i class="fas fa-user text-gray-300 text-3xl"></i>
+                        <img src="https://cdn.vectorstock.com/i/1000v/38/71/avatar-man-in-modern-flat-design-vector-15133871.jpg" class="w-full h-full object-cover" />
                     @endif
                 </div>
                 <div class="flex-1">
@@ -44,6 +44,10 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Ordre d'affichage</label>
                     <input type="number" name="ordre" value="{{ old('ordre', $member->ordre ?? 0) }}" min="0" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none" />
                 </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Description / Biographie (s'affiche au survol)</label>
+                <textarea name="description" rows="4" placeholder="Doté d'une maîtrise des enjeux liés..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">{{ old('description', $member->description) }}</textarea>
             </div>
             <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" name="actif" value="1" {{ old('actif', $member->actif ?? true) ? 'checked' : '' }} style="accent-color:#F97316;" />

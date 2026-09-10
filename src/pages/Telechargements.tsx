@@ -780,11 +780,7 @@ const Telechargements = () => {
                   <Info className="h-6 w-6 mr-3" />
                   Nous contacter
                 </Button>
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
-                  <Calendar className="h-6 w-6 mr-3" />
-                  Prendre rendez-vous
-                  <ArrowRight className="h-6 w-6 ml-3" />
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
               </div>
             </motion.div>
           </div>

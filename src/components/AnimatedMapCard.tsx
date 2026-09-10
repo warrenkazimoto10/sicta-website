@@ -31,16 +31,14 @@ const AnimatedMapCard = () => {
     staleTime: 300_000,
   });
 
-  const total = useCountUp(stats?.total ?? 52, isInView);
-  const permanent = useCountUp(stats?.permanent ?? 28, isInView);
-  const periodique = useCountUp(stats?.periodique ?? 22, isInView);
-  const mobile = useCountUp(stats?.mobile ?? 2, isInView);
+  const permanent = useCountUp(stats?.permanent ?? 29, isInView);
+  const abidjan = useCountUp(7, isInView);
+  const interieur = useCountUp(22, isInView);
 
   const tiles = [
-    { icon: Layers, value: total, label: "Agences au total", accent: "from-primary/15 to-primary/5" },
-    { icon: Building2, value: permanent, label: "Stations permanentes", accent: "from-primary/15 to-primary/5" },
-    { icon: Navigation, value: periodique, label: "Stations périodiques", accent: "from-primary/15 to-primary/5" },
-    { icon: MapPin, value: mobile, label: "Bancs mobiles", accent: "from-primary/15 to-primary/5" },
+    { icon: Building2, value: permanent, label: "Stations fixes", accent: "from-primary/15 to-primary/5" },
+    { icon: Building2, value: abidjan, label: "Stations Abidjan", accent: "from-primary/15 to-primary/5" },
+    { icon: Navigation, value: interieur, label: "Stations Intérieur", accent: "from-primary/15 to-primary/5" },
   ];
 
   return (
@@ -83,7 +81,7 @@ const AnimatedMapCard = () => {
             </div>
           </motion.div>
 
-          {/* Stats + légende */}
+          {/* Stats */}
           <div className="lg:col-span-2 space-y-4">
             <div className="grid grid-cols-2 gap-4">
               {tiles.map((tile, i) => (
@@ -102,27 +100,6 @@ const AnimatedMapCard = () => {
                 </motion.div>
               ))}
             </div>
-
-            {/* Légende */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 space-y-2.5 text-sm"
-            >
-              <div className="flex items-center gap-3">
-                <span className="h-3.5 w-3.5 rounded-full bg-primary flex-shrink-0" />
-                <span className="text-sicta-grey-light">Abidjan — stations fixes</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="h-3.5 w-3.5 rounded-full bg-sicta-grey flex-shrink-0" />
-                <span className="text-sicta-grey-light">Intérieur du pays — stations fixes</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="h-3.5 w-3.5 rounded-full border-2 border-sicta-grey flex-shrink-0" />
-                <span className="text-sicta-grey-light">Bancs mobiles — couverture itinérante</span>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>

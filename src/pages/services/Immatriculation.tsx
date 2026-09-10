@@ -616,10 +616,7 @@ const Immatriculation = () => {
                 Une plaque sécurisée, une identité légale. Réservez votre créneau et bénéficiez d'un service complet d'immatriculation
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button size="lg" className="btn-hero text-lg px-10 py-7">
-                  <Calendar className="h-6 w-6 mr-3" />
-                  Prendre rendez-vous
-                </Button>
+                {/* Bouton RDV temporairement désactivé */}
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
                   <MapPin className="h-6 w-6 mr-3" />
                   Trouver un centre

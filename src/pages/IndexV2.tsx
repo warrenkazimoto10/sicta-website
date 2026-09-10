@@ -107,12 +107,7 @@ const Hero = () => {
             </Reveal>
             <Reveal delay={0.24}>
               <div className="mt-9 flex flex-col sm:flex-row gap-3">
-                <Link to="/reservation">
-                  <Button className="h-14 px-8 text-base bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg shadow-primary/25 w-full sm:w-auto group">
-                    <Calendar className="h-5 w-5 mr-2" /> Prendre rendez-vous
-                    <ArrowRight className="h-5 w-5 ml-1 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </Link>
+                {/* Bouton RDV temporairement désactivé */}
                 <Link to="/reseau">
                   <Button variant="outline" className="h-14 px-8 text-base rounded-full border-slate-200 text-slate-700 hover:border-primary hover:text-primary w-full sm:w-auto">
                     <MapPin className="h-5 w-5 mr-2" /> Trouver une agence
@@ -188,7 +183,7 @@ const Hero = () => {
 
 /* ══════════ MARQUEE (bandeau confiance) ══════════ */
 const Marquee = () => {
-  const items = ["ISO 9001:2015", "Leader depuis 1974", "Mayelia Participations", "28 stations permanentes", "22 stations périodiques", "Bancs mobiles", "100% couverture nationale"];
+  const items = ["ISO 9001:2015", "Leader depuis 1974", "Mayelia PARTICIPATIONS", "29 stations fixes", "100% couverture nationale"];
   const row = [...items, ...items];
   return (
     <section className="py-8 border-y border-slate-100 bg-white overflow-hidden">
@@ -392,7 +387,7 @@ const FinalCTA = () => (
             <h2 className="text-4xl sm:text-6xl font-bold mb-5">Prenez la route sereinement.</h2>
             <p className="text-xl opacity-90 mb-9 max-w-2xl mx-auto">Réservez votre visite technique en ligne — c'est rapide, simple et sans attente.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/reservation"><Button className="h-14 px-8 bg-white text-primary hover:bg-slate-100 rounded-full w-full sm:w-auto"><Calendar className="h-5 w-5 mr-2" />Prendre rendez-vous</Button></Link>
+              {/* Bouton RDV temporairement désactivé */}
               <Link to="/contact"><Button variant="outline" className="h-14 px-8 rounded-full border-white/50 bg-transparent text-white hover:bg-white/10 w-full sm:w-auto"><Phone className="h-5 w-5 mr-2" />Nous contacter</Button></Link>
             </div>
           </div>
