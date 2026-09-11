@@ -15,9 +15,17 @@ import {
 import PageTransition from "@/components/PageTransition";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStationStats } from "@/services/stationService";
 
 const MurExcellence = () => {
   const { ref: sectionRef, isInView } = useScrollAnimation(0.2);
+
+  const { data: stats } = useQuery({
+    queryKey: ["station-stats"],
+    queryFn: fetchStationStats,
+    staleTime: 300_000,
+  });
 
   const achievements = [
     {
@@ -69,7 +77,7 @@ const MurExcellence = () => {
     },
     {
       name: "Jean-Baptiste Traoré",
-      role: "Responsable Agence",
+      role: "Responsable Station",
       achievement: "Meilleur manager 2024",
       photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
       department: "Management",
@@ -263,7 +271,7 @@ const MurExcellence = () => {
             <div className="grid md:grid-cols-4 gap-8">
               {[
                 { number: "50+", label: "Années d'expérience", icon: Calendar },
-                { number: "29", label: "Stations permanentes", icon: MapPin },
+                { number: stats ? String(stats.total) : "…", label: "Stations SICTA", icon: MapPin },
                 { number: "1500+", label: "Véhicules/jour", icon: Target },
                 { number: "98%", label: "Satisfaction client", icon: Heart }
               ].map((stat, index) => (

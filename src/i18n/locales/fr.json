@@ -28,7 +28,7 @@
   "header": {
     "phone": "+225 27 21 21 29 90",
     "freeCall": "800 800 41",
-    "agencies": "29 stations permanentes",
+    "agencies": "Nos stations SICTA",
     "tagline": "Contrôle technique automobile - Côte d'Ivoire",
     "bookAppointment": "Prendre rendez-vous",
     "menu": "Menu",
@@ -203,9 +203,9 @@
   },
   "booking": {
     "title": "Réservez votre contrôle technique",
-    "subtitle": "Processus simple en 3 étapes : choisissez votre agence, sélectionnez votre créneau et confirmez votre paiement",
+    "subtitle": "Processus simple en 3 étapes : choisissez votre station, sélectionnez votre créneau et confirmez votre paiement",
     "steps": {
-      "station": "Agence & Date",
+      "station": "Station & Date",
       "vehicle": "Véhicule",
       "confirmation": "Confirmation"
     },
@@ -261,7 +261,7 @@
       "Leader du contrôle technique en Afrique de l'Ouest",
       "Innovation technologique et digitalisation des services"
     ],
-    "findAgency": "Trouver une agence",
+    "findAgency": "Trouvez une station",
     "learnMore": "En savoir plus",
     "isoCert": "ISO 9001:2015",
     "isoCertLabel": "Certification Qualité"
@@ -270,7 +270,7 @@
     "readyTitle": "Prêt pour votre visite technique ?",
     "readySubtitle": "Réservez votre créneau en ligne et bénéficiez de nos services professionnels",
     "bookAppointment": "Prendre rendez-vous",
-    "findAgency": "Trouver une agence"
+    "findAgency": "Trouvez une station"
   },
   "network": {
     "title": "Notre Réseau",
@@ -282,10 +282,10 @@
       "coverage": "Couverture nationale"
     },
     "interiorTitle": "Intérieur du Pays",
-    "interiorSubtitle": "Nos principales agences pour tous vos besoins de contrôle technique",
+    "interiorSubtitle": "Nos principales stations pour tous vos besoins de contrôle technique",
     "interiorDisplay": "Affichage",
     "interiorOf": "sur",
-    "interiorAgencies": "agences",
+    "interiorAgencies": "stations",
     "abidjanTitle": "Abidjan",
     "abidjanSubtitle": "Retrouvez nos stations fixes sur le Grand Abidjan",
     "reserve": "Réserver",
@@ -300,9 +300,9 @@
     "mobileBancs": "Qualité Garantie",
     "mobileBancsDesc": "Équipement technique certifié",
     "mobileBancsText": "Nos stations fixes assurent un contrôle technique rigoureux, avec des équipements certifiés et des techniciens qualifiés.",
-    "ctaTitle": "Une agence près de chez vous",
-    "ctaSubtitle": "Trouvez l'agence SICTA la plus proche",
-    "locateAgency": "Localiser une agence",
+    "ctaTitle": "Une station près de chez vous",
+    "ctaSubtitle": "Trouvez la station SICTA la plus proche",
+    "locateAgency": "Localiser une station",
     "locating": "Recherche en cours…",
     "previous": "Précédent",
     "next": "Suivant"

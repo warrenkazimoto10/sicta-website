@@ -25,11 +25,11 @@ export const stationMobileData = {
   imageHero: stationMobileHero,
   
   // Description complète du produit
-  descriptionProduit: "La station mobile est un camion entièrement équipé des technologies modernes de contrôle technique. Elle a été conçue pour permettre à la SICTA de réaliser les opérations de contrôle directement sur les sites de ses partenaires et clients, sans déplacement de véhicules vers les centres.",
+  descriptionProduit: "La station mobile est un camion entièrement équipé des technologies modernes de contrôle technique. Elle a été conçue pour permettre à la SICTA de réaliser les opérations de contrôle directement sur les sites de ses partenaires et clients, sans déplacement de véhicules vers les stations.",
   
   // Objectifs
   objectifs: [
-    "Offrir un service de contrôle technique rapide, flexible et de proximité aux entreprises, chantiers, administrations et flottes de véhicules, en garantissant le même niveau de fiabilité que dans un centre fixe."
+    "Offrir un service de contrôle technique rapide, flexible et de proximité aux entreprises, chantiers, administrations et flottes de véhicules, en garantissant le même niveau de fiabilité que dans une station fixe."
   ],
   
   // Public/Véhicules concernés
@@ -49,7 +49,7 @@ export const stationMobileData = {
     },
     {
       avantage: "Gain de temps",
-      description: "Évite les files d'attente en centre"
+      description: "Évite les files d'attente en station"
     },
     {
       avantage: "Performance",

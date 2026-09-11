@@ -110,7 +110,7 @@ const Hero = () => {
                 {/* Bouton RDV temporairement désactivé */}
                 <Link to="/reseau">
                   <Button variant="outline" className="h-14 px-8 text-base rounded-full border-slate-200 text-slate-700 hover:border-primary hover:text-primary w-full sm:w-auto">
-                    <MapPin className="h-5 w-5 mr-2" /> Trouver une agence
+                    <MapPin className="h-5 w-5 mr-2" /> Trouvez une station
                   </Button>
                 </Link>
               </div>
@@ -123,7 +123,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <div className="text-sm text-slate-500">
-                  <span className="font-bold text-slate-900">52 agences</span> · <span className="font-bold text-slate-900">1500+</span> véhicules/jour
+                  <span className="font-bold text-slate-900">52 stations</span> · <span className="font-bold text-slate-900">1500+</span> véhicules/jour
                 </div>
               </div>
             </Reveal>
@@ -183,7 +183,12 @@ const Hero = () => {
 
 /* ══════════ MARQUEE (bandeau confiance) ══════════ */
 const Marquee = () => {
-  const items = ["ISO 9001:2015", "Leader depuis 1974", "Mayelia PARTICIPATIONS", "29 stations fixes", "100% couverture nationale"];
+  const { data: stats } = useQuery({
+    queryKey: ["station-stats"],
+    queryFn: fetchStationStats,
+    staleTime: 300_000,
+  });
+  const items = ["ISO 9001:2015", "Leader depuis 1974", "Mayelia PARTICIPATIONS", `${stats?.total ?? 29} stations fixes`, "100% couverture nationale"];
   const row = [...items, ...items];
   return (
     <section className="py-8 border-y border-slate-100 bg-white overflow-hidden">
@@ -205,7 +210,7 @@ const PinnedStats = () => {
 
   const slides = [
     { k: "1974", t: "Une expertise fondée il y a 50 ans", d: "Depuis un demi-siècle, SICTA veille sur la sécurité des véhicules ivoiriens." },
-    { k: "52", t: "Agences sur tout le territoire", d: "Stations permanentes, périodiques et bancs mobiles pour être toujours proche de vous." },
+    { k: "52", t: "Stations sur tout le territoire", d: "Stations permanentes, périodiques et bancs mobiles pour être toujours proche de vous." },
     { k: "1500+", t: "Véhicules contrôlés chaque jour", d: "Des équipes qualifiées et des équipements de dernière génération." },
     { k: "ISO", t: "Une qualité certifiée 9001:2015", d: "Un gage de rigueur, de fiabilité et de confiance reconnu internationalement." },
   ];
@@ -331,7 +336,7 @@ const ReseauSection = () => (
         <Reveal delay={0.16}>
           <p className="mt-5 text-lg text-slate-500">
             Des dizaines de points de contrôle interconnectés à travers toute la Côte d'Ivoire.
-            Où que vous soyez, une agence SICTA n'est jamais loin.
+            Où que vous soyez, une station SICTA n'est jamais loin.
           </p>
         </Reveal>
         <Reveal delay={0.24}>
@@ -405,7 +410,7 @@ const IndexV2 = () => {
     <PageTransition>
       <SEO
         title="SICTA - Contrôle Technique Automobile en Côte d'Ivoire | Leader depuis 1974"
-        description="Leader du contrôle technique automobile en Côte d'Ivoire depuis 1974. Réservez en ligne, 52 agences, certifié ISO 9001:2015."
+        description="Leader du contrôle technique automobile en Côte d'Ivoire depuis 1974. Réservez en ligne, 52 stations, certifié ISO 9001:2015."
         url="/"
       />
       <div className="w-full">

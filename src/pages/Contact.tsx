@@ -105,7 +105,7 @@ const Contact = () => {
                     Nos Coordonnées
                   </h2>
                   <p className="text-lg text-sicta-grey-light mb-8">
-                    Retrouvez-nous à l'une de nos agences ou contactez-nous directement.
+                    Retrouvez-nous à l'une de nos stations ou contactez-nous directement.
                   </p>
                 </div>
 

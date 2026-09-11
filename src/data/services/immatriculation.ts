@@ -65,7 +65,7 @@ export const immatriculationData = {
   // Lieux de prestation — structure pour l’affichage
   lieuxPrestation: {
     titre: "Où bénéficier du service d'immatriculation ?",
-    sousTitre: "Les Centres SICTA autorisés pour la sécurisation et la pose",
+    sousTitre: "Les stations SICTA autorisées pour la sécurisation et la pose",
     secuResecu: {
       titre: "Pour la sécurisation ou la resécurisation des plaques",
       centres: ["Guichet Unique Abidjan", "SICTA Vridi", "Guichet Unique Bouaké", "Guichet Unique Korhogo"],

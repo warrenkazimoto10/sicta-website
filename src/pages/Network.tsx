@@ -83,8 +83,8 @@ const Network = () => {
   });
 
   const heroTitle = networkSections?.network_hero_title || "Trouvez la station SICTA la plus proche de vous";
-  const ctaTitle = networkSections?.network_cta_title || "Localiser un centre de contrôle technique automobile";
-  const ctaButton = networkSections?.network_cta_button || "Trouver une station SICTA à proximité";
+  const ctaTitle = networkSections?.network_cta_title || "Prêt à passer votre visite technique ?";
+  const ctaButton = networkSections?.network_cta_button || "Trouvez une station SICTA à proximité";
 
   // Filtrage (recherche + service)
   const matches = (s: ApiStation) => {
@@ -285,7 +285,7 @@ const Network = () => {
       <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
         <Search className="h-7 w-7 text-primary" />
       </div>
-      <p className="text-sicta-grey-dark font-semibold">Aucune agence ne correspond à votre recherche</p>
+      <p className="text-sicta-grey-dark font-semibold">Aucune station ne correspond à votre recherche</p>
       <p className="text-sicta-grey-light text-sm mt-1">Essayez un autre nom de ville ou réinitialisez les filtres.</p>
       <Button variant="outline" className="mt-4" onClick={onReset}>
         <X className="h-4 w-4 mr-1.5" />Réinitialiser
@@ -301,7 +301,7 @@ const Network = () => {
       <SEO
         title="Notre Réseau - Stations de contrôle technique SICTA"
         description="Découvrez le réseau SICTA : 29 stations fixes réparties sur l'ensemble du territoire ivoirien (07 Abidjan / 22 Intérieur) pour une couverture nationale complète."
-        keywords="agence SICTA, station contrôle technique, Abidjan, Côte d'Ivoire"
+        keywords="station SICTA, contrôle technique, Abidjan, Côte d'Ivoire"
         url="/reseau"
       />
       <div className="w-full">
@@ -324,9 +324,6 @@ const Network = () => {
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight">
                 {heroTitle}
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
-                {t("network.subtitle")}
-              </p>
 
               {/* Barre de recherche */}
               <div className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3">
@@ -339,7 +336,7 @@ const Network = () => {
                     onKeyDown={(e) => {
                       if (e.key === "Enter") scrollToResults();
                     }}
-                    placeholder="Trouver une station SICTA…"
+                    placeholder="Trouvez une station SICTA…"
                     aria-label="Rechercher une station SICTA"
                     className="w-full h-14 pl-12 pr-10 rounded-2xl bg-white text-sicta-grey-dark placeholder:text-gray-400 shadow-lg outline-none focus:ring-4 focus:ring-primary/30"
                   />
@@ -352,7 +349,7 @@ const Network = () => {
                 <Button className="h-14 px-6 bg-primary hover:bg-primary/90 text-white rounded-2xl shadow-lg" onClick={scrollToResults}>
                   <Search className="h-5 w-5 mr-2" />Rechercher
                 </Button>
-                <Button className="h-14 px-5 bg-white/10 hover:bg-white/20 text-white rounded-2xl border border-white/20 backdrop-blur" onClick={() => setNearestOpen(true)} title="Localiser un centre à proximité">
+                <Button className="h-14 px-5 bg-white/10 hover:bg-white/20 text-white rounded-2xl border border-white/20 backdrop-blur" onClick={() => setNearestOpen(true)} title="Localiser une station à proximité">
                   <Navigation className="h-5 w-5" />
                 </Button>
               </div>

@@ -273,7 +273,7 @@ const Services = () => {
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
                   <Button size="lg" className="btn-hero text-lg px-10 py-7" onClick={() => setNearestOpen(true)}>
                     <MapPin className="h-6 w-6 mr-3" />
-                    Trouver un centre de contrôle technique automobile
+                    Trouvez une station SICTA à proximité
                   </Button>
                   {/* Bouton RDV temporairement désactivé */}
                 </div>

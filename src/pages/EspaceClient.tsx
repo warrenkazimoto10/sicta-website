@@ -457,7 +457,7 @@ const EspaceClient = () => {
                           <MapPin className="h-7 w-7 text-white" />
                         </div>
                         <h3 className="text-lg font-bold text-sicta-grey-dark mb-2 group-hover:text-primary transition-colors">
-                          Trouver une Station
+                          Trouvez une Station
                         </h3>
                         <p className="text-sicta-grey-light text-sm">
                           Localisez la station la plus proche

@@ -726,10 +726,10 @@ const EspacePro = () => {
                   </Select>
                   <Select value={agenceFilter} onValueChange={setAgenceFilter}>
                     <SelectTrigger className="w-[200px]">
-                      <SelectValue placeholder="Filtrer par agence" />
+                      <SelectValue placeholder="Filtrer par station" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Toutes les agences</SelectItem>
+                      <SelectItem value="all">Toutes les stations</SelectItem>
                       <SelectItem value="Abidjan Plateau">Abidjan Plateau</SelectItem>
                       <SelectItem value="Cocody">Cocody</SelectItem>
                       <SelectItem value="Yopougon">Yopougon</SelectItem>
@@ -752,7 +752,7 @@ const EspacePro = () => {
                           <TableHead>Immatriculation</TableHead>
                           <TableHead>Véhicule</TableHead>
                           <TableHead>Type</TableHead>
-                          <TableHead>Agence</TableHead>
+                          <TableHead>Station</TableHead>
                           <TableHead>Dernier Contrôle</TableHead>
                           <TableHead>Prochain Contrôle</TableHead>
                           <TableHead>Statut</TableHead>

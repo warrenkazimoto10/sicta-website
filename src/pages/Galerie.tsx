@@ -28,7 +28,7 @@ type FilterCat = "tous" | "agences" | "equipements" | "evenements" | "vehicules"
 
 const CATEGORY_LABELS: Record<FilterCat, string> = {
   tous: "Tout",
-  agences: "Nos agences",
+  agences: "Nos stations",
   equipements: "Équipements",
   evenements: "Événements",
   vehicules: "Véhicules",
@@ -102,7 +102,7 @@ const Galerie = () => {
     <PageTransition>
       <SEO
         title="Médiathèque - Galerie SICTA"
-        description="Découvrez la médiathèque SICTA : nos agences, équipements, événements et contrôles techniques à travers la Côte d'Ivoire."
+        description="Découvrez la médiathèque SICTA : nos stations, équipements, événements et contrôles techniques à travers la Côte d'Ivoire."
         url="/galerie"
       />
       <div className="w-full min-h-screen bg-slate-50/50">

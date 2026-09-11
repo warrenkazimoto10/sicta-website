@@ -61,7 +61,7 @@ const NewEraSection = () => {
   const sectionSubtitle = pageSections?.home_era_subtitle || "Rigueur, innovation et excellence au service du contrôle technique automobile.";
   const mayeliaUrl = settings?.settings_mayelia_url || "https://mayeliaparticipations.com";
 
-  const stationCount = useCountUp(stats?.permanent ?? 0);
+  const stationCount = useCountUp(stats?.total ?? 0);
 
   const achievements = [
     {
@@ -71,7 +71,7 @@ const NewEraSection = () => {
     },
     {
       icon: Users,
-      title: `${stationCount || (stats?.permanent ?? 29)} Stations Fixes`,
+      title: `${stationCount || (stats?.total ?? 29)} Stations Fixes`,
       description: "Couverture nationale complète"
     },
     {

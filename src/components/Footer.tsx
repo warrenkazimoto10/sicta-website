@@ -47,7 +47,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-sicta-grey-dark via-sicta-grey to-sicta-grey-dark text-white relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0 bg-[url('/pattern.svg')] bg-repeat" />
       </div>
 
@@ -65,8 +65,16 @@ const Footer = () => {
             </div>
 
             <p className="text-gray-300 leading-relaxed text-sm">
-              Société Ivoirienne de Contrôle Technique Automobile, filiale de Mayelia PARTICIPATIONS.
-              Leader du contrôle technique en Côte d'Ivoire depuis 1974.
+              Société Ivoirienne de Contrôle Technique Automobile, filiale de{" "}
+              <a
+                href={mayeliaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-semibold hover:underline"
+              >
+                Mayelia PARTICIPATIONS
+              </a>
+              . Leader du contrôle technique en Côte d'Ivoire depuis 1974.
             </p>
 
 
@@ -254,26 +262,22 @@ const Footer = () => {
 
       {/* Bottom Footer */}
       <div className="border-t border-white/10 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-gray-400 text-sm text-center md:text-left">
             © {currentYear} SICTA - Société Ivoirienne de Contrôle Technique Automobile.
             <br className="md:hidden" />
             <span className="md:ml-1">Tous droits réservés.</span>
           </div>
-        </div>
 
-        <div className="mt-6 pt-6 border-t border-white/10 text-center">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-            <a
-              href={mayeliaUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 text-sm hover:text-primary transition-colors"
-            >
-              <Building2 className="h-4 w-4 text-primary" />
-              <span>Filiale du groupe <span className="text-primary font-semibold">Mayelia PARTICIPATIONS</span></span>
-            </a>
-          </div>
+          <a
+            href={mayeliaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-gray-400 text-sm hover:text-primary transition-colors"
+          >
+            <Building2 className="h-4 w-4 text-primary" />
+            <span>Filiale du groupe <span className="text-primary font-semibold">Mayelia PARTICIPATIONS</span></span>
+          </a>
         </div>
       </div>
     </footer>

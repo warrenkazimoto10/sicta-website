@@ -10,7 +10,7 @@ const processSteps = [
     icon: Calendar,
     title: "Réservation",
     description: "Réservez votre créneau en ligne ou par téléphone",
-    details: ["Choix de l'agence", "Sélection date/heure", "Confirmation instantanée"]
+    details: ["Choix de la station", "Sélection date/heure", "Confirmation instantanée"]
   },
   {
     icon: Shield, 
@@ -99,13 +99,13 @@ const ProcessSection = () => {
               Prêt à commencer ?
             </h3>
             <p className="text-sicta-grey-light mb-6">
-              Réservez dès maintenant votre contrôle technique dans l'agence la plus proche
+              Réservez dès maintenant votre contrôle technique dans la station la plus proche
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {/* Bouton RDV temporairement désactivé */}
               <Button variant="outline" onClick={() => setNearestOpen(true)}>
                 <MapPin className="h-4 w-4 mr-2" />
-                Trouver une agence
+                Trouvez une station
               </Button>
             </div>
           </div>

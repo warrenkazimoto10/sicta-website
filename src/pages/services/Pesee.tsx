@@ -179,7 +179,7 @@ const Pesee = () => {
               {/* Bouton RDV temporairement désactivé */}
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-sicta-grey">
                 <MapPin className="h-5 w-5 mr-2" />
-                Trouver une station
+                Trouvez une station
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Button>
             </div>

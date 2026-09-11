@@ -452,7 +452,7 @@ const SimulateurVisite = () => {
                             onClick={() => window.location.href = "/reseau"}
                           >
                             <MapPin className="h-5 w-5 mr-2" />
-                            Trouver une station
+                            Trouvez une station
                           </Button>
                         </div>
                       </div>
@@ -496,7 +496,7 @@ const SimulateurVisite = () => {
                         <MapPin className="h-8 w-8 text-white" />
                       </div>
                       <h3 className="text-xl font-bold text-sicta-grey-dark mb-2 group-hover:text-primary transition-colors">
-                        Trouver une Station
+                        Trouvez une Station
                       </h3>
                       <p className="text-sicta-grey-light">
                         Localisez la station SICTA la plus proche de chez vous

@@ -34,7 +34,7 @@ export function VehicleDetailsModal({ vehicle, open, onOpenChange, onEdit, onDel
                             <p>{vehicle.type}</p>
                         </div>
                         <div>
-                            <h4 className="font-semibold text-sm text-gray-500">Agence</h4>
+                            <h4 className="font-semibold text-sm text-gray-500">Station</h4>
                             <p>{vehicle.agence}</p>
                         </div>
                         <div>

@@ -19,7 +19,7 @@ export const vehicleFormSchema = z.object({
     .optional(),
   couleur: z.string().optional(),
   dernierControle: z.string().min(1, "La date du dernier contrôle est requise"),
-  agence: z.string().min(1, "L'agence est requise"),
+  agence: z.string().min(1, "La station est requise"),
   kilometrage: z.number().min(0, "Kilométrage invalide").optional(),
   notes: z.string().max(1000, "Les notes sont trop longues").optional(),
 });

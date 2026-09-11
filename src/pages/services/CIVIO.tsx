@@ -450,7 +450,7 @@ const CIVIO = () => {
                 {/* Bouton RDV temporairement désactivé */}
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-sicta-grey text-lg px-10 py-7">
                   <MapPin className="h-6 w-6 mr-3" />
-                  Trouver une station
+                  Trouvez une station
                   <ArrowRight className="h-6 w-6 ml-3" />
                 </Button>
               </div>

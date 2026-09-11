@@ -66,7 +66,7 @@ const Header = () => {
             <div className="flex items-center space-x-2">
               <MapPin className="h-4 w-4" />
               <span>
-                {stats ? `${stats.permanent} Stations permanentes` : t("header.agencies")}
+                {stats ? `${stats.total} Stations` : t("header.agencies")}
               </span>
             </div>
           </div>
@@ -117,13 +117,16 @@ const Header = () => {
                     Galerie
                   </DropdownMenuItem>
                 </Link>
-                <Link to="/emplois">
-                  <DropdownMenuItem className="cursor-pointer">
-                    Offres d'emploi
-                  </DropdownMenuItem>
-                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Offres d'emploi link */}
+            <Link
+              to="/emplois"
+              className="text-sicta-grey hover:text-primary transition-colors duration-200 font-medium"
+            >
+              Offres d'emploi
+            </Link>
 
             {/* Contact link */}
             <Link
@@ -191,15 +194,17 @@ const Header = () => {
                       >
                         Galerie
                       </Link>
-                      <Link
-                        to="/emplois"
-                        className="text-sicta-grey hover:text-primary transition-colors py-1"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Offres d'emploi
-                      </Link>
                     </div>
                   </div>
+
+                  {/* Offres d'emploi */}
+                  <Link
+                    to="/emplois"
+                    className="text-lg font-medium text-sicta-grey hover:text-primary transition-colors py-2 border-b border-border/50"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Offres d'emploi
+                  </Link>
 
                   {/* Logo ISO 9001 mobile */}
                   <div className="flex items-center gap-2 py-2">

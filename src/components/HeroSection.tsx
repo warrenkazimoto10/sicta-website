@@ -14,7 +14,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 z-0">
           <img
             src={heroImage}
-            alt="Centre de contrôle technique SICTA - Inspection automobile professionnelle"
+            alt="Station de contrôle technique SICTA - Inspection automobile professionnelle"
             className="w-full h-full object-cover opacity-10"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-primary/5" />
@@ -74,7 +74,7 @@ const HeroSection = () => {
                 </Button>
                 <Button className="btn-outline text-lg px-8 py-4" onClick={() => setNearestOpen(true)}>
                   <MapPin className="h-5 w-5 mr-3" />
-                  Trouver une agence
+                  Trouvez une station
                 </Button>
               </div>
             </div>

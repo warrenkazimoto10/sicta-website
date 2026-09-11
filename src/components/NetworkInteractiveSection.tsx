@@ -17,7 +17,7 @@ const NetworkInteractiveSection = () => {
     {
       icon: Navigation,
       title: "Géolocalisation",
-      description: "Trouvez l'agence la plus proche automatiquement"
+      description: "Trouvez la station la plus proche automatiquement"
     },
     {
       icon: Calendar,
@@ -32,7 +32,7 @@ const NetworkInteractiveSection = () => {
     {
       icon: Star,
       title: "Évaluations",
-      description: "Notes et avis clients pour chaque agence"
+      description: "Notes et avis clients pour chaque station"
     }
   ];
 
@@ -52,7 +52,7 @@ const NetworkInteractiveSection = () => {
           </h2>
           
           <p className="text-xl text-sicta-grey-light max-w-3xl mx-auto">
-            Notre système intelligent vous connecte à l'agence optimale selon votre localisation, 
+            Notre système intelligent vous connecte à la station optimale selon votre localisation,
             vos besoins et disponibilités en temps réel.
           </p>
         </div>

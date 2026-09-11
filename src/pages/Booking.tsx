@@ -649,7 +649,7 @@ const Booking = () => {
                           <span className="font-bold">{selectedStation?.name}</span> le{" "}
                           <span className="font-bold">{formatDateFr(form.date)}</span> à{" "}
                           <span className="font-bold">{form.time}</span>.{" "}
-                          Le paiement s'effectue directement en agence.
+                          Le paiement s'effectue directement en station.
                         </p>
                       </div>
 
@@ -750,7 +750,7 @@ const Booking = () => {
                     </div>
 
                     <p className="text-[10px] text-sicta-grey-light/60 pt-1">
-                      * Hors vignette. Paiement en agence le jour du rendez-vous.
+                      * Hors vignette. Paiement en station le jour du rendez-vous.
                     </p>
                   </div>
                 </Card>

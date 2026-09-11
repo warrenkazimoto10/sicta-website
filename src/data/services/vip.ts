@@ -47,7 +47,7 @@ export const vipData = {
   fonctionnalites: [
     {
       fonctionnalite: "Prise de rendez-vous en ligne ou par téléphone",
-      description: "Choix de la date, du créneau horaire et du centre"
+      description: "Choix de la date, du créneau horaire et de la station"
     },
     {
       fonctionnalite: "Accueil dédié à l'arrivée",

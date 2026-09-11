@@ -30,7 +30,7 @@ export const ppadData = {
   // Objectifs
   objectifs: [
     "Simplifier le processus de pose de plaque pour les clients",
-    "Réduire les files d'attente et la congestion dans les centres de pose",
+    "Réduire les files d'attente et la congestion dans les stations de pose",
     "Offrir un service de proximité, rapide et fiable",
     "Améliorer l'expérience client et renforcer la satisfaction"
   ],

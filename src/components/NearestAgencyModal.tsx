@@ -53,7 +53,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
           const stations = await fetchNearestStations(pos.coords.latitude, pos.coords.longitude, 6);
           setState({ step: "results", stations });
         } catch {
-          setState({ step: "error", message: "Impossible de charger les agences proches." });
+          setState({ step: "error", message: "Impossible de charger les stations proches." });
         }
       },
       () => setState({ step: "denied" }),
@@ -86,7 +86,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <MapPin className="h-5 w-5 text-primary" />
-            Agences proches de vous
+            Stations proches de vous
           </DialogTitle>
         </DialogHeader>
 
@@ -99,7 +99,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
                 <Navigation className="h-8 w-8 text-primary" />
               </div>
               <p className="text-sm text-gray-600 mb-4">
-                Localisez-vous pour trouver les 3 agences SICTA les plus proches.
+                Localisez-vous pour trouver les 3 stations SICTA les plus proches.
               </p>
               <Button onClick={locate} className="w-full bg-primary hover:bg-primary/90 text-white">
                 <Navigation className="h-4 w-4 mr-2" />
@@ -112,7 +112,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
           {state.step === "loading" && (
             <div className="text-center py-8">
               <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-3" />
-              <p className="text-sm text-gray-500">Recherche des agences proches…</p>
+              <p className="text-sm text-gray-500">Recherche des stations proches…</p>
             </div>
           )}
 
@@ -120,7 +120,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
           {state.step === "results" && (
             <div className="space-y-3">
               {state.stations.length === 0 ? (
-                <p className="text-center text-gray-400 py-4 text-sm">Aucune agence trouvée.</p>
+                <p className="text-center text-gray-400 py-4 text-sm">Aucune station trouvée.</p>
               ) : (
                 state.stations.slice(0, limit).map((station) => (
                   <div
@@ -196,7 +196,7 @@ const NearestAgencyModal = ({ open, onClose }: NearestAgencyModalProps) => {
               <div className="flex items-start gap-3 p-3 rounded-lg bg-orange-50 border border-orange-100">
                 <AlertTriangle className="h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-orange-700">
-                  Géolocalisation refusée ou non disponible. Saisissez votre ville pour trouver une agence.
+                  Géolocalisation refusée ou non disponible. Saisissez votre ville pour trouver une station.
                 </p>
               </div>
               <div className="flex gap-2">

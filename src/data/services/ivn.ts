@@ -25,7 +25,7 @@ export const ivnData = {
   imageHero: ivnHero,
 
   // Description complète du produit
-  descriptionProduit: "SICTA effectue directement l'identification des véhicules neufs et la sécurisation des récépissés WW chez le concessionnaire. Cette solution de proximité évite aux concessionnaires de se déplacer vers les centres SICTA. Elle garantit une prise en charge rapide et sécurisée des démarches administratives, permettant une disponibilité quasi immédiate des documents.",
+  descriptionProduit: "SICTA effectue directement l'identification des véhicules neufs et la sécurisation des récépissés WW chez le concessionnaire. Cette solution de proximité évite aux concessionnaires de se déplacer vers les stations SICTA. Elle garantit une prise en charge rapide et sécurisée des démarches administratives, permettant une disponibilité quasi immédiate des documents.",
 
   // Objectifs
   objectifs: [
